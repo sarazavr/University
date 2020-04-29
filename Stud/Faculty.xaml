@@ -5,8 +5,76 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Stud"
         mc:Ignorable="d"
-        Title="Window1" Height="450" Width="800">
+        Title="Faculty" Height="450" Width="800" Background="#FFEDEDED">
     <Grid>
-        
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="20" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+
+
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Faculty" FontWeight="Bold" HorizontalAlignment="Center" Grid.Row="0" RenderTransformOrigin="9.207,1.118" />
+                    <ListBox Grid.Row="1" 
+                     Margin="0,50,0,26" 
+                     ScrollViewer.VerticalScrollBarVisibility="Visible" 
+                     ItemsSource="{Binding ObservableFacultyList}"
+                     SelectedItem="{Binding SelectedFaculty}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Path=Name, Mode=OneWay}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <TextBlock HorizontalAlignment="Left" Height="22" Margin="10,14,0,0" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="212" Foreground="#FFE71C1C" Background="#FFEDEDED"/>
+                    <Button Content="Add" HorizontalAlignment="Left" Height="22" Margin="238,14,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42" BorderBrush="{x:Null}"/>
+                    <ListBox Grid.Row="1" 
+                        Margin="389,50,-389,26" 
+                        ScrollViewer.VerticalScrollBarVisibility="Visible" 
+                        ItemsSource="{Binding ObservableFacultyList}"
+                        SelectedItem="{Binding SelectedFaculty}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name, Mode=OneWay}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <TextBlock HorizontalAlignment="Left" Height="22" Margin="10,14,0,0" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="212" Foreground="#FFE71C1C" Background="#FFD9DCF6"/>
+                    <TextBlock Text="Faculty" FontWeight="Bold" HorizontalAlignment="Center" Grid.Row="0" RenderTransformOrigin="9.207,1.118" />
+                </Grid>
+                <TextBlock HorizontalAlignment="Left" Height="22" Margin="25,27,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="212" Foreground="#FFE71C1C" Background="#FFD9DCF6" Grid.Column="3"/>
+                <TextBlock Text="Group" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" RenderTransformOrigin="9.207,1.118" Grid.Column="3" Margin="167,0,0,328" />
+                <Button Content="Add" HorizontalAlignment="Left" Height="22" Margin="253,27,0,0" VerticalAlignment="Top" Width="42" Grid.Column="3" BorderBrush="{x:Null}"/>
+            </Grid>
+            <Button Content="Delete faculty" HorizontalAlignment="Left" Height="35" Margin="44,5,0,0" Grid.Row="2" VerticalAlignment="Top" Width="111" Grid.RowSpan="2" Background="#FFE2B1B1"/>
+            <Button Content="Edit faculty" HorizontalAlignment="Left" Height="35" Margin="434,5,0,0" Grid.Row="2" VerticalAlignment="Top" Width="111" Grid.RowSpan="2" BorderBrush="{x:Null}" Background="#FFE2B1B1"/>
+            <Button Content="Delete group" HorizontalAlignment="Left" Height="35" Margin="209,5,0,0" Grid.Row="2" VerticalAlignment="Top" Width="111" Grid.RowSpan="2" Background="#FFA2C9CB"/>
+            <Button Content="Edit group" HorizontalAlignment="Left" Height="35" Margin="610,5,0,0" Grid.Row="2" VerticalAlignment="Top" Width="111" Grid.RowSpan="2" BorderBrush="{x:Null}" Background="#FFA2C9CB"/>
+
+        </Grid>
     </Grid>
+
+
 </Window>
