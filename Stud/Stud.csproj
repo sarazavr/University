@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="755382.png" />
+    <None Remove="colegio.ico" />
+    <None Remove="colegio.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="755382.png" />
+    <Resource Include="colegio.ico" />
+    <Resource Include="colegio.png" />
+  </ItemGroup>
+
+</Project>
