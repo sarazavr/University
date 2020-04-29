@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,11 +16,16 @@ namespace Stud
     /// <summary>
     /// Логика взаимодействия для Window1.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class University : Window
     {
-        public Window1()
+        public University()
         {
             InitializeComponent();
+        }
+
+        private void AddNext(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
