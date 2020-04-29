@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\UnivirsityModels\UnivirsityModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="755382.png" />
     <Resource Include="colegio.ico" />
     <Resource Include="colegio.png" />
