@@ -7,22 +7,23 @@
     <Grid Background="#FFEDEDED">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="569*"/>
+            <ColumnDefinition Width="471*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.ColumnSpan=" 4" Background="#FF6A9C94"/>
+        <Grid Grid.ColumnSpan="3" Background="#FF6A7B9C"/>
 
-        <Grid Grid.Row="1" Background="#FFA9D0C9">
+        <Grid Grid.Row="1" Background="#FFC6D4DA">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="173*"/>
                 <ColumnDefinition Width="38*"/>
             </Grid.ColumnDefinitions>
         </Grid>
 
-        <Grid Margin="0,0,0,428" Grid.Row="1">
+        <Grid Margin="0,6,0,422" Grid.Row="1">
             <Grid.Background>
                 <ImageBrush ImageSource="/colegio.png" Stretch="Uniform"/>
             </Grid.Background>
@@ -44,15 +45,15 @@
                 </Grid>
             </Button>
         </StackPanel>
-        <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="0" Grid.Row="1" VerticalAlignment="Center" Width="201"/>
-      
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="50" Margin="90,80,0,0" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="332" TextChanged="TextBox_TextChanged"/>
+        <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Center" Height="0" Grid.Row="1" VerticalAlignment="Center" Width="201"/>
+
+        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="50" Margin="90,80,0,0" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="332" TextChanged="TextBox_TextChanged" FontSize="20"/>
 
         <ListBox 
                      Margin="90,170,420,60" 
                      ScrollViewer.VerticalScrollBarVisibility="Visible" 
                      ItemsSource="{Binding ObservableStudentList}"
-                     SelectedItem="{Binding SelectedStudent}" Grid.Column="1" Grid.Row="1">
+                     SelectedItem="{Binding SelectedStudent}" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -61,10 +62,10 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Content="Add student" Grid.Column="1" HorizontalAlignment="Left" Margin="697,195,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56"/>
-        <Button Content="Delete student" Grid.Column="1" HorizontalAlignment="Left" Margin="697,262,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56"/>
-        <Button Content="Load data" Grid.Column="1" HorizontalAlignment="Left" Margin="697,402,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56"/>
-        <Button Content="Edit data" Grid.Column="1" HorizontalAlignment="Left" Margin="697,332,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56"/>
+        <Button Content="Add student" Grid.Column="2" HorizontalAlignment="Left" Margin="128,195,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56"/>
+        <Button Content="Delete student" Grid.Column="2" HorizontalAlignment="Left" Margin="128,262,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56"/>
+        <Button Content="Load data" Grid.Column="2" HorizontalAlignment="Left" Margin="128,402,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56"/>
+        <Button Content="Edit data" Grid.Column="2" HorizontalAlignment="Left" Margin="128,332,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56"/>
         <ComboBox Grid.Column="1" HorizontalAlignment="Left" Height="50" Margin="455,80,0,0" Grid.Row="1" VerticalAlignment="Top" Width="95" Foreground="White"/>
         <Label Content="Type of search" Grid.Column="1" HorizontalAlignment="Left" Height="37" Margin="90,38,0,0" Grid.Row="1" VerticalAlignment="Top" Width="330" FontSize="20" FontFamily="Arial Black" Foreground="Black"/>
 
