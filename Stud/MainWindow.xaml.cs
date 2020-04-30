@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,5 +35,18 @@ namespace Stud
         {
 
         }
+
+        private void OpenUniversityEditor(object sender, RoutedEventArgs e)
+        {
+            var gs = new University() { Owner = this } ;
+
+            gs.Show();
+        }
+    }
+
+    public static class CustomCommands
+    {
+        public static RoutedUICommand OpenUniversityEditor = new RoutedUICommand("OpenUniversityEditor",
+            "OpenUniversityEditor", typeof(MainWindow), new InputGestureCollection() { new KeyGesture(Key.U, ModifierKeys.Control) });
     }
 }
