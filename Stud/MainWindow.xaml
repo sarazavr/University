@@ -41,7 +41,7 @@
                     </TransformGroup>
                 </Button.RenderTransform>
                 <Grid Width="150">
-                    <TextBlock HorizontalAlignment="Center" Text="Faculty" FontFamily="Arial Black" FontSize="22" Foreground="White"/>
+                    <TextBlock HorizontalAlignment="Center" Text="Faculty" FontFamily="Arial Black" FontSize="22" Foreground="White" />
                 </Grid>
             </Button>
         </StackPanel>
@@ -62,7 +62,13 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Content="Add student" Grid.Column="2" HorizontalAlignment="Left" Margin="128,195,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56"/>
+        <Button Content="Add student" Grid.Column="2" HorizontalAlignment="Left" Margin="128,195,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="{x:Null}">
+            <Button.ToolTip>
+                <ToolTip>
+                    Всплывающая подсказка для кнопки
+                </ToolTip>
+            </Button.ToolTip>
+        </Button>
         <Button Content="Delete student" Grid.Column="2" HorizontalAlignment="Left" Margin="128,262,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56"/>
         <Button Content="Load data" Grid.Column="2" HorizontalAlignment="Left" Margin="128,402,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56"/>
         <Button Content="Edit data" Grid.Column="2" HorizontalAlignment="Left" Margin="128,332,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56"/>
