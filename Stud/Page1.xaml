@@ -9,6 +9,10 @@
       Title="Faculty" Height="600" Width="800">
 
     <Grid Background="White">
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="727*"/>
+            <ColumnDefinition Width="73*"/>
+        </Grid.ColumnDefinitions>
+
     </Grid>
 </Page>
