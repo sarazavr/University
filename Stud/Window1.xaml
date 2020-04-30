@@ -35,13 +35,8 @@
             </Grid>
             <Grid Grid.Row="10" Margin="10,0,0,0">
                 <Button x:Name="OK" Content="OK" Width="123" Height="29" Margin="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="OK_Click" Background="#FFEEE18F" BorderBrush="{x:Null}" />
-                <Button x:Name="Cancel" Content="Cancel" Height="29" Width="112" Margin="0,0,63,0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="Cancel_Click" Background="#FFABD4B1" BorderBrush="{x:Null}">
-                    <Button.ToolTip>
-                        <ToolTip>
-                            Всплывающая подсказка для кнопки
-                        </ToolTip>
-                    </Button.ToolTip>
-                </Button>
+                <Button x:Name="Cancel" Content="Cancel" Height="29" Width="112" Margin="0,0,63,0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="Cancel_Click" Background="#FFABD4B1" BorderBrush="{x:Null}"/>
+
             </Grid>
             <TextBlock HorizontalAlignment="Left" Height="24" Margin="208,0,0,0" Grid.Row="3" Text="" TextWrapping="Wrap" VerticalAlignment="Center" Width="125" Background="#FFBCCDCE" />
             <TextBlock HorizontalAlignment="Left" Height="24" Margin="208,21,0,0" Grid.Row="4" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="125" Grid.RowSpan="2" Background="#FFBCCDCE"/>

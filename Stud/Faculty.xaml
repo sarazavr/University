@@ -47,7 +47,13 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                     <TextBlock HorizontalAlignment="Left" Height="22" Margin="10,14,0,0" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="212" Foreground="#FFE71C1C" Background="#FFEDEDED"/>
-                    <Button Content="Add" HorizontalAlignment="Left" Height="22" Margin="223,17,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42" Click="AddNext" BorderBrush="{x:Null}"/>
+                    <Button Content="Add" HorizontalAlignment="Left" Height="22" Margin="223,17,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42" Click="AddNext" BorderBrush="{x:Null}">
+                        <Button.ToolTip>
+                            <ToolTip>
+                                Add new faculty
+                            </ToolTip>
+                        </Button.ToolTip>
+                    </Button>
                     <TextBlock HorizontalAlignment="Left" Height="22" Margin="0,17,0,0" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="212" Foreground="#FFE71C1C" Background="#FFD9DCF6"/>
                     <ListBox Grid.Row="1" 
                         Margin="476,54,-422,22" 
@@ -65,7 +71,13 @@
                 </Grid>
                 <TextBlock HorizontalAlignment="Left" Height="22" Margin="56,17,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="212" Foreground="#FFE71C1C" Background="#FFD9DCF6" Grid.Column="3"/>
                 <TextBlock Text="Group" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" RenderTransformOrigin="9.207,1.118" Grid.Column="3" Margin="56,0,0,332" Height="16" VerticalAlignment="Bottom" />
-                <Button Content="Add" HorizontalAlignment="Left" Height="22" Margin="280,17,0,0" VerticalAlignment="Top" Width="42" Grid.Column="3" BorderBrush="{x:Null}" RenderTransformOrigin="0.681,0.075"/>
+                <Button Content="Add" HorizontalAlignment="Left" Height="22" Margin="280,17,0,0" VerticalAlignment="Top" Width="42" Grid.Column="3" BorderBrush="{x:Null}" RenderTransformOrigin="0.681,0.075">
+                    <Button.ToolTip>
+                        <ToolTip>
+                            Add new group
+                        </ToolTip>
+                    </Button.ToolTip>
+                </Button>
             </Grid>
             <Button Content="Delete faculty" HorizontalAlignment="Left" Height="35" Margin="39,332,0,0" Grid.Row="1" VerticalAlignment="Top" Width="111" Grid.RowSpan="3"  Background="#FFE2B1B1" BorderBrush="{x:Null}"/>
             <Button Content="Delete group" HorizontalAlignment="Left" Height="35" Margin="516,332,0,0" Grid.Row="1" VerticalAlignment="Top" Width="111" Grid.RowSpan="3" BorderBrush="{x:Null}" Background="#FFE2B1B1"/>
