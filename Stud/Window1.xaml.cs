@@ -21,5 +21,15 @@ namespace Stud
         {
             InitializeComponent();
         }
+
+        private void OK_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
