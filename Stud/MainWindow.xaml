@@ -8,27 +8,28 @@
     <Window.CommandBindings>
         <CommandBinding Command="local:CustomCommands.OpenUniversityEditor" Executed="OpenUniversityEditor" />
     </Window.CommandBindings>
-    
+
     <Grid Background="#FFEDEDED">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="569*"/>
-            <ColumnDefinition Width="471*"/>
+            <ColumnDefinition Width="301*"/>
+            <ColumnDefinition Width="219*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition ></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.ColumnSpan="3" Background="#FF6A7B9C"/>
 
-        <Grid Grid.Row="1" Background="#FFC6D4DA">
+        <Grid Grid.Row="0" Background="#FFC6D4DA">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="173*"/>
                 <ColumnDefinition Width="38*"/>
             </Grid.ColumnDefinitions>
         </Grid>
 
-        <Grid Margin="0,6,0,422" Grid.Row="1">
+        <Grid Margin="0,105,0,323" Grid.Row="1">
             <Grid.Background>
                 <ImageBrush ImageSource="/colegio.png" Stretch="Uniform"/>
             </Grid.Background>
@@ -61,15 +62,15 @@
                 </Grid>
             </Button>
         </StackPanel>
-        <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Center" Height="0" Grid.Row="1" VerticalAlignment="Center" Width="201"/>
+        <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Center" Height="0" Grid.Row="1" VerticalAlignment="Center" Width="200"/>
 
         <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="50" Margin="90,80,0,0" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="332" TextChanged="TextBox_TextChanged" FontSize="20"/>
 
         <ListBox 
-                     Margin="90,170,420,60" 
+                     Margin="90,195,4,35" 
                      ScrollViewer.VerticalScrollBarVisibility="Visible" 
                      ItemsSource="{Binding ObservableStudentList}"
-                     SelectedItem="{Binding SelectedStudent}" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
+                     SelectedItem="{Binding SelectedStudent}" Grid.Column="1" Grid.Row="1">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -78,28 +79,28 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Content="Add student" Grid.Column="2" HorizontalAlignment="Left" Margin="128,195,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="{x:Null}" >
+        <Button Content="Add student..." Grid.Column="2" HorizontalAlignment="Left" Margin="128,195,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="{x:Null}" >
             <Button.ToolTip>
                 <ToolTip>
                     Add data about new student
                 </ToolTip>
             </Button.ToolTip>
         </Button>
-        <Button Content="Delete student" Grid.Column="2" HorizontalAlignment="Left" Margin="128,262,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56">
+        <Button Content="Delete student..." Grid.Column="2" HorizontalAlignment="Left" Margin="128,262,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56">
             <Button.ToolTip>
                 <ToolTip>
                     Delete all data about student
                 </ToolTip>
             </Button.ToolTip>
         </Button>
-        <Button Content="Load data" Grid.Column="2" HorizontalAlignment="Left" Margin="128,402,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56">
+        <Button Content="Load data..." Grid.Column="2" HorizontalAlignment="Left" Margin="128,402,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56">
             <Button.ToolTip>
                 <ToolTip>
                     Load data in file
                 </ToolTip>
             </Button.ToolTip>
         </Button>
-        <Button Content="Edit data" Grid.Column="2" HorizontalAlignment="Left" Margin="128,332,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56">
+        <Button Content="Edit data..." Grid.Column="2" HorizontalAlignment="Left" Margin="128,332,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56">
             <Button.ToolTip>
                 <ToolTip>
                     Edit data about student
@@ -107,7 +108,14 @@
             </Button.ToolTip>
         </Button>
         <ComboBox Grid.Column="1" HorizontalAlignment="Left" Height="50" Margin="455,80,0,0" Grid.Row="1" VerticalAlignment="Top" Width="95" Foreground="White"/>
-        <Label Content="Type of search" Grid.Column="1" HorizontalAlignment="Left" Height="37" Margin="90,38,0,0" Grid.Row="1" VerticalAlignment="Top" Width="330" FontSize="20" FontFamily="Arial Black" Foreground="Black"/>
+        <Label Content="Type of search:" Grid.Column="1" HorizontalAlignment="Left" Height="37" Margin="90,38,0,0" Grid.Row="1" VerticalAlignment="Top" Width="330" FontSize="20" FontFamily="Arial Black" Foreground="Black"/>
+        <Label Content="List of all students" Grid.Column="1" HorizontalAlignment="Left" Height="28" Margin="90,162,0,0" Grid.Row="1" VerticalAlignment="Top" Width="330" FontSize="20" FontFamily="Arial Black" Foreground="Black" />
+        <Button Content="Upload data..." Grid.Column="2" HorizontalAlignment="Left" Margin="128,473,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56">
+            <Button.ToolTip>
+                <ToolTip Content="Load data in file"/>
+            </Button.ToolTip>
+        </Button>
+        <Label Content="Group:" Grid.Column="1" HorizontalAlignment="Left" Height="37" Margin="452,38,0,0" Grid.Row="1" VerticalAlignment="Top" Width="330" FontSize="20" FontFamily="Arial Black" Foreground="Black" Grid.ColumnSpan="2"/>
 
 
     </Grid>

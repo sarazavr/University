@@ -5,39 +5,56 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Stud"
         mc:Ignorable="d"
-        Title="Faculty" Height="450" Width="900" Background="#FFEDEDED">
+        Title="Faculty" Height="450" Width="922" Background="#FFEDEDED">
     <Grid>
-        <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="67*"/>
+            <RowDefinition Height="367*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.RowSpan="2" Margin="0,0,10,0">
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="10" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="20" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="20" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" Margin="112,13,-10,14" Grid.RowSpan="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="40"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="20"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="Auto"/>
+
+                    <ColumnDefinition Width="Auto" MinWidth="223"/>
+
+
+
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
 
-                <Grid Grid.Column="1">
+                <Grid Grid.Column="1" Grid.ColumnSpan="2" Margin="0,0,214,0" Grid.RowSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="26*"/>
+                        <ColumnDefinition Width="199*"/>
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Faculty" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" RenderTransformOrigin="9.207,1.118" Margin="0,-6,0,334" Grid.RowSpan="2" />
+                    <TextBlock Text="Faculty" FontWeight="Bold" HorizontalAlignment="Center" Grid.Row="0" RenderTransformOrigin="9.207,1.118" Margin="0,0,0,328" Grid.RowSpan="2" />
                     <ListBox Grid.Row="1" 
-                     Margin="0,54,54,22" 
+                     Margin="0,57,0,24" 
                      ScrollViewer.VerticalScrollBarVisibility="Visible" 
                      ItemsSource="{Binding ObservableFacultyList}"
-                     SelectedItem="{Binding SelectedFaculty}">
+                     SelectedItem="{Binding SelectedFaculty}" Height="300" Grid.ColumnSpan="2">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>
@@ -46,20 +63,19 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <TextBlock HorizontalAlignment="Left" Height="22" Margin="10,14,0,0" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="212" Foreground="#FFE71C1C" Background="#FFEDEDED"/>
-                    <Button Content="Add" HorizontalAlignment="Left" Height="22" Margin="223,17,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42" Click="AddNext" BorderBrush="{x:Null}">
+                    <TextBlock HorizontalAlignment="Left" Height="22" Margin="-1,21,0,0" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Foreground="{x:Null}" Background="#FFD9DCF6" Grid.ColumnSpan="2"/>
+                    <Button Content="Add" HorizontalAlignment="Left" Height="22" Margin="151,21,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42" Click="AddNext" BorderBrush="{x:Null}" Grid.Column="1" RenderTransformOrigin="-0.093,0.902">
                         <Button.ToolTip>
                             <ToolTip>
                                 Add new faculty
                             </ToolTip>
                         </Button.ToolTip>
                     </Button>
-                    <TextBlock HorizontalAlignment="Left" Height="22" Margin="0,17,0,0" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="212" Foreground="#FFE71C1C" Background="#FFD9DCF6"/>
                     <ListBox Grid.Row="1" 
-                        Margin="476,54,-422,22" 
+                        Margin="424,54,-445,22" 
                         ScrollViewer.VerticalScrollBarVisibility="Visible" 
                         ItemsSource="{Binding ObservableFacultyList}"
-                        SelectedItem="{Binding SelectedFaculty}">
+                        SelectedItem="{Binding SelectedFaculty}" Grid.Column="1">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>
@@ -69,22 +85,22 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </Grid>
-                <TextBlock HorizontalAlignment="Left" Height="22" Margin="56,17,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="212" Foreground="#FFE71C1C" Background="#FFD9DCF6" Grid.Column="3"/>
-                <TextBlock Text="Group" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" RenderTransformOrigin="9.207,1.118" Grid.Column="3" Margin="56,0,0,332" Height="16" VerticalAlignment="Bottom" />
-                <Button Content="Add" HorizontalAlignment="Left" Height="22" Margin="280,17,0,0" VerticalAlignment="Top" Width="42" Grid.Column="3" BorderBrush="{x:Null}" RenderTransformOrigin="0.681,0.075">
+                <TextBlock HorizontalAlignment="Left" Height="22" Margin="14,19,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="171" Foreground="#FFE71C1C" Background="#FFD9DCF6" Grid.Column="3" Grid.ColumnSpan="2"/>
+                <TextBlock Text="Group" FontWeight="Bold" HorizontalAlignment="Left" RenderTransformOrigin="9.207,1.118" Grid.Column="4" Margin="10,0,0,364" Height="16" VerticalAlignment="Bottom" Width="35" />
+                <Button Content="Add" HorizontalAlignment="Left" Height="22" Margin="189,18,0,0" VerticalAlignment="Top" Width="42" Grid.Column="4" BorderBrush="{x:Null}" RenderTransformOrigin="0.681,0.075">
                     <Button.ToolTip>
                         <ToolTip>
                             Add new group
                         </ToolTip>
                     </Button.ToolTip>
                 </Button>
+                <Button Content="Delete all group" HorizontalAlignment="Left" Height="35" Margin="234,201,0,0" VerticalAlignment="Top" Width="111"  Background="#FFD47878" BorderBrush="{x:Null}" Grid.Column="4"/>
             </Grid>
-            <Button Content="Delete faculty" HorizontalAlignment="Left" Height="35" Margin="39,332,0,0" Grid.Row="1" VerticalAlignment="Top" Width="111" Grid.RowSpan="3"  Background="#FFE2B1B1" BorderBrush="{x:Null}"/>
-            <Button Content="Delete group" HorizontalAlignment="Left" Height="35" Margin="516,332,0,0" Grid.Row="1" VerticalAlignment="Top" Width="111" Grid.RowSpan="3" BorderBrush="{x:Null}" Background="#FFE2B1B1"/>
-            <Button Content="Edit faculty" HorizontalAlignment="Left" Height="35" Margin="276,332,0,0" Grid.Row="1" VerticalAlignment="Top" Width="111" Grid.RowSpan="3" Background="#FFA2C9CB" BorderBrush="{x:Null}"/>
-            <Button Content="Edit group" HorizontalAlignment="Left" Height="35" Margin="750,332,0,0" Grid.Row="1" VerticalAlignment="Top" Width="111" Grid.RowSpan="3" BorderBrush="{x:Null}" Background="#FFA2C9CB"/>
-            <Button Content="Delete all faculty" HorizontalAlignment="Left" Height="35" Margin="39,18,0,0" Grid.Row="3" VerticalAlignment="Top" Width="111" Grid.RowSpan="2"  Background="#FFD47878" BorderBrush="{x:Null}"/>
-            <Button Content="Delete all group" HorizontalAlignment="Left" Height="35" Margin="516,18,0,0" Grid.Row="3" VerticalAlignment="Top" Width="111" Grid.RowSpan="2"  Background="#FFD47878" BorderBrush="{x:Null}"/>
+            <Button Content="Delete group" HorizontalAlignment="Left" Height="34" Margin="573,11,0,0" Grid.Row="3" VerticalAlignment="Top" Width="110" BorderBrush="{x:Null}" Background="#FFE2B1B1" Grid.RowSpan="2"/>
+            <Button Content="Edit faculty" HorizontalAlignment="Left" Height="35" Margin="252,10,0,0" Grid.Row="3" VerticalAlignment="Top" Width="111" Grid.RowSpan="2" Background="#FFA2C9CB" BorderBrush="{x:Null}"/>
+            <Button Content="Edit group" HorizontalAlignment="Left" Height="35" Margin="698,10,0,0" Grid.Row="3" VerticalAlignment="Top" Width="111" Grid.RowSpan="2" BorderBrush="{x:Null}" Background="#FFA2C9CB"/>
+            <Button Content="Delete all faculty" HorizontalAlignment="Left" Height="35" Margin="1,208,0,0" Grid.Row="1" VerticalAlignment="Top" Width="111"  Background="#FFD47878" BorderBrush="{x:Null}"/>
+            <Button Content="Delete faculty" HorizontalAlignment="Left" Height="35" Margin="111,10,0,0" Grid.Row="3" VerticalAlignment="Top" Width="108"  Background="#FFE2B1B1" BorderBrush="{x:Null}" Grid.RowSpan="2"/>
 
         </Grid>
     </Grid>
