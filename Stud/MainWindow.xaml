@@ -46,15 +46,13 @@
                     </TransformGroup>
                 </Button.RenderTransform>
                 <Grid Width="150">
-<<<<<<< HEAD
-                    <TextBlock HorizontalAlignment="Center" Text="Faculty" FontFamily="Arial Black" FontSize="22" Foreground="White" />
-=======
+
                     <TextBlock HorizontalAlignment="Center" Text="Faculty" FontFamily="Arial Black" FontSize="22" Foreground="White" >
                         <TextBlock.InputBindings>
                             <MouseBinding Command="local:CustomCommands.OpenUniversityEditor" MouseAction="LeftClick" />
                         </TextBlock.InputBindings>
                     </TextBlock>
->>>>>>> 073a53bb5fbbfbea7bf2e66d24a38dd62a581869
+
                 </Grid>
             </Button>
         </StackPanel>
