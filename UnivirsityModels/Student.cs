@@ -10,6 +10,7 @@ namespace UnivirsityModels
         public string Name { get; }
         public ushort BirthYear { get; }
         public float AverageGrade { get; set; }
+        public string FullName { get => $"{Surname} {Name} {Patronimic}"; }
 
         public Student(string surname, string name, string patronimic, ushort birthYear, float averageGrade = 0)
         {
@@ -33,15 +34,12 @@ namespace UnivirsityModels
         {
             if (student is null) return false;
 
-            return Surname == student.Surname
-                   && Name == student.Name
-                   && Patronimic == student.Patronimic
-                   && BirthYear == student.BirthYear;
+            return FullName == student.FullName && BirthYear == student.BirthYear;
         }
 
         public override string ToString()
         {
-            return $"Student {Surname} {Name} {Patronimic}: " +
+            return $"Student {FullName}: " +
                    $"birth year: {BirthYear}, " +
                    $"average grade: {AverageGrade}";
         }
@@ -72,22 +70,11 @@ namespace UnivirsityModels
                 return 1;
             }
 
-            int result = string.CompareOrdinal(Surname, student2.Surname);
-            if (result != 0)
-            {
-                return result;
-            }
+            int nameComparing = string.CompareOrdinal(FullName, student2.FullName);
 
-            result = string.CompareOrdinal(Name, student2.Name);
-            if (result != 0)
+            if (nameComparing != 0)
             {
-                return result;
-            }
-
-            result = string.CompareOrdinal(Patronimic, student2.Patronimic);
-            if (result != 0)
-            {
-                return result;
+                return nameComparing;
             }
 
             return BirthYear.CompareTo(student2.BirthYear);

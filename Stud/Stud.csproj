@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.10" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\UnivirsityModels\UnivirsityModels.csproj" />
   </ItemGroup>
 

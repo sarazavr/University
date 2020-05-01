@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:Stud"
         Title="University" Height="600" Width="1240
-" ResizeMode="NoResize" Icon="/colegio.ico">
+"       ResizeMode="NoResize" Icon="/colegio.ico">
     <Window.CommandBindings>
         <CommandBinding Command="local:CustomCommands.OpenUniversityEditor" Executed="OpenUniversityEditor" />
     </Window.CommandBindings>
@@ -64,17 +64,20 @@
         </StackPanel>
         <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Center" Height="0" Grid.Row="1" VerticalAlignment="Center" Width="200"/>
 
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="50" Margin="90,80,0,0" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="332" TextChanged="TextBox_TextChanged" FontSize="20"/>
+        <TextBox x:Name="SearchTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="50" Margin="90,80,0,0" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="332" TextChanged="TextBox_TextChanged" FontSize="20"/>
 
         <ListBox 
-                     Margin="90,195,4,35" 
-                     ScrollViewer.VerticalScrollBarVisibility="Visible" 
-                     ItemsSource="{Binding ObservableStudentList}"
-                     SelectedItem="{Binding SelectedStudent}" Grid.Column="1" Grid.Row="1">
+            x:Name="StudentsListBox"
+            Margin="90,195,4,35" 
+            ScrollViewer.VerticalScrollBarVisibility="Visible" 
+            ItemsSource="{Binding SelectedGroup}"
+            SelectionChanged="StudentSelectionChanged" 
+            SelectedValue="{Binding SelectedStudent, Mode=OneWay}" Grid.Column="1" Grid.Row="1"
+        >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock Style= "{StaticResource TextStyle}" Text=" {Binding Path=FullName}"/>
+                        <TextBlock Text="{Binding Path=FullName}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -107,7 +110,22 @@
                 </ToolTip>
             </Button.ToolTip>
         </Button>
-        <ComboBox Grid.Column="1" HorizontalAlignment="Left" Height="50" Margin="455,80,0,0" Grid.Row="1" VerticalAlignment="Top" Width="95" Foreground="White"/>
+        <ComboBox
+            x:Name="GroupsSelect"
+            SelectionChanged="GroupsSelectionChanged"
+            SelectedValue="{Binding SelectedGroup, Mode=OneWay}"
+            ItemsSource="{Binding AllGroups}"
+            Grid.Column="1"
+            HorizontalAlignment="Left" Height="50" Margin="455,80,0,0" Grid.Row="1" VerticalAlignment="Top" Width="95" Foreground="White"
+         >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Path=Name}" FontFamily="Arial Black" Foreground="Black"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
         <Label Content="Type of search:" Grid.Column="1" HorizontalAlignment="Left" Height="37" Margin="90,38,0,0" Grid.Row="1" VerticalAlignment="Top" Width="330" FontSize="20" FontFamily="Arial Black" Foreground="Black"/>
         <Label Content="List of all students" Grid.Column="1" HorizontalAlignment="Left" Height="28" Margin="90,162,0,0" Grid.Row="1" VerticalAlignment="Top" Width="330" FontSize="20" FontFamily="Arial Black" Foreground="Black" />
         <Button Content="Upload data..." Grid.Column="2" HorizontalAlignment="Left" Margin="128,473,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56">

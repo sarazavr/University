@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -13,18 +14,105 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
+using UnivirsityModels;
+using System.Runtime.CompilerServices;
+using Stud.Utils;
 
 namespace Stud
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        DoubleLinkedList<NamedDoubleLinkedList<NamedDoubleLinkedList<Student>>> facultyList;
+
+        public DoubleLinkedList<NamedDoubleLinkedList<NamedDoubleLinkedList<Student>>> FacultyList
+        {
+            get
+            {
+                return facultyList;
+            }
+            set
+            {
+                facultyList = value;
+                NotifyFacultyListChanged();
+            }
+        }
+
+        public NamedDoubleLinkedList<NamedDoubleLinkedList<Student>> SelectedFaculty => FacultyList?.Current();
+
+        public NamedDoubleLinkedList<Student> SelectedGroup => SelectedFaculty?.Current();
+
+        public IEnumerable<NamedDoubleLinkedList<Student>> AllGroups => FacultyList.SelectMany(groups => groups);
+
+        public Student SelectedStudent => SelectedGroup?.Current();
+
+        public void NotifyFacultyListChanged()
+        {
+            OnPropertyChanged("FacultyList");
+        }
+
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
+
+        public void NotifyFacultySelected()
+        {
+            OnPropertyChanged("SelectedFaculty");
+        }
+
+        public void NotifyGroupSelected()
+        {
+            OnPropertyChanged("SelectedGroup");
+        }
+
         public MainWindow()
         {
+            facultyList = new DoubleLinkedList<NamedDoubleLinkedList<NamedDoubleLinkedList<Student>>>();
+
+            var defaultFaculty = new NamedDoubleLinkedList<NamedDoubleLinkedList<Student>>("Faculty1");
+            var defaultGroup = new NamedDoubleLinkedList<Student>("Group1");
+
+            defaultGroup.Push(new Student("Surname", "Name", "Patronimic", 1996, 20));
+            defaultGroup.Push(new Student("Surname1", "Name1", "Patronimic1", 1997, 35.3f));
+
+            defaultFaculty.Push(defaultGroup);
+            facultyList.Push(defaultFaculty);
+
+            facultyList.MoveCurrentToHead();
+            SelectedFaculty.MoveCurrentToHead();
+            SelectedGroup.MoveCurrentToHead();
+
             InitializeComponent();
+
+            DataContext = this;
+            FacultyList = facultyList;
         }
+
+
+        public void RefreshAll()
+        {
+
+            RefreshStudentsList();
+            RefreshGroupsSelect();
+        }
+
+        public void RefreshStudentsList()
+        {
+            Refresher.RefreshSelector(StudentsListBox, SelectedGroup);
+        }
+        public void RefreshGroupsSelect()
+        {
+            Refresher.RefreshSelector(GroupsSelect, AllGroups);
+        }
+
+
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -38,9 +126,35 @@ namespace Stud
 
         private void OpenUniversityEditor(object sender, RoutedEventArgs e)
         {
-            var gs = new University() { Owner = this } ;
+            var gs = new University(this) { Owner = this, DataContext = DataContext };
 
             gs.Show();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        public void GroupsSelectionChanged(object sender, RoutedEventArgs e)
+        {
+            var index = GroupsSelect.SelectedIndex;
+
+            if (index < 0) FacultyList.Current()?.UnsetCurrent();
+            else FacultyList.Current()?.SetCurrent((uint)index);
+
+            Refresher.RefreshSelector(StudentsListBox, FacultyList.Current()?.Current());
+            // todo: filter ?
+        }
+
+        public void StudentSelectionChanged(object sender, RoutedEventArgs e)
+        {
+            var index = StudentsListBox.SelectedIndex;
+
+            if (index < 0) FacultyList.Current()?.Current()?.UnsetCurrent();
+            else FacultyList.Current()?.Current()?.SetCurrent((uint)index);
+
+            // todo: show student info
         }
     }
 

@@ -6,6 +6,8 @@
         xmlns:local="clr-namespace:Stud"
         mc:Ignorable="d"
         Title="Faculty" Height="450" Width="922" Background="#FFEDEDED">
+
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="67*"/>
@@ -52,9 +54,11 @@
                     <TextBlock Text="Faculty" FontWeight="Bold" HorizontalAlignment="Center" Grid.Row="0" RenderTransformOrigin="9.207,1.118" Margin="0,0,0,328" Grid.RowSpan="2" />
                     <ListBox Grid.Row="1" 
                      Margin="0,57,0,24" 
+                             x:Name="FacultyListBox"
                      ScrollViewer.VerticalScrollBarVisibility="Visible" 
-                     ItemsSource="{Binding ObservableFacultyList}"
-                     SelectedItem="{Binding SelectedFaculty}" Height="300" Grid.ColumnSpan="2">
+                     ItemsSource="{Binding FacultyList, Mode=OneWay}"
+                     SelectionChanged="SelectFacultyChanged" 
+                      Height="300" Grid.ColumnSpan="2">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>
@@ -63,8 +67,8 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <TextBlock HorizontalAlignment="Left" Height="22" Margin="-1,21,0,0" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Foreground="{x:Null}" Background="#FFD9DCF6" Grid.ColumnSpan="2"/>
-                    <Button Content="Add" HorizontalAlignment="Left" Height="22" Margin="151,21,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42" Click="AddNext" BorderBrush="{x:Null}" Grid.Column="1" RenderTransformOrigin="-0.093,0.902">
+                    <TextBox x:Name="FacultyNameInput" TextChanged="FacultyNameChanged" HorizontalAlignment="Left" Height="22" Margin="-1,21,0,0" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Foreground="{x:Null}" Background="#FFD9DCF6" Grid.ColumnSpan="2"/>
+                    <Button Content="Add" Click="AddFaculty" x:Name="AddFacultyBtn" IsEnabled="False" HorizontalAlignment="Left" Height="22" Margin="151,21,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42"  BorderBrush="{x:Null}" Grid.Column="1" RenderTransformOrigin="-0.093,0.902">
                         <Button.ToolTip>
                             <ToolTip>
                                 Add new faculty
@@ -73,9 +77,12 @@
                     </Button>
                     <ListBox Grid.Row="1" 
                         Margin="424,54,-445,22" 
+                             x:Name="GroupListBox"
                         ScrollViewer.VerticalScrollBarVisibility="Visible" 
-                        ItemsSource="{Binding ObservableFacultyList}"
-                        SelectedItem="{Binding SelectedFaculty}" Grid.Column="1">
+                        ItemsSource="{Binding SelectedFaculty}"
+                        
+                        Grid.Column="1"
+                    >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>
@@ -85,9 +92,9 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </Grid>
-                <TextBlock HorizontalAlignment="Left" Height="22" Margin="14,19,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="171" Foreground="#FFE71C1C" Background="#FFD9DCF6" Grid.Column="3" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="GroupNameInput" TextChanged="GroupNameChanged" HorizontalAlignment="Left" Height="22" Margin="14,19,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="171" Foreground="#FFE71C1C" Background="#FFD9DCF6" Grid.Column="3" Grid.ColumnSpan="2"/>
                 <TextBlock Text="Group" FontWeight="Bold" HorizontalAlignment="Left" RenderTransformOrigin="9.207,1.118" Grid.Column="4" Margin="10,0,0,364" Height="16" VerticalAlignment="Bottom" Width="35" />
-                <Button Content="Add" HorizontalAlignment="Left" Height="22" Margin="189,18,0,0" VerticalAlignment="Top" Width="42" Grid.Column="4" BorderBrush="{x:Null}" RenderTransformOrigin="0.681,0.075">
+                <Button Content="Add" x:Name="AddGroupBtn" Click="AddGroup" IsEnabled="False" HorizontalAlignment="Left" Height="22" Margin="189,18,0,0" VerticalAlignment="Top" Width="42" Grid.Column="4" BorderBrush="{x:Null}" RenderTransformOrigin="0.681,0.075">
                     <Button.ToolTip>
                         <ToolTip>
                             Add new group

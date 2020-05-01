@@ -4,6 +4,7 @@ using System.Text;
 using System.Collections;
 using System.Drawing;
 using System.Globalization;
+using System.Threading.Tasks;
 
 namespace UnivirsityModels
 {
@@ -97,6 +98,16 @@ namespace UnivirsityModels
             return GetNode(index).Value;
         }
 
+        public void SetCurrent(uint index)
+        {
+            CurrentNode = GetNode(index);
+        }
+
+        public void UnsetCurrent()
+        {
+            CurrentNode = null;
+        }
+
         private Node GetNode(uint index)
         {
             if (index >= Length)
@@ -124,7 +135,7 @@ namespace UnivirsityModels
         {
             if (ReferenceEquals(CurrentNode, null))
             {
-                throw new InvalidOperationException("Can not get Current before setting it up");
+                return default;
             }
 
             return CurrentNode.Value;
@@ -402,7 +413,7 @@ namespace UnivirsityModels
 
         public void MoveCurrentToTail()
         {
-            CurrentNode = Head.Prev;
+            CurrentNode = Head?.Prev;
         }
 
         // Assuming that all elements already sorted except current by tech task
@@ -465,6 +476,24 @@ namespace UnivirsityModels
             public Node(T data)
             {
                 Value = data;
+            }
+
+            public override int GetHashCode()
+            {
+                if (!typeof(T).IsValueType)
+                {
+                    return ((object)Value).GetHashCode();
+                }
+
+                var byteArray = Value.GetBytesGeneric();
+
+                int hash = 5381;
+                Parallel.ForEach(byteArray, (element) =>
+                {
+                    hash += Convert.ToInt32((hash << 5) + hash + Convert.ToInt32(element));
+                });
+
+                return hash;
             }
         }
     }
