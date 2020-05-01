@@ -62,8 +62,11 @@ namespace Stud
                 selectedGroupFromJoinedList = value;
                 SelectedStudentFromJoinedList = null;
                 OnPropertyChanged("SelectedGroupFromJoinedList");
+                OnPropertyChanged("IsGroupFromGoinedListSelected");
             }
         }
+
+        public bool IsGroupFromGoinedListSelected => !ReferenceEquals(SelectedGroupFromJoinedList, null);
 
         public void OnFacultyRemoved()
         {
@@ -184,6 +187,14 @@ namespace Stud
 
             gs.Show();
         }
+
+        private void OpenAddStudentModal(object sender, RoutedEventArgs e)
+        {
+            var gs = new StudentModal(this) { Owner = this };
+
+            gs.Show();
+        }
+
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {

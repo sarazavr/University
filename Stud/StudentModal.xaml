@@ -1,11 +1,12 @@
-﻿<Window x:Name="add" x:Class="Stud.Window1"
+﻿<Window x:Name="add" x:Class="Stud.StudentModal"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:Stud"
         mc:Ignorable="d"
-        Title="Add student" Height="450" Width="500">
+        Title="Add student" Height="400" Width="500">
     <Grid>
         <Grid Margin="3">
             <Grid.ColumnDefinitions>
@@ -21,8 +22,8 @@
                 <RowDefinition Height="25"/>
                 <RowDefinition Height="25"/>
                 <RowDefinition Height="25"/>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="25"/>
+                <RowDefinition Height="0"/>
+                <RowDefinition Height="0"/>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
@@ -47,15 +48,16 @@
 
             </Grid>
             <Grid Grid.Row="11" Margin="10,73,0,22" RenderTransformOrigin="0.493,1.513" Grid.ColumnSpan="2">
-                <Button x:Name="OK" Content="OK" Width="123" Height="29" Margin="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="OK_Click" Background="#FFEEE18F" BorderBrush="{x:Null}" />
-                <Button x:Name="Cancel" Content="Cancel" Height="29" Width="112" Margin="0,0,63,0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="Cancel_Click" Background="#FFABD4B1" BorderBrush="{x:Null}"/>
+                <Button x:Name="CancelBtn" Content="Close" Click="CloseClick" Width="123" Height="29" Margin="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Background="#FFEEE18F" BorderBrush="{x:Null}" />
+                <Button x:Name="OkBtn" IsEnabled="False" Click="OkClick"  Content="Create and refreash" Height="29" Width="112" Margin="0,0,63,0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="#FFABD4B1" BorderBrush="{x:Null}"/>
 
             </Grid>
-            <TextBlock HorizontalAlignment="Left" Height="24" Margin="208,0,0,0" Grid.Row="3" Text="" TextWrapping="Wrap" VerticalAlignment="Center" Width="125" Background="#FFBCCDCE" />
-            <TextBlock HorizontalAlignment="Left" Height="24" Margin="208,21,0,0" Grid.Row="4" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="125" Grid.RowSpan="2" Background="#FFBCCDCE"/>
-            <TextBlock HorizontalAlignment="Left" Height="24" Margin="208,20,0,0" Grid.Row="6" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="125" Grid.RowSpan="2" Background="#FFBCCDCE"/>
-            <Label Grid.Row="8" Content="Group:"  VerticalAlignment="Top" HorizontalContentAlignment="left" Height="Auto" Width="Auto" Margin="5,18,174,0" Grid.RowSpan="2"  />
-            <ComboBox HorizontalAlignment="Left" Height="20" Grid.Row="8" VerticalAlignment="Top" Width="76" Margin="209,24,0,0" Grid.RowSpan="2"/>
+            <TextBox x:Name="NameTB" TextChanged="ValueChanged" HorizontalAlignment="Left" Height="24" Margin="208,0,0,0" Grid.Row="3" Text="" TextWrapping="Wrap" VerticalAlignment="Center" Width="125" Background="#FFBCCDCE" />
+            <TextBox x:Name="SurnameTB" TextChanged="ValueChanged" HorizontalAlignment="Left" Height="24" Margin="208,21,0,0" Grid.Row="4" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="125" Grid.RowSpan="2" Background="#FFBCCDCE"/>
+            <TextBox x:Name="PatronimicTB" TextChanged="ValueChanged" HorizontalAlignment="Left" Height="24" Margin="208,20,0,0" Grid.Row="6" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="125" Grid.RowSpan="2" Background="#FFBCCDCE"/>
+            
+            <!--<Label Grid.Row="8" Content="Group:"  VerticalAlignment="Top" HorizontalContentAlignment="left" Height="Auto" Width="Auto" Margin="5,18,174,0" Grid.RowSpan="2"  />-->
+            <!--<ComboBox x:Name="GroupSelect" SelectionChanged HorizontalAlignment="Left" Height="20" Grid.Row="8" VerticalAlignment="Top" Width="76" Margin="209,24,0,0" Grid.RowSpan="2"/>-->
 
             <Grid Grid.Row="7" Margin="5,0,8,0" RenderTransformOrigin="0.363,-4.446" Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions>
@@ -67,10 +69,28 @@
             </Grid>
 
 
-            <ListBox HorizontalAlignment="Left" Height="30" Margin="208,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="125"/>
-            <Label Content="Enter AVG:"  VerticalAlignment="Top" HorizontalContentAlignment="left" Height="Auto" Width="Auto" Margin="10,10,148,0"  Grid.Row="11"  />
-            <Label Content="Enter Year of Birth:"  VerticalAlignment="Top" HorizontalContentAlignment="left" Height="Auto" Width="Auto" Margin="5,7,153,0"  Grid.Row="10"  />
-            <ListBox HorizontalAlignment="Left" Height="30" Margin="208,0,0,0" Grid.Row="11" VerticalAlignment="Top" Width="125"/>
+            <!--<ListBox HorizontalAlignment="Left" Height="30" Margin="208,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="125"/>-->
+            <xctk:IntegerUpDown   ValueChanged="ValueChanged" HorizontalAlignment="Left" Height="20" Margin="208,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="125"
+                                    x:Name="YearOfBirthInput"
+                                    TextAlignment="Left" 
+                                    VerticalContentAlignment="Bottom" 
+                                    Increment="1" 
+                                    Minimum="1940" 
+                                    Maximum="{Binding CurrentYear}" 
+                                  />
+
+            <Label Content="Average Mark"  VerticalAlignment="Top" HorizontalContentAlignment="left" Height="Auto" Width="Auto" Margin="5,10,148,0"  Grid.Row="11"  />
+            <Label Content="Year of Birth:"  VerticalAlignment="Center" HorizontalContentAlignment="left" Height="Auto" Width="Auto" Margin="5,0,153,0"  Grid.Row="10"  />
+
+
+            <xctk:DoubleUpDown ValueChanged="ValueChanged"  HorizontalAlignment="Right" Height="20" Margin="0,10,40,0" Grid.Row="11" VerticalAlignment="Top" Width="124"
+                                   x:Name="AvgMarkInput"              
+                                   FormatString="F3"
+                                   Watermark="0..100" 
+                                   Increment="0.5"
+                                   Minimum="0" 
+                                   Maximum="100"
+                              />
         </Grid>
     </Grid>
 </Window>

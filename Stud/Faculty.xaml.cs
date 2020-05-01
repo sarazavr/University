@@ -100,14 +100,14 @@ namespace Stud
 
         private void GroupNameChanged(object sender, RoutedEventArgs e)
         {
-            if (((TextBox)sender).Text != string.Empty && Parant.SelectedFaculty is object) Enable(AddGroupBtn);
-            else Disable(AddGroupBtn);
+            if (((TextBox)sender).Text != string.Empty && Parant.SelectedFaculty is object) EnableOkBtn(AddGroupBtn);
+            else DisableOkBtn(AddGroupBtn);
         }
 
         private void FacultyNameChanged(object sender, RoutedEventArgs e)
         {
-            if (((TextBox)sender).Text != string.Empty) Enable(AddFacultyBtn);
-            else Disable(AddFacultyBtn);
+            if (((TextBox)sender).Text != string.Empty) EnableOkBtn(AddFacultyBtn);
+            else DisableOkBtn(AddFacultyBtn);
         }
 
 
@@ -116,12 +116,12 @@ namespace Stud
             Parant.FacultyList.Remove(Parant.SelectedFaculty);
             RefreshFaculty();
             DisplayFacultySelectionChanged();
-            Disable(AddGroupBtn);
+            DisableOkBtn(AddGroupBtn);
         }
 
         public void DeleteAllFaculty(object sender, RoutedEventArgs e)
         {
-            Disable(AddGroupBtn, AddFacultyBtn);
+            DisableOkBtn(AddGroupBtn, AddFacultyBtn);
             Parant.FacultyList.Clear();
             RefreshFaculty();
             DisplayFacultySelectionChanged();
@@ -145,7 +145,7 @@ namespace Stud
             RefreshGroupsList();
             DisplayGroupSelectionChanged();
         }
-        private void Disable(params Button[] btns)
+        private void DisableOkBtn(params Button[] btns)
         {
             foreach(var btn in btns)
             {
@@ -154,7 +154,7 @@ namespace Stud
             }
         }
 
-        private void Enable(params Button[] btns)
+        private void EnableOkBtn(params Button[] btns)
         {
             foreach (var btn in btns)
             {

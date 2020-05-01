@@ -82,7 +82,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Content="Add student..." Grid.Column="2" HorizontalAlignment="Left" Margin="128,195,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="{x:Null}" >
+        <Button Content="Add student..." Click="OpenAddStudentModal" IsEnabled="{Binding IsGroupFromGoinedListSelected}" Grid.Column="2" HorizontalAlignment="Left" Margin="128,195,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="{x:Null}" >
             <Button.ToolTip>
                 <ToolTip>
                     Add data about new student

@@ -4,13 +4,14 @@ namespace UnivirsityModels
 {
     public class Student : ICloneable, IComparable<Student>
     {
-        public string Surname { get; }
-        public string Patronimic { get; }
-        public string Name { get; }
-        public ushort BirthYear { get; }
+        public string Surname { get; set; }
+        public string Patronimic { get; set; }
+        public string Name { get; set; }
+        public ushort BirthYear { get; set; }
         public float AverageGrade { get; set; }
         public string FullName { get => $"{Surname} {Name} {Patronimic}"; }
 
+        public Student() { }
         public Student(string surname, string name, string patronimic, ushort birthYear, float averageGrade = 0)
         {
             Surname = surname;
