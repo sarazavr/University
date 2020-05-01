@@ -88,9 +88,9 @@ namespace UnivirsityModels
 
         public void PutAt(T data, uint index)
         {
-            var nodeTotempNodeddtempNodefter = GetNode(index - 1);
+            var nodeToAddAfter = GetNode(index - 1);
 
-            AddAfter(data, nodeTotempNodeddtempNodefter);
+            AddAfter(data, nodeToAddAfter);
         }
 
         public T Get(uint index)

@@ -36,36 +36,47 @@ namespace Stud
 
         public StudentModal(object owner, Modes mode = Modes.CREATE, Student student = null)
         {
+            Student = mode == Modes.CREATE ? new Student() : student;
+            Mode = mode;
+           
+            Parant = (MainWindow)owner;
+            
+            DataContext = this;
+
+            InitializeComponent();
+
             if (mode == Modes.EDIT)
             {
-                if(student is null)
+                if (student is null)
                 {
                     throw new ArgumentNullException("Student can not be null when modal opened in edit mode");
                 }
 
                 SetUpEditMode(student);
             }
-            Mode = mode;
-            Parant = (MainWindow)owner;
-            Student = mode == Modes.CREATE ? new Student() : student;
-            DataContext = this;
-
-            InitializeComponent();
         }
 
         private void OkClick(object sender, RoutedEventArgs e)
         {
-            if(Mode == Modes.CREATE)
-            {
-                var newStudent = new Student(SurnameTB.Text, NameTB.Text, PatronimicTB.Text, (ushort)YearOfBirthInput.Value, (float)AvgMarkInput.Value);
+            FillInStudent();
 
-                Parant.SelectedGroupFromJoinedList.Push(newStudent);
-                Parant.RefreshStudentsList();
+            if (Mode == Modes.CREATE)
+            {
+                Parant.SelectedGroupFromJoinedList.Push(Student);
+ 
                 ClearForm();
-            } else
-            {
-
             }
+
+            Parant.RefreshStudentsList();
+        }
+
+        private void FillInStudent()
+        {
+            Student.Surname = SurnameTB.Text;
+            Student.Name = NameTB.Text;
+            Student.Patronimic = PatronimicTB.Text;
+            Student.BirthYear = (ushort)YearOfBirthInput.Value;
+            Student.AverageGrade = (float)AvgMarkInput.Value;
         }
 
         private void CloseClick(object sender, RoutedEventArgs e)
@@ -114,7 +125,14 @@ namespace Stud
         }
         private void SetUpEditMode(Student student)
         {
+            YearOfBirthInput.Value = student.BirthYear;
+            AvgMarkInput.Value = student.AverageGrade;
+            NameTB.Text = student.Name;
+            SurnameTB.Text = student.Surname;
+            PatronimicTB.Text = student.Patronimic;
 
+            Title = "Edit student";
+            OkBtn.Content = "Save";
         }
     }
 }

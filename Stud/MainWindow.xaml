@@ -72,7 +72,7 @@
             ScrollViewer.VerticalScrollBarVisibility="Visible" 
             ItemsSource="{Binding SelectedGroupFromJoinedList}"
             SelectionChanged="StudentSelectionChanged"
-            SelectedValue="{Binding SelectedStudentFromJoinedList, Mode=TwoWay}" Grid.Column="1" Grid.Row="1"
+            SelectedValue="{Binding SelectedStudent, Mode=TwoWay}" Grid.Column="1" Grid.Row="1"
         >
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -96,7 +96,7 @@
                 </ToolTip>
             </Button.ToolTip>
         </Button>
-        <Button Content="Edit student..."  IsEnabled="{Binding IsStudentSelected}" Grid.Column="2" HorizontalAlignment="Left" Margin="128,402,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56">
+        <Button Content="Edit student..." Click="OpenEditStudentModal" IsEnabled="{Binding IsStudentSelected}" Grid.Column="2" HorizontalAlignment="Left" Margin="128,402,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56">
             <Button.ToolTip>
                 <ToolTip>
                     Edit data about student

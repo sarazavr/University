@@ -52,15 +52,13 @@ namespace Stud
 
         public IEnumerable<NamedDoubleLinkedList<Student>> AllGroups => FacultyList.SelectMany(groups => groups);
 
-        public Student SelectedStudent => SelectedGroup?.Current();
-
         public NamedDoubleLinkedList<Student>  SelectedGroupFromJoinedList
         {
             get => selectedGroupFromJoinedList;
             set
             {
                 selectedGroupFromJoinedList = value;
-                SelectedStudentFromJoinedList = null;
+                SelectedStudent = null;
                 OnPropertyChanged("SelectedGroupFromJoinedList");
                 OnPropertyChanged("IsGroupFromGoinedListSelected");
             }
@@ -82,14 +80,14 @@ namespace Stud
         {
            foreach(var groups in FacultyList)
             {
-                foreach( var group in groups) group.Remove(SelectedStudentFromJoinedList);
+                foreach( var group in groups) group.Remove(SelectedStudent);
             }
 
             Refresher.RefreshSelector(StudentsListBox, SelectedGroupFromJoinedList);
-            SelectedStudentFromJoinedList = null;
+            SelectedStudent = null;
         }
 
-        public Student SelectedStudentFromJoinedList
+        public Student SelectedStudent
         {
             get => selectedStudentFromJoinedList;
             set
@@ -99,7 +97,7 @@ namespace Stud
             }
         }
 
-        public bool IsStudentSelected => !ReferenceEquals(SelectedStudentFromJoinedList, null);
+        public bool IsStudentSelected => !ReferenceEquals(SelectedStudent, null);
   
         public void NotifyStudentSelectionChanged()
         {
@@ -194,6 +192,14 @@ namespace Stud
 
             gs.Show();
         }
+
+        private void OpenEditStudentModal(object sender, RoutedEventArgs e)
+        {
+            var gs = new StudentModal(this, StudentModal.Modes.EDIT, SelectedStudent) { Owner = this };
+
+            gs.Show();
+        }
+
 
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
