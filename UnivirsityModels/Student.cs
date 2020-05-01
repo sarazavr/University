@@ -2,7 +2,6 @@
 
 namespace UnivirsityModels
 {
-    [Serializable]
     public class Student : ICloneable, IComparable<Student>
     {
         public string Surname { get; }
@@ -50,14 +49,6 @@ namespace UnivirsityModels
             return new Student(Surname, Name, Patronimic, BirthYear, AverageGrade);
         }
 
-        public override int GetHashCode()
-        {
-            return Surname.GetHashCode()
-               ^ Patronimic.GetHashCode() * 17
-               ^ Name.GetHashCode() * 19
-               * BirthYear.GetHashCode();
-        }
-
         public static int CompareTo(Student student1, Student student2)
         {
             return student1 is null ? -1 : student1.CompareTo(student2);
@@ -80,6 +71,10 @@ namespace UnivirsityModels
             return BirthYear.CompareTo(student2.BirthYear);
         }
 
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Surname, Patronimic, Name, BirthYear);
+        }
 
         public static bool operator ==(Student student1, Student student2)
         {

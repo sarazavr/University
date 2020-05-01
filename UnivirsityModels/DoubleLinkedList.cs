@@ -448,10 +448,6 @@ namespace UnivirsityModels
 
         #endregion
 
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(Head, CurrentNode, Length);
-        }
 
         private static void Swap(Node A, Node B)
         {

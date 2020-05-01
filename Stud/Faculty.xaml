@@ -79,14 +79,14 @@
                         Margin="424,54,-445,22" 
                              x:Name="GroupListBox"
                         ScrollViewer.VerticalScrollBarVisibility="Visible" 
-                        ItemsSource="{Binding SelectedFaculty}"
+                        ItemsSource="{Binding SelectedFaculty, Mode=OneWay}"
                         
                         Grid.Column="1"
                     >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>
-                                    <TextBlock Text="{Binding Name, Mode=OneWay}" />
+                                    <TextBlock Text="{Binding Path=Name, Mode=OneWay}" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>

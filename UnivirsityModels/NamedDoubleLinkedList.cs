@@ -46,10 +46,6 @@ namespace UnivirsityModels
                    Name == list.Name;
         }
 
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(base.GetHashCode(), Name);
-        }
 
         public static bool operator ==(NamedDoubleLinkedList<T> list1, NamedDoubleLinkedList<T> list2)
         {
