@@ -114,6 +114,7 @@
             x:Name="GroupsSelect"
             SelectedValue="{Binding SelectedGroupFromJoinedList, Mode=TwoWay}"
             ItemsSource="{Binding AllGroups}"
+            SelectionChanged="GroupSelectionChanged"
             Grid.Column="1"
             HorizontalAlignment="Left" Height="50" Margin="455,80,0,0" Grid.Row="1" VerticalAlignment="Top" Width="95" Foreground="White"
          >

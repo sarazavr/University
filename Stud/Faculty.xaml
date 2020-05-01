@@ -6,8 +6,6 @@
         xmlns:local="clr-namespace:Stud"
         mc:Ignorable="d"
         Title="Faculty" Height="450" Width="922" Background="#FFEDEDED">
-
-    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="67*"/>
@@ -30,14 +28,9 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
-
                     <ColumnDefinition Width="Auto" MinWidth="223"/>
-
-
-
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
-
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
@@ -67,7 +60,7 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <TextBox x:Name="FacultyNameInput" TextChanged="FacultyNameChanged" HorizontalAlignment="Left" Height="22" Margin="-1,21,0,0" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Foreground="{x:Null}" Background="#FFD9DCF6" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="FacultyNameInput" TextChanged="FacultyNameChanged" HorizontalAlignment="Left" Height="22" Margin="-1,21,0,0" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Foreground="#FFE71C1C" Background="#FFD9DCF6" Grid.ColumnSpan="2"/>
                     <Button Content="Add" Click="AddFaculty" x:Name="AddFacultyBtn" IsEnabled="False" HorizontalAlignment="Left" Height="22" Margin="151,21,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42"  BorderBrush="{x:Null}" Grid.Column="1" RenderTransformOrigin="-0.093,0.902">
                         <Button.ToolTip>
                             <ToolTip>
@@ -105,8 +98,8 @@
                 <Button Content="Clear groups" Click="DeleteAllGroups" HorizontalAlignment="Left" Height="35" Margin="234,201,0,0" VerticalAlignment="Top" Width="111"  Background="#FFD47878" BorderBrush="{x:Null}" Grid.Column="4"/>
             </Grid>
             <Button Content="Delete group" Click="DeleteSelectedGroup" IsEnabled="{Binding IsGroupSelected}" HorizontalAlignment="Left" Height="34" Margin="573,11,0,0" Grid.Row="3" VerticalAlignment="Top" Width="110" BorderBrush="{x:Null}" Background="#FFE2B1B1" Grid.RowSpan="2"/>
-            <Button Content="Edit faculty" IsEnabled="{Binding IsFacultySelected}" HorizontalAlignment="Left" Height="35" Margin="252,10,0,0" Grid.Row="3" VerticalAlignment="Top" Width="111" Grid.RowSpan="2" Background="#FFA2C9CB" BorderBrush="{x:Null}"/>
-            <Button Content="Edit group"  Click="DeleteSelectedGroup" IsEnabled="{Binding IsGroupSelected}" HorizontalAlignment="Left" Height="35" Margin="698,10,0,0" Grid.Row="3" VerticalAlignment="Top" Width="111" Grid.RowSpan="2" BorderBrush="{x:Null}" Background="#FFA2C9CB"/>
+            <Button Content="Rename faculty..." IsEnabled="{Binding IsFacultySelected}" Click="RenameFaculty" HorizontalAlignment="Left" Height="35" Margin="252,10,0,0" Grid.Row="3" VerticalAlignment="Top" Width="111" Grid.RowSpan="2" Background="#FFA2C9CB" BorderBrush="{x:Null}"/>
+            <Button Content="Rename group..."   IsEnabled="{Binding IsGroupSelected}" Click="RenameGroup" HorizontalAlignment="Left" Height="35" Margin="698,10,0,0" Grid.Row="3" VerticalAlignment="Top" Width="111" Grid.RowSpan="2" BorderBrush="{x:Null}" Background="#FFA2C9CB"/>
             <Button Content="Cleat faculties" Click="DeleteAllFaculty" HorizontalAlignment="Left" Height="35" Margin="1,208,0,0" Grid.Row="1" VerticalAlignment="Top" Width="111"  Background="#FFD47878" BorderBrush="{x:Null}"/>
             <Button Content="Delete faculty" Click="DeleteSelectedFaculty" IsEnabled="{Binding IsFacultySelected}" HorizontalAlignment="Left" Height="35" Margin="111,10,0,0" Grid.Row="3" VerticalAlignment="Top" Width="108"  Background="#FFE2B1B1" BorderBrush="{x:Null}" Grid.RowSpan="2"/>
 

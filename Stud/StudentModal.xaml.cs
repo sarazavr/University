@@ -81,13 +81,14 @@ namespace Stud
 
         private void CloseClick(object sender, RoutedEventArgs e)
         {
-
+            Close();
         }
 
 
 
         private void ClearForm()
         {
+            Student = new Student();
             YearOfBirthInput.Value = null;
             AvgMarkInput.Value = null;
             NameTB.Text = SurnameTB.Text = PatronimicTB.Text = null;

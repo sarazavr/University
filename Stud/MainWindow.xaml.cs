@@ -159,13 +159,17 @@ namespace Stud
 
         public void RefreshStudentsList()
         {
-            Refresher.RefreshSelector(StudentsListBox, SelectedGroup);
+            Refresher.RefreshSelector(StudentsListBox, SelectedGroupFromJoinedList);
         }
         public void RefreshGroupsSelect()
         {
             Refresher.RefreshSelector(GroupsSelect, AllGroups);
         }
 
+
+        private void GroupSelectionChanged(object sender, RoutedEventArgs e) {
+            RefreshStudentsList();
+        }
 
 
 

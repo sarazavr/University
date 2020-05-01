@@ -58,6 +58,28 @@ namespace Stud
             Parant.RefreshGroupsSelect();
         }
 
+        private void RenameFaculty(object sender, RoutedEventArgs e)
+        {
+            var form = new RenameForm("Rename Faculty", Parant.SelectedFaculty.Name, (newName) =>
+            {
+                Parant.SelectedFaculty.Name = newName;
+                RefreshFaculty();
+            });
+
+            form.Show();
+        }
+
+        private void RenameGroup(object sender, RoutedEventArgs e)
+        {
+            var form = new RenameForm("Rename Group", Parant.SelectedGroup.Name, (newName) =>
+            {
+                Parant.SelectedGroup.Name = newName;
+                RefreshGroupsList();
+            });
+
+            form.Show();
+        }
+
         public void SelectFacultyChanged(object sender, RoutedEventArgs e)
         {
             var index = FacultyListBox.SelectedIndex;
@@ -79,7 +101,7 @@ namespace Stud
         {
             var index = GroupListBox.SelectedIndex;
 
-            if (index < 0) Parant.SelectedFaculty.UnsetCurrent();
+            if (index < 0) Parant.SelectedFaculty?.UnsetCurrent();
             else Parant.SelectedFaculty.SetCurrent((uint)index);
 
             //Debugger.Break();
@@ -100,13 +122,13 @@ namespace Stud
 
         private void GroupNameChanged(object sender, RoutedEventArgs e)
         {
-            if (((TextBox)sender).Text != string.Empty && Parant.SelectedFaculty is object) EnableOkBtn(AddGroupBtn);
+            if (((TextBox)sender).Text.Trim() != string.Empty && Parant.SelectedFaculty is object) EnableOkBtn(AddGroupBtn);
             else DisableOkBtn(AddGroupBtn);
         }
 
         private void FacultyNameChanged(object sender, RoutedEventArgs e)
         {
-            if (((TextBox)sender).Text != string.Empty) EnableOkBtn(AddFacultyBtn);
+            if (((TextBox)sender).Text.Trim() != string.Empty) EnableOkBtn(AddFacultyBtn);
             else DisableOkBtn(AddFacultyBtn);
         }
 
