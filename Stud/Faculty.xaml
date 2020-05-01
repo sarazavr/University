@@ -77,10 +77,11 @@
                     </Button>
                     <ListBox Grid.Row="1" 
                         Margin="424,54,-445,22" 
-                             x:Name="GroupListBox"
+                        x:Name="GroupListBox"
                         ScrollViewer.VerticalScrollBarVisibility="Visible" 
                         ItemsSource="{Binding SelectedFaculty, Mode=OneWay}"
-                        
+                        SelectedValue="{Binding SelectedGroup, Mode=OneWay}"
+                        SelectionChanged="GroupSelectionChanged"
                         Grid.Column="1"
                     >
                         <ListBox.ItemTemplate>
@@ -101,13 +102,13 @@
                         </ToolTip>
                     </Button.ToolTip>
                 </Button>
-                <Button Content="Delete all group" HorizontalAlignment="Left" Height="35" Margin="234,201,0,0" VerticalAlignment="Top" Width="111"  Background="#FFD47878" BorderBrush="{x:Null}" Grid.Column="4"/>
+                <Button Content="Clear groups" Click="DeleteAllGroups" HorizontalAlignment="Left" Height="35" Margin="234,201,0,0" VerticalAlignment="Top" Width="111"  Background="#FFD47878" BorderBrush="{x:Null}" Grid.Column="4"/>
             </Grid>
-            <Button Content="Delete group" HorizontalAlignment="Left" Height="34" Margin="573,11,0,0" Grid.Row="3" VerticalAlignment="Top" Width="110" BorderBrush="{x:Null}" Background="#FFE2B1B1" Grid.RowSpan="2"/>
-            <Button Content="Edit faculty" HorizontalAlignment="Left" Height="35" Margin="252,10,0,0" Grid.Row="3" VerticalAlignment="Top" Width="111" Grid.RowSpan="2" Background="#FFA2C9CB" BorderBrush="{x:Null}"/>
-            <Button Content="Edit group" HorizontalAlignment="Left" Height="35" Margin="698,10,0,0" Grid.Row="3" VerticalAlignment="Top" Width="111" Grid.RowSpan="2" BorderBrush="{x:Null}" Background="#FFA2C9CB"/>
-            <Button Content="Delete all faculty" HorizontalAlignment="Left" Height="35" Margin="1,208,0,0" Grid.Row="1" VerticalAlignment="Top" Width="111"  Background="#FFD47878" BorderBrush="{x:Null}"/>
-            <Button Content="Delete faculty" HorizontalAlignment="Left" Height="35" Margin="111,10,0,0" Grid.Row="3" VerticalAlignment="Top" Width="108"  Background="#FFE2B1B1" BorderBrush="{x:Null}" Grid.RowSpan="2"/>
+            <Button Content="Delete group" Click="DeleteSelectedGroup" IsEnabled="{Binding IsGroupSelected}" HorizontalAlignment="Left" Height="34" Margin="573,11,0,0" Grid.Row="3" VerticalAlignment="Top" Width="110" BorderBrush="{x:Null}" Background="#FFE2B1B1" Grid.RowSpan="2"/>
+            <Button Content="Edit faculty" IsEnabled="{Binding IsFacultySelected}" HorizontalAlignment="Left" Height="35" Margin="252,10,0,0" Grid.Row="3" VerticalAlignment="Top" Width="111" Grid.RowSpan="2" Background="#FFA2C9CB" BorderBrush="{x:Null}"/>
+            <Button Content="Edit group"  Click="DeleteSelectedGroup" IsEnabled="{Binding IsGroupSelected}" HorizontalAlignment="Left" Height="35" Margin="698,10,0,0" Grid.Row="3" VerticalAlignment="Top" Width="111" Grid.RowSpan="2" BorderBrush="{x:Null}" Background="#FFA2C9CB"/>
+            <Button Content="Cleat faculties" Click="DeleteAllFaculty" HorizontalAlignment="Left" Height="35" Margin="1,208,0,0" Grid.Row="1" VerticalAlignment="Top" Width="111"  Background="#FFD47878" BorderBrush="{x:Null}"/>
+            <Button Content="Delete faculty" Click="DeleteSelectedFaculty" IsEnabled="{Binding IsFacultySelected}" HorizontalAlignment="Left" Height="35" Margin="111,10,0,0" Grid.Row="3" VerticalAlignment="Top" Width="108"  Background="#FFE2B1B1" BorderBrush="{x:Null}" Grid.RowSpan="2"/>
 
         </Grid>
     </Grid>

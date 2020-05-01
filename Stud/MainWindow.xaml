@@ -70,9 +70,9 @@
             x:Name="StudentsListBox"
             Margin="90,195,4,35" 
             ScrollViewer.VerticalScrollBarVisibility="Visible" 
-            ItemsSource="{Binding SelectedGroup}"
-            SelectionChanged="StudentSelectionChanged" 
-            SelectedValue="{Binding SelectedStudent, Mode=OneWay}" Grid.Column="1" Grid.Row="1"
+            ItemsSource="{Binding SelectedGroupFromJoinedList}"
+            SelectionChanged="StudentSelectionChanged"
+            SelectedValue="{Binding SelectedStudentFromJoinedList, Mode=TwoWay}" Grid.Column="1" Grid.Row="1"
         >
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -89,31 +89,30 @@
                 </ToolTip>
             </Button.ToolTip>
         </Button>
-        <Button Content="Delete student..." Grid.Column="2" HorizontalAlignment="Left" Margin="128,262,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56">
+        <Button Content="View student..." IsEnabled="{Binding IsStudentSelected}" Grid.Column="2" HorizontalAlignment="Left" Margin="128,262,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56">
             <Button.ToolTip>
                 <ToolTip>
-                    Delete all data about student
+                    View student info
                 </ToolTip>
             </Button.ToolTip>
         </Button>
-        <Button Content="Load data..." Grid.Column="2" HorizontalAlignment="Left" Margin="128,402,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56">
-            <Button.ToolTip>
-                <ToolTip>
-                    Load data in file
-                </ToolTip>
-            </Button.ToolTip>
-        </Button>
-        <Button Content="Edit data..." Grid.Column="2" HorizontalAlignment="Left" Margin="128,332,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56">
+        <Button Content="Edit student..."  IsEnabled="{Binding IsStudentSelected}" Grid.Column="2" HorizontalAlignment="Left" Margin="128,402,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56">
             <Button.ToolTip>
                 <ToolTip>
                     Edit data about student
                 </ToolTip>
             </Button.ToolTip>
         </Button>
+        <Button Content="Delete student" Click="DeleteSelectedStudent" IsEnabled="{Binding IsStudentSelected}" Grid.Column="2" HorizontalAlignment="Left" Margin="128,332,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56">
+            <Button.ToolTip>
+                <ToolTip>
+                    Delete selected student
+                </ToolTip>
+            </Button.ToolTip>
+        </Button>
         <ComboBox
             x:Name="GroupsSelect"
-            SelectionChanged="GroupsSelectionChanged"
-            SelectedValue="{Binding SelectedGroup, Mode=OneWay}"
+            SelectedValue="{Binding SelectedGroupFromJoinedList, Mode=TwoWay}"
             ItemsSource="{Binding AllGroups}"
             Grid.Column="1"
             HorizontalAlignment="Left" Height="50" Margin="455,80,0,0" Grid.Row="1" VerticalAlignment="Top" Width="95" Foreground="White"

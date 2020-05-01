@@ -24,11 +24,15 @@ namespace Stud
     /// <summary>
     /// Логика взаимодействия для University.xaml
     /// </summary>
-    public partial class University : Window
+    public partial class University : Window, INotifyPropertyChanged
     {
-
+        public event PropertyChangedEventHandler PropertyChanged;
         public MainWindow Parant { get; set; }
 
+
+
+        public bool IsFacultySelected => !ReferenceEquals(Parant.SelectedFaculty, null);
+        public bool IsGroupSelected => !ReferenceEquals(Parant.SelectedGroup, null);
         public University(object owner)
         {
             Parant = (MainWindow)owner;
@@ -41,7 +45,7 @@ namespace Stud
             var newFaculty = new NamedDoubleLinkedList<NamedDoubleLinkedList<Student>>(FacultyNameInput.Text);
             Parant.FacultyList.Push(newFaculty);
 
-            Refresher.RefreshSelector(FacultyListBox, Parant.FacultyList);
+            RefreshFaculty();
         }
 
         private void AddGroup(object sender, RoutedEventArgs e)
@@ -61,7 +65,32 @@ namespace Stud
             if (index < 0) Parant.FacultyList.UnsetCurrent();
             else Parant.FacultyList.SetCurrent((uint)index);
 
+            DisplayFacultySelectionChanged();
+        }
+
+        public void DisplayFacultySelectionChanged()
+        {
             RefreshGroupsList();
+            OnPropertyChanged("IsFacultySelected");
+            OnPropertyChanged("IsGroupSelected");
+        }
+
+        public void GroupSelectionChanged(object sender, RoutedEventArgs e)
+        {
+            var index = GroupListBox.SelectedIndex;
+
+            if (index < 0) Parant.SelectedFaculty.UnsetCurrent();
+            else Parant.SelectedFaculty.SetCurrent((uint)index);
+
+            //Debugger.Break();
+
+            DisplayGroupSelectionChanged();
+        }
+
+        public void DisplayGroupSelectionChanged()
+        {
+            Parant.NotifyGroupSelectionChanged();
+            OnPropertyChanged("IsGroupSelected");
         }
 
         public void RefreshGroupsList()
@@ -81,17 +110,62 @@ namespace Stud
             else Disable(AddFacultyBtn);
         }
 
-        private void Disable(Button btn)
+
+        public void DeleteSelectedFaculty(object sender, RoutedEventArgs e)
         {
-            btn.IsEnabled = false;
-            btn.Opacity = 0.7;
+            Parant.FacultyList.Remove(Parant.SelectedFaculty);
+            RefreshFaculty();
+            DisplayFacultySelectionChanged();
+            Disable(AddGroupBtn);
         }
 
-        private void Enable(Button btn)
+        public void DeleteAllFaculty(object sender, RoutedEventArgs e)
         {
-            btn.IsEnabled = true;
-            btn.Opacity = 1;
+            Disable(AddGroupBtn, AddFacultyBtn);
+            Parant.FacultyList.Clear();
+            RefreshFaculty();
+            DisplayFacultySelectionChanged();
         }
 
+        public void DeleteAllGroups(object sender, RoutedEventArgs e)
+        {
+            Parant.SelectedFaculty.Clear();
+            RefreshGroupsList();
+            DisplayGroupSelectionChanged();
+        }
+        public void RefreshFaculty()
+        {
+            Refresher.RefreshSelector(FacultyListBox, Parant.FacultyList);
+        }
+
+        public void DeleteSelectedGroup(object sender, RoutedEventArgs e)
+        {
+            //Debugger.Break();
+            Parant.SelectedFaculty.Remove(Parant.SelectedGroup);
+            RefreshGroupsList();
+            DisplayGroupSelectionChanged();
+        }
+        private void Disable(params Button[] btns)
+        {
+            foreach(var btn in btns)
+            {
+                btn.IsEnabled = false;
+                btn.Opacity = 0.7;
+            }
+        }
+
+        private void Enable(params Button[] btns)
+        {
+            foreach (var btn in btns)
+            {
+                btn.IsEnabled = true;
+                btn.Opacity = 1;
+            }
+        }
+
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
     }
 }

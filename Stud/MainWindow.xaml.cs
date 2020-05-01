@@ -43,6 +43,9 @@ namespace Stud
             }
         }
 
+        private NamedDoubleLinkedList<Student> selectedGroupFromJoinedList;
+        private Student selectedStudentFromJoinedList;
+
         public NamedDoubleLinkedList<NamedDoubleLinkedList<Student>> SelectedFaculty => FacultyList?.Current();
 
         public NamedDoubleLinkedList<Student> SelectedGroup => SelectedFaculty?.Current();
@@ -50,6 +53,57 @@ namespace Stud
         public IEnumerable<NamedDoubleLinkedList<Student>> AllGroups => FacultyList.SelectMany(groups => groups);
 
         public Student SelectedStudent => SelectedGroup?.Current();
+
+        public NamedDoubleLinkedList<Student>  SelectedGroupFromJoinedList
+        {
+            get => selectedGroupFromJoinedList;
+            set
+            {
+                selectedGroupFromJoinedList = value;
+                SelectedStudentFromJoinedList = null;
+                OnPropertyChanged("SelectedGroupFromJoinedList");
+            }
+        }
+
+        public void OnFacultyRemoved()
+        {
+
+        }
+
+        public void OnGroupRemoved()
+        {
+
+        }
+
+        public void DeleteSelectedStudent(object sender, RoutedEventArgs e)
+        {
+           foreach(var groups in FacultyList)
+            {
+                foreach( var group in groups) group.Remove(SelectedStudentFromJoinedList);
+            }
+
+            Refresher.RefreshSelector(StudentsListBox, SelectedGroupFromJoinedList);
+            SelectedStudentFromJoinedList = null;
+        }
+
+        public Student SelectedStudentFromJoinedList
+        {
+            get => selectedStudentFromJoinedList;
+            set
+            {
+                selectedStudentFromJoinedList = value;
+                OnPropertyChanged("SelectedStudentFromJoinedList");
+            }
+        }
+
+        public bool IsStudentSelected => !ReferenceEquals(SelectedStudentFromJoinedList, null);
+  
+        public void NotifyStudentSelectionChanged()
+        {
+            OnPropertyChanged("IsStudentSelected");
+        }
+
+
 
         public void NotifyFacultyListChanged()
         {
@@ -66,7 +120,7 @@ namespace Stud
             OnPropertyChanged("SelectedFaculty");
         }
 
-        public void NotifyGroupSelected()
+        public void NotifyGroupSelectionChanged()
         {
             OnPropertyChanged("SelectedGroup");
         }
@@ -136,24 +190,20 @@ namespace Stud
 
         }
 
-        public void GroupsSelectionChanged(object sender, RoutedEventArgs e)
-        {
-            var index = GroupsSelect.SelectedIndex;
+        //public void GroupsSelectionChanged(object sender, RoutedEventArgs e)
+        //{
+        //    var index = GroupsSelect.SelectedIndex;
 
-            if (index < 0) FacultyList.Current()?.UnsetCurrent();
-            else FacultyList.Current()?.SetCurrent((uint)index);
+        //    if (index < 0) FacultyList.Current()?.UnsetCurrent();
+        //    else FacultyList.Current()?.SetCurrent((uint)index);
 
-            Refresher.RefreshSelector(StudentsListBox, FacultyList.Current()?.Current());
-            // todo: filter ?
-        }
+        //    Refresher.RefreshSelector(StudentsListBox, FacultyList.Current()?.Current());
+        //    // todo: filter ?
+        //}
 
         public void StudentSelectionChanged(object sender, RoutedEventArgs e)
         {
-            var index = StudentsListBox.SelectedIndex;
-
-            if (index < 0) FacultyList.Current()?.Current()?.UnsetCurrent();
-            else FacultyList.Current()?.Current()?.SetCurrent((uint)index);
-
+            NotifyStudentSelectionChanged();
             // todo: show student info
         }
     }
