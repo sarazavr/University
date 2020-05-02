@@ -43,28 +43,27 @@ namespace Stud
             }
         }
 
-        private NamedDoubleLinkedList<Student> selectedGroupFromJoinedList;
         private Student selectedStudentFromJoinedList;
 
         public NamedDoubleLinkedList<NamedDoubleLinkedList<Student>> SelectedFaculty => FacultyList?.Current();
 
         public NamedDoubleLinkedList<Student> SelectedGroup => SelectedFaculty?.Current();
 
-        public IEnumerable<NamedDoubleLinkedList<Student>> AllGroups => FacultyList.SelectMany(groups => groups);
 
-        public NamedDoubleLinkedList<Student>  SelectedGroupFromJoinedList
-        {
-            get => selectedGroupFromJoinedList;
-            set
-            {
-                selectedGroupFromJoinedList = value;
-                SelectedStudent = null;
-                OnPropertyChanged("SelectedGroupFromJoinedList");
-                OnPropertyChanged("IsGroupFromGoinedListSelected");
-            }
-        }
 
-        public bool IsGroupFromGoinedListSelected => !ReferenceEquals(SelectedGroupFromJoinedList, null);
+        //public NamedDoubleLinkedList<Student>  SelectedGroup
+        //{
+        //    get => SelectedGroup;
+        //    set
+        //    {
+        //        SelectedGroup = value;
+        //        SelectedStudent = null;
+        //        OnPropertyChanged("SelectedGroup");
+        //        OnPropertyChanged("IsGroupFromGoinedListSelected");
+        //    }
+        //}
+
+        public bool IsGroupFromGoinedListSelected => !ReferenceEquals(SelectedGroup, null);
 
         public void OnFacultyRemoved()
         {
@@ -83,7 +82,7 @@ namespace Stud
                 foreach( var group in groups) group.Remove(SelectedStudent);
             }
 
-            Refresher.RefreshSelector(StudentsListBox, SelectedGroupFromJoinedList);
+            //Refresher.RefreshSelector(StudentsListBox, SelectedGroup);
             SelectedStudent = null;
         }
 
@@ -101,9 +100,9 @@ namespace Stud
   
         public void NotifyStudentSelectionChanged()
         {
+            RefreshSelectedStudentIngo();
             OnPropertyChanged("IsStudentSelected");
         }
-
 
 
         public void NotifyFacultyListChanged()
@@ -159,11 +158,18 @@ namespace Stud
 
         public void RefreshStudentsList()
         {
-            Refresher.RefreshSelector(StudentsListBox, SelectedGroupFromJoinedList);
+            Refresher.RefreshSelector(StudentsListBox, SelectedGroup);
         }
         public void RefreshGroupsSelect()
         {
-            Refresher.RefreshSelector(GroupsSelect, AllGroups);
+            Refresher.RefreshSelector(GroupSelect, SelectedFaculty);
+        }
+
+        public void RefreshSelectedStudentIngo()
+        {
+            StudentNameText.Text = SelectedStudent?.FullName ?? "";
+            StudentYearText.Text = SelectedStudent?.BirthYear.ToString() ?? "";
+            StudentMarkText.Text = SelectedStudent?.AverageGrade.ToString() ?? "";
         }
 
 

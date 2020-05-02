@@ -62,7 +62,7 @@ namespace Stud
 
             if (Mode == Modes.CREATE)
             {
-                Parant.SelectedGroupFromJoinedList.Push(Student);
+                Parant.SelectedGroup.Push(Student);
  
                 ClearForm();
             }

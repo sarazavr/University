@@ -2,9 +2,10 @@
        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:Stud"
-        Title="University" Height="600" Width="1240
-"       ResizeMode="NoResize" Icon="/colegio.ico">
+        Title="University" Height="700" Width="1240
+"       Icon="/colegio.ico">
     <Window.CommandBindings>
         <CommandBinding Command="local:CustomCommands.OpenUniversityEditor" Executed="OpenUniversityEditor" />
     </Window.CommandBindings>
@@ -12,32 +13,22 @@
     <Grid Background="#FFEDEDED">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="301*"/>
-            <ColumnDefinition Width="219*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition ></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Grid.ColumnSpan="3" Background="#FF6A7B9C"/>
 
-        <Grid Grid.Row="0" Background="#FFC6D4DA">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="173*"/>
-                <ColumnDefinition Width="38*"/>
-            </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0"   Grid.Column="0" Grid.RowSpan="3"  Margin="0, 10, 0, 10">
+            <Image Source="/colegio.png" Stretch="Uniform"/>
         </Grid>
-
-        <Grid Margin="0,105,0,323" Grid.Row="1">
-            <Grid.Background>
-                <ImageBrush ImageSource="/colegio.png" Stretch="Uniform"/>
-            </Grid.Background>
-            <TextBlock Text="" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Arial Black" Foreground="#FF010002" FontSize="22"/>
-        </Grid>
-
-        <StackPanel Grid.Row="1">
-            <Button Background="#FFE8BF56" BorderBrush="#FFE8BF56" Height="54" Width="196" RenderTransformOrigin="0.8,1" Click="Button_Click" FontFamily="Arial Black">
+        <Grid Grid.Row="3" Grid.Column="0" Margin="10, 0, 10, 0">
+            <Button Grid.Row="2" Grid.Column="1" Click="OpenUniversityEditor" Background="#FFE8BF56" BorderBrush="#FFE8BF56" Height="40"
+                    Width="Auto" RenderTransformOrigin="0.8,1" FontFamily="Arial Black">
                 <Button.ToolTip>
                     <ToolTip>
                         Information about faculties and groups
@@ -48,71 +39,168 @@
                         <ScaleTransform/>
                         <SkewTransform/>
                         <RotateTransform/>
-                        <TranslateTransform Y="250"/>
                     </TransformGroup>
                 </Button.RenderTransform>
-                <Grid Width="150">
-
-                    <TextBlock HorizontalAlignment="Center" Text="Faculty" FontFamily="Arial Black" FontSize="22" Foreground="White" >
-                        <TextBlock.InputBindings>
-                            <MouseBinding Command="local:CustomCommands.OpenUniversityEditor" MouseAction="LeftClick" />
-                        </TextBlock.InputBindings>
-                    </TextBlock>
-
-                </Grid>
+                <TextBlock Grid.Row="2" Grid.Column="1"  HorizontalAlignment="Center" Text="Manage Faculties"
+                           FontFamily="Arial Black" FontSize="18" Foreground="White"/>
             </Button>
-        </StackPanel>
-        <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Center" Height="0" Grid.Row="1" VerticalAlignment="Center" Width="200"/>
+        </Grid>
 
-        <TextBox x:Name="SearchTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="50" Margin="90,80,0,0" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="332" TextChanged="TextBox_TextChanged" FontSize="20"/>
+        <Grid Grid.Row="4" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
+            <Grid.Children>
+                <StackPanel Margin="10">
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Margin" Value="0,25,0,0"/>
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="FontSize" Value="18" />
+                            <Setter Property="Background" Value="#FFE8BF56" />
+                            <Setter Property="FontFamily" Value="Arial Black" />
+                            <Setter Property="BorderBrush"  Value="#FFE8BF56" />
+                            <Setter Property="Height"  Value="40" />
+                        </Style>
+                    </StackPanel.Resources>
 
-        <ListBox 
-            x:Name="StudentsListBox"
-            Margin="90,195,4,35" 
-            ScrollViewer.VerticalScrollBarVisibility="Visible" 
-            ItemsSource="{Binding SelectedGroupFromJoinedList}"
-            SelectionChanged="StudentSelectionChanged"
-            SelectedValue="{Binding SelectedStudent, Mode=TwoWay}" Grid.Column="1" Grid.Row="1"
-        >
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding Path=FullName}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <Button Content="Add student..." Click="OpenAddStudentModal" IsEnabled="{Binding IsGroupFromGoinedListSelected}" Grid.Column="2" HorizontalAlignment="Left" Margin="128,195,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="{x:Null}" >
-            <Button.ToolTip>
-                <ToolTip>
-                    Add data about new student
-                </ToolTip>
-            </Button.ToolTip>
-        </Button>
-        <Button Content="View student..." IsEnabled="{Binding IsStudentSelected}" Grid.Column="2" HorizontalAlignment="Left" Margin="128,262,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56">
-            <Button.ToolTip>
-                <ToolTip>
-                    View student info
-                </ToolTip>
-            </Button.ToolTip>
-        </Button>
-        <Button Content="Edit student..." Click="OpenEditStudentModal" IsEnabled="{Binding IsStudentSelected}" Grid.Column="2" HorizontalAlignment="Left" Margin="128,402,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56">
-            <Button.ToolTip>
-                <ToolTip>
-                    Edit data about student
-                </ToolTip>
-            </Button.ToolTip>
-        </Button>
-        <Button Content="Delete student" Click="DeleteSelectedStudent" IsEnabled="{Binding IsStudentSelected}" Grid.Column="2" HorizontalAlignment="Left" Margin="128,332,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56">
-            <Button.ToolTip>
-                <ToolTip>
-                    Delete selected student
-                </ToolTip>
-            </Button.ToolTip>
-        </Button>
+                    <Button Content="Add student..." Click="OpenAddStudentModal" IsEnabled="{Binding IsGroupFromGoinedListSelected}"  BorderBrush="{x:Null}" >
+                        <Button.ToolTip>
+                            <ToolTip>
+                                Add data about new student
+                            </ToolTip>
+                        </Button.ToolTip>
+                    </Button>
+                    <Button Content="View student..." IsEnabled="{Binding IsStudentSelected}"   BorderBrush="#FFE8BF56">
+                        <Button.ToolTip>
+                            <ToolTip>
+                                View student info
+                            </ToolTip>
+                        </Button.ToolTip>
+                    </Button>
+                    <Button Content="Edit student..." Click="OpenEditStudentModal" IsEnabled="{Binding IsStudentSelected}" BorderBrush="#FFE8BF56">
+                        <Button.ToolTip>
+                            <ToolTip>
+                                Edit data about student
+                            </ToolTip>
+                        </Button.ToolTip>
+                    </Button>
+                    <Button Content="Delete student" Click="DeleteSelectedStudent" IsEnabled="{Binding IsStudentSelected}">
+                        <Button.ToolTip>
+                            <ToolTip>
+                                Delete selected student
+                            </ToolTip>
+                        </Button.ToolTip>
+                    </Button>
+
+                </StackPanel>
+
+                <Button Grid.Row="1" Margin="10" Height="40" Content="Exit" FontFamily="Arial" FontSize="18">
+                    <Button.ToolTip>
+                        <ToolTip>
+                            DExit from application
+                        </ToolTip>
+                    </Button.ToolTip>
+                </Button>
+            </Grid.Children>
+            
+        </Grid>
+
+        <Grid Grid.Row="3" Margin="10, 0, 20 ,0" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+                
+            <xctk:WatermarkComboBox x:Name="FacultySelect" Watermark="Select faculty" Grid.Column="0"  Margin="10, 0, 10, 0" HorizontalAlignment="Stretch" Height="50"
+                    VerticalAlignment="Top" FontSize="18" />
+
+            <xctk:WatermarkComboBox x:Name="GroupSelect" Watermark="Select group" Grid.Column="1" Margin="0, 0, 10, 0" HorizontalAlignment="Stretch" Height="50" 
+                     VerticalAlignment="Top" FontSize="18"/>
+
+            <xctk:WatermarkTextBox x:Name="SearchInput" Grid.Column="2" Margin="0, 0, 10, 0" HorizontalAlignment="Stretch" Height="50" Watermark="Search by name"
+                     TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18"/>
+        </Grid>
+
+
+        <!--<Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Center" Height="0" Grid.Row="4" VerticalAlignment="Center" Width="200"/>-->
+        <Grid Grid.Row="4" Grid.Column="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.Children>
+                <ListBox 
+                    Grid.Column="0"
+                    Margin="20, 20, 30, 20" 
+                    x:Name="StudentsListBox"
+                    ScrollViewer.VerticalScrollBarVisibility="Visible" 
+                    ItemsSource="{Binding SelectedGroup}"
+                    SelectionChanged="StudentSelectionChanged"
+                    SelectedValue="{Binding SelectedStudent, Mode=TwoWay}"
+                    HorizontalAlignment="Stretch"
+                    FontSize="18"
+                 >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Path=FullName}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <Grid Grid.Row="4" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.Resources>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="FontSize" Value="20" />
+                            <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                            <Setter Property="Visibility" Value="Visible" />
+                        </Style>
+                        
+                    </Grid.Resources>
+                    <Grid.Children >
+                        <TextBlock Text="Selected student info:" FontSize="22"  FontWeight="Bold" Grid.Row="0"  Margin="0, 20, 0, 0" />
+                        <TextBlock Text="Full Name:" FontWeight="Bold" Grid.Row="1"  Margin="0, 20, 0, 0" />
+                        <TextBlock x:Name="StudentNameText" Text=""  Grid.Row="2"/>
+
+                        <TextBlock Text="Born:"  FontWeight="Bold"   Grid.Row="3" Margin="0, 20, 0, 0" />
+                        <TextBlock x:Name="StudentYearText" Text="" Grid.Row="4" />
+
+                        <TextBlock Text="Average Mark:"  FontWeight="Bold" Grid.Row="5" Margin="0, 20, 0, 0"/>
+                        <TextBlock x:Name="StudentMarkText" Text=""  Grid.Row="6" />
+                    </Grid.Children>
+                </Grid>
+            </Grid.Children>
+        </Grid>
+
+
+        
+
+
+
+
+        <!--<Grid Grid.ColumnSpan="3" Background="#FF6A7B9C"/>
+        
+       
         <ComboBox
             x:Name="GroupsSelect"
-            SelectedValue="{Binding SelectedGroupFromJoinedList, Mode=TwoWay}"
+            SelectedValue="{Binding SelectedGroup, Mode=TwoWay}"
             ItemsSource="{Binding AllGroups}"
             SelectionChanged="GroupSelectionChanged"
             Grid.Column="1"
@@ -126,14 +214,14 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <Label Content="Type of search:" Grid.Column="1" HorizontalAlignment="Left" Height="37" Margin="90,38,0,0" Grid.Row="1" VerticalAlignment="Top" Width="330" FontSize="20" FontFamily="Arial Black" Foreground="Black"/>
-        <Label Content="List of all students" Grid.Column="1" HorizontalAlignment="Left" Height="28" Margin="90,162,0,0" Grid.Row="1" VerticalAlignment="Top" Width="330" FontSize="20" FontFamily="Arial Black" Foreground="Black" />
-        <Button Content="Upload data..." Grid.Column="2" HorizontalAlignment="Left" Margin="128,473,0,0" Grid.Row="1" VerticalAlignment="Top" Height="46" Width="230" FontSize="20" FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56">
+        <Label Content="Type of search:" Grid.Column="1" HorizontalAlignment="Left" Height="37" Margin="90,38,0,0" Grid.Row="1" VerticalAlignment="Top" Width="330" FontFamily="Arial Black" Foreground="Black"/>
+        <Label Content="List of all students" Grid.Column="1" HorizontalAlignment="Left" Height="28" Margin="90,162,0,0" Grid.Row="1" VerticalAlignment="Top" Width="330" FontFamily="Arial Black" Foreground="Black" />
+        <Button Content="Upload data..." Grid.Column="2" HorizontalAlignment="Left" Margin="128,473,0,0" Grid.Row="1" VerticalAlignment="Top"   FontFamily="Arial Black" Foreground="White" Background="#FFE8BF56" BorderBrush="#FFE8BF56">
             <Button.ToolTip>
                 <ToolTip Content="Load data in file"/>
             </Button.ToolTip>
         </Button>
-        <Label Content="Group:" Grid.Column="1" HorizontalAlignment="Left" Height="37" Margin="452,38,0,0" Grid.Row="1" VerticalAlignment="Top" Width="330" FontSize="20" FontFamily="Arial Black" Foreground="Black" Grid.ColumnSpan="2"/>
+        <Label Content="Group:" Grid.Column="1" HorizontalAlignment="Left" Height="37" Margin="452,38,0,0" Grid.Row="1" VerticalAlignment="Top" Width="330" FontFamily="Arial Black" Foreground="Black" Grid.ColumnSpan="2"/>-->
 
 
     </Grid>

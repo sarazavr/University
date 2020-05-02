@@ -104,8 +104,6 @@ namespace Stud
             if (index < 0) Parant.SelectedFaculty?.UnsetCurrent();
             else Parant.SelectedFaculty.SetCurrent((uint)index);
 
-            //Debugger.Break();
-
             DisplayGroupSelectionChanged();
         }
 
@@ -162,7 +160,6 @@ namespace Stud
 
         public void DeleteSelectedGroup(object sender, RoutedEventArgs e)
         {
-            //Debugger.Break();
             Parant.SelectedFaculty.Remove(Parant.SelectedGroup);
             RefreshGroupsList();
             DisplayGroupSelectionChanged();
