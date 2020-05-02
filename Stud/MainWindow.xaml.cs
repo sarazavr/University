@@ -107,13 +107,27 @@ namespace Stud
 
         }
 
+        public void FilterStudentsChanged(object sender, RoutedEventArgs e)
+        {
+            var filtered = FilterUtils.GetFiltered(
+                SelectedGroup,
+                FilterStudentsInput.Text,
+                (student, search) => FilterUtils.ContainsIgnoreCase(student.FullName, search)
+            );
 
+            var first = filtered.FirstOrDefault();
+
+            SelectedGroup.SetCurrentByReference(first);
+
+            RefreshSelectedStudentInfo();
+            Refresher.RefreshSelector(StudentsListBox, filtered, first);
+        }
 
         public void DeleteSelectedStudent(object sender, RoutedEventArgs e)
         {
-           foreach(var groups in FacultyList)
+            foreach (var groups in FacultyList)
             {
-                foreach( var group in groups) group.Remove(SelectedStudent);
+                foreach (var group in groups) group.Remove(SelectedStudent);
             }
 
             SelectedGroup?.MoveCurrentToHead();
@@ -125,8 +139,8 @@ namespace Stud
         public bool IsFacultySelected => !ReferenceEquals(SelectedFaculty, null);
         public bool IsGroupSelected => !ReferenceEquals(SelectedGroup, null);
         public bool IsStudentSelected => !ReferenceEquals(SelectedStudent, null);
-  
-       
+
+
 
         #region UI_REFRESHERS
 
@@ -163,12 +177,14 @@ namespace Stud
 
         public void RefreshFacultySelect()
         {
-            FacultyList?.Sort((l1,l2) => string.CompareOrdinal(l1?.Name, l2?.Name) <= 0);
+            //FacultyList?.Sort((l1,l2) => string.CompareOrdinal(l1?.Name, l2?.Name) <= 0);
+            FacultyList?.Sort();
             Refresher.RefreshSelector(FacultySelect, FacultyList, SelectedFaculty);
         }
         public void RefreshGroupsSelect()
         {
-            SelectedFaculty?.Sort((l1, l2) => string.CompareOrdinal(l1?.Name, l2?.Name) <= 0);
+            //SelectedFaculty?.Sort((l1, l2) => string.CompareOrdinal(l1?.Name, l2?.Name) <= 0);
+            SelectedFaculty?.Sort();
             Refresher.RefreshSelector(GroupSelect, SelectedFaculty, SelectedGroup);
         }
         public void RefreshStudentsList()
@@ -214,7 +230,7 @@ namespace Stud
 
             NotifyIsFacultySelectedChanged();
             NotifyIsGroupSelectedChanged();
-            
+
             // todo: filter ?
         }
 
@@ -234,9 +250,9 @@ namespace Stud
 
         #endregion SELECTION_CHANHES
 
-        
 
-            public void CalcStat(object sender, RoutedEventArgs e)
+
+        public void CalcStat(object sender, RoutedEventArgs e)
         {
             var win = new Statistics(this);
 

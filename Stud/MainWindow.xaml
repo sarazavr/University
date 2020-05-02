@@ -166,7 +166,7 @@
         <TextBlock   Margin="15,20,15,0" Grid.Row="1" Grid.Column="4" VerticalAlignment="Top" FontSize="15" Text="Search student" FontWeight="Bold"/>
         <xctk:WatermarkTextBox
                 Margin="15,0,15,0"
-                x:Name="SearchInput" Grid.Row="3" Grid.Column="4"
+                x:Name="FilterStudentsInput" Grid.Row="3" Grid.Column="4" TextChanged="FilterStudentsChanged"
                 Height="40" Watermark="Student's full name" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18" Grid.RowSpan="2"/>
 
         <ListBox 

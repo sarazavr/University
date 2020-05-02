@@ -107,7 +107,7 @@ namespace UnivirsityModels
 
         public void SetCurrentByReference(T item)
         {
-            CurrentNode = FindNode((el1) => ReferenceEquals(el1, item));
+            CurrentNode = ReferenceEquals(item, null) ? null : FindNode((el1) => ReferenceEquals(el1, item));
         }
 
         public void UnsetCurrent()
@@ -165,6 +165,8 @@ namespace UnivirsityModels
 
             return ReferenceEquals(node, null) ? default : node.Value;
         }
+
+
 
         private Node FindNode(T data)
         {

@@ -36,6 +36,8 @@
                 <xctk:WatermarkTextBox x:Name="FacultyNameInput" TextChanged="FacultyNameChanged" Watermark="Faculty name" Grid.Column="0" Margin="0, 0, 10, 0"
                                    HorizontalAlignment="Stretch" Height="40" MinWidth="100" TextWrapping="Wrap" VerticalAlignment="Bottom" FontSize="18" />
 
+               
+
                 <Button Content="Create" Click="AddFaculty" x:Name="AddFacultyBtn" IsEnabled="False" HorizontalAlignment="Stretch" Margin="0, 0, 5, 0" Height="40"
                     VerticalAlignment="Bottom" MinWidth="80"  BorderBrush="{x:Null}" Grid.Column="1" FontSize="18">
                     <Button.ToolTip>
@@ -133,7 +135,7 @@
             x:Name="FacultyListBox"
             ScrollViewer.VerticalScrollBarVisibility="Visible" 
             SelectedValue="{Binding SelectedFaculty, Mode=OneWay}"
-            SelectionChanged="SelectFacultyChanged" 
+            SelectionChanged="FacultySelectionChanged" 
             FontSize="16"
         >
             <ListBox.ItemTemplate>

@@ -17,7 +17,7 @@ namespace Stud
     /// </summary>
     public partial class RenameForm : Window
     {
-        public delegate void OkAction(string newName);
+        public delegate void OkAction(string newName, Action closeForm);
 
         public OkAction OnOk;
 
@@ -37,7 +37,7 @@ namespace Stud
 
         private void OkClicked(object sender, RoutedEventArgs e)
         {
-            OnOk(NameInput.Text.Trim());
+            OnOk(NameInput.Text.Trim(), Close);
         }
 
         private void CancelClicked(object sender, RoutedEventArgs e)

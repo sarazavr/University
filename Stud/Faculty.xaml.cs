@@ -11,6 +11,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -44,11 +45,16 @@ namespace Stud
             RefreshFaculty();
         }
 
-        private void AddFaculty(object sender, RoutedEventArgs e)
+        private void RememberLastSelectedItems()
         {
             SelectedFacultyBeforeNewCreation = FacultyListBox.SelectedItem;
             SelectedGroupBeforeLastCreation = GroupListBox.SelectedItem;
+        }
 
+        private void AddFaculty(object sender, RoutedEventArgs e)
+        {
+
+            RememberLastSelectedItems();
             //Debugger.Break();
 
             var newFaculty = new NamedDoubleLinkedList<NamedDoubleLinkedList<Student>>(FacultyNameInput.Text);
@@ -57,18 +63,19 @@ namespace Stud
             RefreshFaculty();
         }
 
+
         private void AddGroup(object sender, RoutedEventArgs e)
         {
-            if(!Constants.GROUPF_REGEX.IsMatch(GroupNameInput.Text) )
+            if (!Constants.GROUPF_REGEX.IsMatch(GroupNameInput.Text))
             {
                 MessageBox.Show("You entered an invalig group name, use format 'ks-16-1' or 'ks-16m-1'");
 
                 return;
             }
 
-            var newGroup = new NamedDoubleLinkedList<Student>(GroupNameInput.Text);
+            RememberLastSelectedItems();
 
-            SelectedGroupBeforeLastCreation = GroupListBox.SelectedItem;
+            var newGroup = new NamedDoubleLinkedList<Student>(GroupNameInput.Text);
 
             Parant.SelectedFaculty.Push(newGroup);
 
@@ -78,9 +85,12 @@ namespace Stud
 
         private void RenameFaculty(object sender, RoutedEventArgs e)
         {
-            var form = new RenameForm("Rename Faculty", Parant.SelectedFaculty.Name, (newName) =>
+            var form = new RenameForm("Rename Faculty", Parant.SelectedFaculty.Name, (newName, closeForm) =>
             {
+                RememberLastSelectedItems();
                 Parant.SelectedFaculty.Name = newName;
+                closeForm();
+
                 RefreshFaculty();
             });
 
@@ -89,7 +99,7 @@ namespace Stud
 
         private void RenameGroup(object sender, RoutedEventArgs e)
         {
-            var form = new RenameForm("Rename Group", Parant.SelectedGroup.Name, (newName) =>
+            var form = new RenameForm("Rename Group", Parant.SelectedGroup.Name, (newName, closeForm) =>
             {
                 if (!Constants.GROUPF_REGEX.IsMatch(GroupNameInput.Text))
                 {
@@ -97,66 +107,82 @@ namespace Stud
 
                     return;
                 }
-
+                RememberLastSelectedItems();
                 Parant.SelectedGroup.Name = newName;
+                closeForm();
                 RefreshGroupsList();
             });
 
             form.ShowDialog();
         }
 
+
         // TODO: clear temp pointer to selected item after deleting selected item !!
 
 
-        public void SelectFacultyChanged(object sender, RoutedEventArgs e)
+        public void FacultySelectionChanged(object sender, RoutedEventArgs e)
         {
-            var Item = (NamedDoubleLinkedList<NamedDoubleLinkedList<Student>>)FacultyListBox.SelectedItem;
+            var item = (NamedDoubleLinkedList<NamedDoubleLinkedList<Student>>)FacultyListBox.SelectedItem;
 
-            if(Item is null)
+            if (item is object || item is null && SelectedFacultyBeforeNewCreation is object)
             {
-                if (SelectedFacultyBeforeNewCreation is object)
-                {
-                    FacultyListBox.SelectedItem = SelectedFacultyBeforeNewCreation;
-                } else
-                {
-                    Parant.FacultyList.UnsetCurrent();
-                }
-            } else
-            {
-                Parant.FacultyList.SetCurrentByReference(Item);
+                FacultyListBox.SelectedItem = item ?? SelectedFacultyBeforeNewCreation;
+                Parant.FacultyList.SetCurrentByReference(item);
             }
+            else
+            {
+                Parant.FacultyList.UnsetCurrent();
+            }
+
+            //if(Item is null)
+            //{
+            //    if (SelectedFacultyBeforeNewCreation is object)
+            //    {
+            //        FacultyListBox.SelectedItem = SelectedFacultyBeforeNewCreation;
+            //    } else
+            //    {
+            //        Parant.FacultyList.UnsetCurrent();
+            //    }
+            //} else
+            //{
+            //    Parant.FacultyList.SetCurrentByReference(item);
+            //}
 
             DisplayFacultySelectionChanged();
         }
 
-        public void DisplayFacultySelectionChanged()
-        {
-            RefreshGroupsList();
-
-            Parant.NotifyIsGroupSelectedChanged();
-            Parant.NotifyIsFacultySelectedChanged();
-
-        }
 
         public void GroupSelectionChanged(object sender, RoutedEventArgs e)
         {
             var item = (NamedDoubleLinkedList<Student>)GroupListBox.SelectedItem;
 
-            if (item is null)
+
+            if (item is object || item is null && SelectedFacultyBeforeNewCreation is object)
             {
-                if (SelectedGroupBeforeLastCreation is object)
-                {
-                    GroupListBox.SelectedItem = SelectedGroupBeforeLastCreation;
-                }
-                else
-                {
-                    Parant.SelectedFaculty.UnsetCurrent();
-                }
+                GroupListBox.SelectedItem = item ?? SelectedGroupBeforeLastCreation;
+                Parant.SelectedFaculty?.SetCurrentByReference(item);
             }
             else
             {
-                Parant.SelectedFaculty.SetCurrentByReference(item);
+                // TODO: remove ?. and check for work whith renaming and default selection
+                Parant.SelectedFaculty?.UnsetCurrent();
             }
+
+            //if (item is null)
+            //{
+            //    if (SelectedGroupBeforeLastCreation is object)
+            //    {
+            //        GroupListBox.SelectedItem = SelectedGroupBeforeLastCreation;
+            //    }
+            //    else
+            //    {
+            //        Parant.SelectedFaculty.UnsetCurrent();
+            //    }
+            //}
+            //else
+            //{
+            //    Parant.SelectedFaculty.SetCurrentByReference(item);
+            //}
 
             DisplayGroupSelectionChanged();
         }
@@ -165,6 +191,16 @@ namespace Stud
         {
             Parant.NotifyIsGroupSelectedChanged();
             // OnPropertyChanged("IsGroupSelected");
+        }
+
+
+        public void DisplayFacultySelectionChanged()
+        {
+            RefreshGroupsList();
+
+            Parant.NotifyIsGroupSelectedChanged();
+            Parant.NotifyIsFacultySelectedChanged();
+
         }
 
         public void RefreshGroupsList()
@@ -218,7 +254,7 @@ namespace Stud
         {
             Parant.RefreshAll();
             Refresher.RefreshSelector(FacultyListBox, Parant.FacultyList, Parant.SelectedGroup);
-           
+
         }
 
         public void Close(object sender, RoutedEventArgs e)
@@ -236,7 +272,7 @@ namespace Stud
         }
         private void DisableOkBtn(params Button[] btns)
         {
-            foreach(var btn in btns)
+            foreach (var btn in btns)
             {
                 if (btn is null) continue;
 
@@ -255,6 +291,8 @@ namespace Stud
                 btn.Opacity = 1;
             }
         }
+
+        
 
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
