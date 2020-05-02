@@ -26,105 +26,6 @@ namespace Stud
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        DoubleLinkedList<NamedDoubleLinkedList<NamedDoubleLinkedList<Student>>> facultyList;
-
-        public DoubleLinkedList<NamedDoubleLinkedList<NamedDoubleLinkedList<Student>>> FacultyList
-        {
-            get
-            {
-                return facultyList;
-            }
-            set
-            {
-                facultyList = value;
-                NotifyFacultyListChanged();
-            }
-        }
-
-        private Student selectedStudentFromJoinedList;
-
-        public NamedDoubleLinkedList<NamedDoubleLinkedList<Student>> SelectedFaculty => FacultyList?.Current();
-
-        public NamedDoubleLinkedList<Student> SelectedGroup => SelectedFaculty?.Current();
-
-
-
-        //public NamedDoubleLinkedList<Student>  SelectedGroup
-        //{
-        //    get => SelectedGroup;
-        //    set
-        //    {
-        //        SelectedGroup = value;
-        //        SelectedStudent = null;
-        //        OnPropertyChanged("SelectedGroup");
-        //        OnPropertyChanged("IsGroupFromGoinedListSelected");
-        //    }
-        //}
-
-        public bool IsGroupFromGoinedListSelected => !ReferenceEquals(SelectedGroup, null);
-
-        public void OnFacultyRemoved()
-        {
-
-        }
-
-        public void OnGroupRemoved()
-        {
-
-        }
-
-        public void DeleteSelectedStudent(object sender, RoutedEventArgs e)
-        {
-           foreach(var groups in FacultyList)
-            {
-                foreach( var group in groups) group.Remove(SelectedStudent);
-            }
-
-            //Refresher.RefreshSelector(StudentsListBox, SelectedGroup);
-            SelectedStudent = null;
-        }
-
-        public Student SelectedStudent
-        {
-            get => selectedStudentFromJoinedList;
-            set
-            {
-                selectedStudentFromJoinedList = value;
-                OnPropertyChanged("SelectedStudentFromJoinedList");
-            }
-        }
-
-        public bool IsStudentSelected => !ReferenceEquals(SelectedStudent, null);
-  
-        public void NotifyStudentSelectionChanged()
-        {
-            RefreshSelectedStudentIngo();
-            OnPropertyChanged("IsStudentSelected");
-        }
-
-
-        public void NotifyFacultyListChanged()
-        {
-            OnPropertyChanged("FacultyList");
-        }
-
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
-
-        public void NotifyFacultySelected()
-        {
-            OnPropertyChanged("SelectedFaculty");
-        }
-
-        public void NotifyGroupSelectionChanged()
-        {
-            OnPropertyChanged("SelectedGroup");
-        }
-
         public MainWindow()
         {
             facultyList = new DoubleLinkedList<NamedDoubleLinkedList<NamedDoubleLinkedList<Student>>>();
@@ -146,49 +47,185 @@ namespace Stud
 
             DataContext = this;
             FacultyList = facultyList;
+
+            RefreshAll();
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
+
+
+        DoubleLinkedList<NamedDoubleLinkedList<NamedDoubleLinkedList<Student>>> facultyList;
+
+        public DoubleLinkedList<NamedDoubleLinkedList<NamedDoubleLinkedList<Student>>> FacultyList
+        {
+            get
+            {
+                return facultyList;
+            }
+            set
+            {
+                facultyList = value;
+                NotifyFacultyListChanged();
+            }
+        }
+
+        public NamedDoubleLinkedList<NamedDoubleLinkedList<Student>> SelectedFaculty => FacultyList?.Current();
+
+        public NamedDoubleLinkedList<Student> SelectedGroup => SelectedFaculty?.Current();
+
+        public Student SelectedStudent => SelectedGroup?.Current();
+
+
+        public void OnFacultyRemoved()
+        {
+
+        }
+
+        public void OnGroupRemoved()
+        {
+
+        }
+
+        public void DeleteSelectedStudent(object sender, RoutedEventArgs e)
+        {
+           foreach(var groups in FacultyList)
+            {
+                foreach( var group in groups) group.Remove(SelectedStudent);
+            }
+
+            SelectedGroup?.UnsetCurrent();
+
+            NotifyIsStudentSelectedChanged();
+            Refresher.RefreshSelector(StudentsListBox, SelectedGroup);
+        }
+
+        public bool IsFacultySelected => !ReferenceEquals(SelectedFaculty, null);
+        public bool IsGroupSelected => !ReferenceEquals(SelectedGroup, null);
+        public bool IsStudentSelected => !ReferenceEquals(SelectedStudent, null);
+  
+       
+
+        #region UI_REFRESHERS
+
+        public void NotifyIsGroupSelectedChanged()
+        {
+            OnPropertyChanged("IsGroupSelected");
+        }
+
+        public void NotifyIsFacultySelectedChanged()
+        {
+            OnPropertyChanged("IsFacultySelected");
+        }
+        public void NotifyIsStudentSelectedChanged()
+        {
+            OnPropertyChanged("IsStudentSelected");
+        }
+
+        public void NotifyFacultyListChanged()
+        {
+            OnPropertyChanged("FacultyList");
+        }
 
         public void RefreshAll()
         {
-
-            RefreshStudentsList();
+            RefreshFacultySelect();
             RefreshGroupsSelect();
+            RefreshStudentsList();
+            RefreshSelectedStudentInfo();
+            NotifyIsGroupSelectedChanged();
+            NotifyIsFacultySelectedChanged();
+            NotifyIsStudentSelectedChanged();
+            NotifyIsStudentSelectedChanged();
         }
 
-        public void RefreshStudentsList()
+        public void RefreshFacultySelect()
         {
-            Refresher.RefreshSelector(StudentsListBox, SelectedGroup);
+            Refresher.RefreshSelector(FacultySelect, FacultyList);
         }
         public void RefreshGroupsSelect()
         {
             Refresher.RefreshSelector(GroupSelect, SelectedFaculty);
         }
-
-        public void RefreshSelectedStudentIngo()
+        public void RefreshStudentsList()
+        {
+            Refresher.RefreshSelector(StudentsListBox, SelectedGroup);
+        }
+        public void RefreshSelectedStudentInfo()
         {
             StudentNameText.Text = SelectedStudent?.FullName ?? "";
             StudentYearText.Text = SelectedStudent?.BirthYear.ToString() ?? "";
             StudentMarkText.Text = SelectedStudent?.AverageGrade.ToString() ?? "";
         }
 
+        #endregion UI_REFRESHERS
 
-        private void GroupSelectionChanged(object sender, RoutedEventArgs e) {
-            RefreshStudentsList();
-        }
+        #region SELECTION_CHANHES
 
-
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public void GroupsSelectionChanged(object sender, RoutedEventArgs e)
         {
+            var Item = (NamedDoubleLinkedList<Student>)GroupSelect.SelectedItem;
 
+            if (GroupSelect.SelectedIndex < 0) SelectedFaculty?.UnsetCurrent();
+            else SelectedFaculty?.SetCurrentByReference(Item);
+
+
+            Refresher.RefreshSelector(StudentsListBox, SelectedGroup);
+            NotifyIsGroupSelectedChanged();
+            NotifyIsStudentSelectedChanged();
+            // todo: filter ?
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        public void FacultySelectionChanged(object sender, RoutedEventArgs e)
         {
+            var Item = (NamedDoubleLinkedList<NamedDoubleLinkedList<Student>>)FacultySelect.SelectedItem;
 
+            if (FacultySelect.SelectedIndex < 0) FacultyList?.UnsetCurrent();
+            else FacultyList?.SetCurrentByReference(Item);
+
+            Refresher.RefreshSelector(GroupSelect, SelectedFaculty);
+            Refresher.RefreshSelector(StudentsListBox, SelectedGroup);
+
+            NotifyIsFacultySelectedChanged();
+            NotifyIsGroupSelectedChanged();
+            
+            // todo: filter ?
         }
 
+        public void StudentSelectionChanged(object sender, RoutedEventArgs e)
+        {
+            var Item = (Student)StudentsListBox.SelectedItem;
+
+            if (StudentsListBox.SelectedIndex < 0) SelectedGroup?.UnsetCurrent();
+            else SelectedGroup?.SetCurrentByReference(Item);
+
+            RefreshSelectedStudentInfo();
+            NotifyIsStudentSelectedChanged();
+            // Refresher.RefreshSelector(StudentsListBox, SelectedGroup);
+
+            // todo: show student info
+        }
+
+        #endregion SELECTION_CHANHES
+
+
+        public void OnCloseClick(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        // _________________________ OPEN WINDOWS _________________________________
+        public void OnFacultyManagerClosing(object sender, CancelEventArgs e)
+        {
+            RefreshAll();
+        }
+
+
+
+        #region OPEN_WINDOWS
         private void OpenUniversityEditor(object sender, RoutedEventArgs e)
         {
             var gs = new University(this) { Owner = this, DataContext = DataContext };
@@ -210,29 +247,8 @@ namespace Stud
             gs.Show();
         }
 
+        #endregion OPEN_WINDOWS
 
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        //public void GroupsSelectionChanged(object sender, RoutedEventArgs e)
-        //{
-        //    var index = GroupsSelect.SelectedIndex;
-
-        //    if (index < 0) FacultyList.Current()?.UnsetCurrent();
-        //    else FacultyList.Current()?.SetCurrent((uint)index);
-
-        //    Refresher.RefreshSelector(StudentsListBox, FacultyList.Current()?.Current());
-        //    // todo: filter ?
-        //}
-
-        public void StudentSelectionChanged(object sender, RoutedEventArgs e)
-        {
-            NotifyStudentSelectionChanged();
-            // todo: show student info
-        }
     }
 
     public static class CustomCommands

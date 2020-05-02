@@ -5,6 +5,7 @@ using System.Collections;
 using System.Drawing;
 using System.Globalization;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace UnivirsityModels
 {
@@ -101,6 +102,12 @@ namespace UnivirsityModels
         public void SetCurrent(uint index)
         {
             CurrentNode = GetNode(index);
+        }
+
+
+        public void SetCurrentByReference(T item)
+        {
+            CurrentNode = FindNode((el1) => ReferenceEquals(el1, item));
         }
 
         public void UnsetCurrent()

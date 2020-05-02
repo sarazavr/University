@@ -20,7 +20,6 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-
         <Grid Grid.Row="0" Grid.Column="2" Margin="20,0,20,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -53,8 +52,19 @@
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
 
-            <xctk:WatermarkTextBox x:Name="GroupNameInput" TextChanged="GroupNameChanged" Watermark="Group name" Grid.Column="0" Margin="0, 0, 10, 0"
-                                   HorizontalAlignment="Stretch" Height="40"  MinWidth="100" TextWrapping="Wrap" VerticalAlignment="Bottom" FontSize="18" />
+            <xctk:WatermarkTextBox
+                x:Name="GroupNameInput"
+                TextChanged="GroupNameChanged"
+                Grid.Column="0"
+                Margin="0, 0, 10, 0"
+                HorizontalAlignment="Stretch"
+                Height="40" 
+                MinWidth="100"
+                TextWrapping="Wrap"
+                VerticalAlignment="Bottom"
+                FontSize="18"
+                Watermark="Group name"
+            />
             <Button Content="Create" Click="AddGroup" x:Name="AddGroupBtn" IsEnabled="False" Margin="0, 0, 5, 0"  HorizontalAlignment="Stretch" Height="40"
                     VerticalAlignment="Bottom" MinWidth="80"  BorderBrush="{x:Null}" Grid.Column="1" FontSize="18">
                 <Button.ToolTip>

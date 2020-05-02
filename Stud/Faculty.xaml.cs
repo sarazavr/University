@@ -29,15 +29,13 @@ namespace Stud
         public event PropertyChangedEventHandler PropertyChanged;
         public MainWindow Parant { get; set; }
 
-
-
-        public bool IsFacultySelected => !ReferenceEquals(Parant.SelectedFaculty, null);
-        public bool IsGroupSelected => !ReferenceEquals(Parant.SelectedGroup, null);
         public University(object owner)
         {
             Parant = (MainWindow)owner;
 
             InitializeComponent();
+
+            Closing += Parant.OnFacultyManagerClosing;
         }
 
         private void AddFaculty(object sender, RoutedEventArgs e)
@@ -93,8 +91,12 @@ namespace Stud
         public void DisplayFacultySelectionChanged()
         {
             RefreshGroupsList();
-            OnPropertyChanged("IsFacultySelected");
-            OnPropertyChanged("IsGroupSelected");
+
+            Parant.NotifyIsGroupSelectedChanged();
+            Parant.NotifyIsFacultySelectedChanged();
+
+           // OnPropertyChanged("IsFacultySelected");
+            // OnPropertyChanged("IsGroupSelected");
         }
 
         public void GroupSelectionChanged(object sender, RoutedEventArgs e)
@@ -109,8 +111,8 @@ namespace Stud
 
         public void DisplayGroupSelectionChanged()
         {
-            Parant.NotifyGroupSelectionChanged();
-            OnPropertyChanged("IsGroupSelected");
+            Parant.NotifyIsGroupSelectedChanged();
+            // OnPropertyChanged("IsGroupSelected");
         }
 
         public void RefreshGroupsList()
@@ -120,7 +122,12 @@ namespace Stud
 
         private void GroupNameChanged(object sender, RoutedEventArgs e)
         {
-            if (((TextBox)sender).Text.Trim() != string.Empty && Parant.SelectedFaculty is object) EnableOkBtn(AddGroupBtn);
+            if (((TextBox)sender).Text.Trim() != string.Empty
+                && Parant.SelectedFaculty is object
+                && AddGroupBtn is object)
+            {
+                EnableOkBtn(AddGroupBtn);
+            }  
             else DisableOkBtn(AddGroupBtn);
         }
 
@@ -168,6 +175,8 @@ namespace Stud
         {
             foreach(var btn in btns)
             {
+                if (btn is null) continue;
+
                 btn.IsEnabled = false;
                 btn.Opacity = 0.7;
             }
@@ -177,6 +186,8 @@ namespace Stud
         {
             foreach (var btn in btns)
             {
+                if (btn is null) continue;
+
                 btn.IsEnabled = true;
                 btn.Opacity = 1;
             }

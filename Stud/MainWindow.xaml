@@ -96,7 +96,7 @@
 
                 </StackPanel>
 
-                <Button Grid.Row="1" Margin="10" Height="40" Content="Exit" FontFamily="Arial" FontSize="18">
+                <Button Click="OnCloseClick" Grid.Row="1" Margin="10" Height="40" Content="Exit" FontFamily="Arial" FontSize="18">
                     <Button.ToolTip>
                         <ToolTip>
                             DExit from application
@@ -112,23 +112,55 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="95"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition />
             </Grid.RowDefinitions>
-                
-            <xctk:WatermarkComboBox x:Name="FacultySelect" Watermark="Select faculty" Grid.Column="0"  Margin="10, 0, 10, 0" HorizontalAlignment="Stretch" Height="50"
-                    VerticalAlignment="Top" FontSize="18" />
 
-            <xctk:WatermarkComboBox x:Name="GroupSelect" Watermark="Select group" Grid.Column="1" Margin="0, 0, 10, 0" HorizontalAlignment="Stretch" Height="50" 
-                     VerticalAlignment="Top" FontSize="18"/>
+            <xctk:WatermarkComboBox
+                 x:Name="FacultySelect"
+                SelectionChanged="FacultySelectionChanged"
+                SelectedItem="{Binding SelectedFaculty, Mode=OneWay}" Watermark="Select faculty" Grid.Column="0" 
+                Margin="10, 0, 10, 0" HorizontalAlignment="Stretch" Height="50" VerticalAlignment="Top" FontSize="16">
+                <xctk:WatermarkComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Path=Name}" FontSize="16"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </xctk:WatermarkComboBox.ItemTemplate>
+            </xctk:WatermarkComboBox>
 
-            <xctk:WatermarkTextBox x:Name="SearchInput" Grid.Column="2" Margin="0, 0, 10, 0" HorizontalAlignment="Stretch" Height="50" Watermark="Search by name"
-                     TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18"/>
+            <xctk:WatermarkComboBox
+                x:Name="GroupSelect"
+                SelectionChanged="GroupsSelectionChanged"
+                SelectedItem="{Binding SelectedGroup, Mode=OneWay}"
+                Watermark="Select group" 
+                Grid.Column="1" Margin="0, 0, 10, 0" HorizontalAlignment="Stretch" Height="50" 
+                VerticalAlignment="Top" FontSize="18"
+            >
+                <xctk:WatermarkComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Path=Name}" FontSize="16"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </xctk:WatermarkComboBox.ItemTemplate>
+            </xctk:WatermarkComboBox>
+
+            <xctk:WatermarkTextBox
+                x:Name="SearchInput" Grid.Column="2" Margin="0, 0, 10, 0" HorizontalAlignment="Stretch"
+                Height="50" Watermark="Search by name" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18"/>
+
+            <Button Content="Search" x:Name="SearchGroupBtn" Grid.Column="3" IsEnabled="False" HorizontalAlignment="Stretch" Margin="5, 0, 0, 0"  Height="40"
+                    VerticalAlignment="Bottom" Width="80"  BorderBrush="{x:Null}" FontSize="18">
+                <Button.ToolTip>
+                    <ToolTip>Apply search by studetn full name name</ToolTip>
+                </Button.ToolTip>
+            </Button>
         </Grid>
 
-
-        <!--<Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Center" Height="0" Grid.Row="4" VerticalAlignment="Center" Width="200"/>-->
         <Grid Grid.Row="4" Grid.Column="1" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"/>
@@ -142,7 +174,7 @@
                     ScrollViewer.VerticalScrollBarVisibility="Visible" 
                     ItemsSource="{Binding SelectedGroup}"
                     SelectionChanged="StudentSelectionChanged"
-                    SelectedValue="{Binding SelectedStudent, Mode=TwoWay}"
+                    SelectedValue="{Binding SelectedStudent, Mode=OneWay}"
                     HorizontalAlignment="Stretch"
                     FontSize="18"
                  >
