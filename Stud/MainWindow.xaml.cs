@@ -30,18 +30,35 @@ namespace Stud
         {
             facultyList = new DoubleLinkedList<NamedDoubleLinkedList<NamedDoubleLinkedList<Student>>>();
 
-            var defaultFaculty = new NamedDoubleLinkedList<NamedDoubleLinkedList<Student>>("Faculty1");
-            var defaultGroup = new NamedDoubleLinkedList<Student>("Group1");
+            var defaultFaculty = new NamedDoubleLinkedList<NamedDoubleLinkedList<Student>>("FFEKS");
+            var f2 = new NamedDoubleLinkedList<NamedDoubleLinkedList<Student>>("FACULTY");
+
+            var defaultGroup = new NamedDoubleLinkedList<Student>("ks-16-1");
+            var g2 = new NamedDoubleLinkedList<Student>("ks-18-1");
+
+            var g3 = new NamedDoubleLinkedList<Student>("mc-18-1");
+
+            g3.Push(new Student("a", "a", "a", 1994, 24));
+            g3.Push(new Student("b", "b", "b", 1994, 27));
+
+            g2.Push(new Student("S", "N", "P", 1996, 100));
+            g2.Push(new Student("M", "N", "P", 1996, 45));
+
 
             defaultGroup.Push(new Student("Surname", "Name", "Patronimic", 1996, 20));
             defaultGroup.Push(new Student("Surname1", "Name1", "Patronimic1", 1997, 35.3f));
 
             defaultFaculty.Push(defaultGroup);
+
+            f2.Push(g3);
             facultyList.Push(defaultFaculty);
+            facultyList.Push(f2);
 
             facultyList.MoveCurrentToHead();
             SelectedFaculty.MoveCurrentToHead();
             SelectedGroup.MoveCurrentToHead();
+
+            facultyList.Sort();
 
             InitializeComponent();
 
@@ -90,6 +107,8 @@ namespace Stud
 
         }
 
+
+
         public void DeleteSelectedStudent(object sender, RoutedEventArgs e)
         {
            foreach(var groups in FacultyList)
@@ -97,7 +116,7 @@ namespace Stud
                 foreach( var group in groups) group.Remove(SelectedStudent);
             }
 
-            SelectedGroup?.UnsetCurrent();
+            SelectedGroup?.MoveCurrentToHead();
 
             NotifyIsStudentSelectedChanged();
             RefreshStudentsList();
@@ -144,14 +163,17 @@ namespace Stud
 
         public void RefreshFacultySelect()
         {
+            FacultyList?.Sort((l1,l2) => string.CompareOrdinal(l1?.Name, l2?.Name) <= 0);
             Refresher.RefreshSelector(FacultySelect, FacultyList, SelectedFaculty);
         }
         public void RefreshGroupsSelect()
         {
+            SelectedFaculty?.Sort((l1, l2) => string.CompareOrdinal(l1?.Name, l2?.Name) <= 0);
             Refresher.RefreshSelector(GroupSelect, SelectedFaculty, SelectedGroup);
         }
         public void RefreshStudentsList()
         {
+            SelectedGroup?.Sort((l1, l2) => l1.CompareTo(l2) <= 0);
             Refresher.RefreshSelector(StudentsListBox, SelectedGroup, SelectedStudent);
         }
         public void RefreshSelectedStudentInfo()
@@ -212,7 +234,15 @@ namespace Stud
 
         #endregion SELECTION_CHANHES
 
+        
 
+            public void CalcStat(object sender, RoutedEventArgs e)
+        {
+            var win = new Statistics(this);
+
+            win.ShowDialog();
+
+        }
         public void OnCloseClick(object sender, RoutedEventArgs e)
         {
             Close();
@@ -221,6 +251,7 @@ namespace Stud
         // _________________________ OPEN WINDOWS _________________________________
         public void OnFacultyManagerClosing(object sender, CancelEventArgs e)
         {
+            //Debugger.Break();
             RefreshAll();
         }
 
@@ -231,21 +262,21 @@ namespace Stud
         {
             var gs = new University(this) { Owner = this, DataContext = DataContext };
 
-            gs.Show();
+            gs.ShowDialog();
         }
 
         private void OpenAddStudentModal(object sender, RoutedEventArgs e)
         {
             var gs = new StudentModal(this) { Owner = this };
 
-            gs.Show();
+            gs.ShowDialog();
         }
 
         private void OpenEditStudentModal(object sender, RoutedEventArgs e)
         {
             var gs = new StudentModal(this, StudentModal.Modes.EDIT, SelectedStudent) { Owner = this };
 
-            gs.Show();
+            gs.ShowDialog();
         }
 
         #endregion OPEN_WINDOWS

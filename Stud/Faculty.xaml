@@ -6,7 +6,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:Stud"
         mc:Ignorable="d"
-        Title="Faculty"  Height="700" Width="1240" Background="#FFEDEDED">
+        Title="Faculties and groups manager"  Height="700" Width="1240" Background="#FFEDEDED">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="21.053"/>
@@ -16,43 +16,56 @@
             <ColumnDefinition Width="150"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="80"/>
+            <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Grid.Column="2" Margin="20,0,20,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="100"/>
-            </Grid.ColumnDefinitions>
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Faculties" VerticalAlignment="Bottom" FontSize="18"  FontWeight="Bold" Grid.Row="0"  Margin="20, 0, 0, 0" />
+            <Grid Grid.Row="1" Grid.Column="2" Margin="20,0,20,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
 
-            <xctk:WatermarkTextBox x:Name="FacultyNameInput" TextChanged="FacultyNameChanged" Watermark="Faculty name" Grid.Column="0" Margin="0, 0, 10, 0"
+                <xctk:WatermarkTextBox x:Name="FacultyNameInput" TextChanged="FacultyNameChanged" Watermark="Faculty name" Grid.Column="0" Margin="0, 0, 10, 0"
                                    HorizontalAlignment="Stretch" Height="40" MinWidth="100" TextWrapping="Wrap" VerticalAlignment="Bottom" FontSize="18" />
-            
-            <Button Content="Create" Click="AddFaculty" x:Name="AddFacultyBtn" IsEnabled="False" HorizontalAlignment="Stretch" Margin="0, 0, 5, 0" Height="40"
-                    VerticalAlignment="Bottom" MinWidth="80"  BorderBrush="{x:Null}" Grid.Column="1" FontSize="18">
-                <Button.ToolTip>
-                    <ToolTip>Create new faculty</ToolTip>
-                </Button.ToolTip>
-            </Button>
 
-            <Button Content="Search" x:Name="SearchFacultyBtn" IsEnabled="False" Height="40" Margin="5, 0, 0, 0"
+                <Button Content="Create" Click="AddFaculty" x:Name="AddFacultyBtn" IsEnabled="False" HorizontalAlignment="Stretch" Margin="0, 0, 5, 0" Height="40"
+                    VerticalAlignment="Bottom" MinWidth="80"  BorderBrush="{x:Null}" Grid.Column="1" FontSize="18">
+                    <Button.ToolTip>
+                        <ToolTip>Create new faculty</ToolTip>
+                    </Button.ToolTip>
+                </Button>
+
+                <Button Content="Search" x:Name="SearchFacultyBtn" IsEnabled="False" Height="40" Margin="5, 0, 0, 0"
                     VerticalAlignment="Bottom" MinWidth="80" HorizontalAlignment="Stretch"  BorderBrush="{x:Null}" Grid.Column="2" FontSize="18">
-                <Button.ToolTip>
-                    <ToolTip>Apply search by faculty name</ToolTip>
-                </Button.ToolTip>
-            </Button>
+                    <Button.ToolTip>
+                        <ToolTip>Apply search by faculty name</ToolTip>
+                    </Button.ToolTip>
+                </Button>
+            </Grid>
         </Grid>
 
-        <Grid Grid.Row="0" Grid.Column="3" Margin="20,0,20,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="100"/>
-            </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.Column="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <TextBlock VerticalAlignment="Bottom" Text="Groups" FontSize="18"  FontWeight="Bold" Grid.Row="0"  Margin="20, 0, 0, 0" />
+            <Grid Grid.Row="1" Grid.Column="3" Margin="20,0,20,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
 
-            <xctk:WatermarkTextBox
+                <xctk:WatermarkTextBox
                 x:Name="GroupNameInput"
                 TextChanged="GroupNameChanged"
                 Grid.Column="0"
@@ -65,20 +78,24 @@
                 FontSize="18"
                 Watermark="Group name"
             />
-            <Button Content="Create" Click="AddGroup" x:Name="AddGroupBtn" IsEnabled="False" Margin="0, 0, 5, 0"  HorizontalAlignment="Stretch" Height="40"
+                <Button Content="Create" Click="AddGroup" x:Name="AddGroupBtn" IsEnabled="False" Margin="0, 0, 5, 0"  HorizontalAlignment="Stretch" Height="40"
                     VerticalAlignment="Bottom" MinWidth="80"  BorderBrush="{x:Null}" Grid.Column="1" FontSize="18">
-                <Button.ToolTip>
-                    <ToolTip>Create new group</ToolTip>
-                </Button.ToolTip>
-            </Button>
+                    <Button.ToolTip>
+                        <ToolTip>Create new group</ToolTip>
+                    </Button.ToolTip>
+                </Button>
 
-            <Button Content="Search" x:Name="SearchGroupBtn" IsEnabled="False" HorizontalAlignment="Stretch" Margin="5, 0, 0, 0"  Height="40"
+                <Button Content="Search" x:Name="SearchGroupBtn" IsEnabled="False" HorizontalAlignment="Stretch" Margin="5, 0, 0, 0"  Height="40"
                     VerticalAlignment="Bottom" MinWidth="80"  BorderBrush="{x:Null}" Grid.Column="2" FontSize="18">
-                <Button.ToolTip>
-                    <ToolTip>Apply search by group name</ToolTip>
-                </Button.ToolTip>
-            </Button>
+                    <Button.ToolTip>
+                        <ToolTip>Apply search by group name</ToolTip>
+                    </Button.ToolTip>
+                </Button>
+            </Grid>
         </Grid>
+       
+
+       
 
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
@@ -105,7 +122,7 @@
                     <Button Content="Clear" Click="DeleteAllFaculty"/>
                 </StackPanel>
 
-                <Button Grid.Row="1" Margin="10" Height="40" Content="Close" FontFamily="Arial" FontSize="18"/>
+                <Button Grid.Row="1" Margin="10" Height="40" Click="Close" Content="Close" FontFamily="Arial" FontSize="18"/>
             </Grid.Children>
         </Grid>
 

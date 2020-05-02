@@ -54,6 +54,8 @@ namespace Stud
 
                 SetUpEditMode(student);
             }
+
+            SurnameTB.Focus();
         }
 
         private void OkClick(object sender, RoutedEventArgs e)
@@ -99,7 +101,6 @@ namespace Stud
         {
             if (IsValid()) EnableOkBtn();
             else DisableOkBtn();
-          
         }
 
         private void EnableOkBtn()

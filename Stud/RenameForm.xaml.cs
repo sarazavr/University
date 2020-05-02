@@ -32,12 +32,12 @@ namespace Stud
             NameInput.Text = oldName;
 
             DataContext = this;
+            NameInput.Focus();
         }
 
         private void OkClicked(object sender, RoutedEventArgs e)
         {
             OnOk(NameInput.Text.Trim());
-            Close();
         }
 
         private void CancelClicked(object sender, RoutedEventArgs e)

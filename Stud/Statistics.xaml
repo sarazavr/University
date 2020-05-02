@@ -1,0 +1,28 @@
+﻿<Window x:Class="Stud.Statistics"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:Stud"
+        mc:Ignorable="d"
+        Title="Statistics" Height="300" Width="700">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Margin="20, 0, 20, 0" VerticalAlignment="Bottom" FontSize="15" Text="Select courses range:" FontWeight="Bold" />
+
+        <xctk:WatermarkComboBox Grid.Column="1" x:Name="From" Watermark="From" ItemsSource="{Binding Arr, Mode=OneWay}" Height="40" Width="200"/>
+        <xctk:WatermarkComboBox Grid.Row="1" x:Name="To" Watermark="To"   ItemsSource="{Binding Arr, Mode=OneWay}" Height="40" Width="200"/>
+        <Button x:Name="Ok" Content="Calculate" Click="CalculateStatistics"  Grid.Column="0" VerticalContentAlignment="Center"  Height="40"/>
+
+    </Grid>
+</Window>

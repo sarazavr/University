@@ -31,7 +31,7 @@ namespace UnivirsityModels
         {
             if (ReferenceEquals(null, other)) return 1;
 
-            return ReferenceEquals(this, other) ? 0 : string.CompareOrdinal(Name, other.Name);
+            return ReferenceEquals(this, other) ? 0 : string.Compare(Name, other.Name);
         }
 
         public static int Compare(NamedDoubleLinkedList<T> list1, NamedDoubleLinkedList<T> list2)
@@ -41,9 +41,7 @@ namespace UnivirsityModels
 
         public override bool Equals(object obj)
         {
-            return obj is NamedDoubleLinkedList<T> list &&
-                   base.Equals(obj) &&
-                   Name == list.Name;
+            return obj is NamedDoubleLinkedList<T> list && CompareTo(list) == 0;   
         }
 
 

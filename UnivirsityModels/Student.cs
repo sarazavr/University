@@ -62,7 +62,7 @@ namespace UnivirsityModels
                 return 1;
             }
 
-            int nameComparing = string.CompareOrdinal(FullName, student2.FullName);
+            int nameComparing = string.Compare(FullName, student2.FullName);
 
             if (nameComparing != 0)
             {
