@@ -115,7 +115,7 @@
             Margin="20,20,20,20" 
             x:Name="FacultyListBox"
             ScrollViewer.VerticalScrollBarVisibility="Visible" 
-            ItemsSource="{Binding FacultyList, Mode=OneWay}"
+            SelectedValue="{Binding SelectedFaculty, Mode=OneWay}"
             SelectionChanged="SelectFacultyChanged" 
             FontSize="16"
         >
@@ -136,7 +136,6 @@
             x:Name="GroupListBox"
             Margin="20,20,20,20" 
             ScrollViewer.VerticalScrollBarVisibility="Visible" 
-            ItemsSource="{Binding SelectedFaculty, Mode=OneWay}"
             SelectedValue="{Binding SelectedGroup, Mode=OneWay}"
             SelectionChanged="GroupSelectionChanged"
             FontSize="16"

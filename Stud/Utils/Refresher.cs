@@ -8,7 +8,7 @@ namespace Stud.Utils
 {
     public class Refresher
     {
-        public static void RefreshSelector(Selector el, IEnumerable<object> newItems)
+        public static void RefreshSelector(Selector el, IEnumerable<object> newItems, object selected)
         {
             el.ItemsSource = null;
 
@@ -20,6 +20,8 @@ namespace Stud.Utils
 
                 foreach (var item in newItems) el.Items.Add(item);
             }
+
+            el.SelectedItem = selected;
         }
 
     }

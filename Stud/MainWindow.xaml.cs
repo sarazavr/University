@@ -100,7 +100,7 @@ namespace Stud
             SelectedGroup?.UnsetCurrent();
 
             NotifyIsStudentSelectedChanged();
-            Refresher.RefreshSelector(StudentsListBox, SelectedGroup);
+            RefreshStudentsList();
         }
 
         public bool IsFacultySelected => !ReferenceEquals(SelectedFaculty, null);
@@ -144,15 +144,15 @@ namespace Stud
 
         public void RefreshFacultySelect()
         {
-            Refresher.RefreshSelector(FacultySelect, FacultyList);
+            Refresher.RefreshSelector(FacultySelect, FacultyList, SelectedFaculty);
         }
         public void RefreshGroupsSelect()
         {
-            Refresher.RefreshSelector(GroupSelect, SelectedFaculty);
+            Refresher.RefreshSelector(GroupSelect, SelectedFaculty, SelectedGroup);
         }
         public void RefreshStudentsList()
         {
-            Refresher.RefreshSelector(StudentsListBox, SelectedGroup);
+            Refresher.RefreshSelector(StudentsListBox, SelectedGroup, SelectedStudent);
         }
         public void RefreshSelectedStudentInfo()
         {
@@ -173,7 +173,7 @@ namespace Stud
             else SelectedFaculty?.SetCurrentByReference(Item);
 
 
-            Refresher.RefreshSelector(StudentsListBox, SelectedGroup);
+            Refresher.RefreshSelector(StudentsListBox, SelectedGroup, SelectedStudent);
             NotifyIsGroupSelectedChanged();
             NotifyIsStudentSelectedChanged();
             // todo: filter ?
@@ -186,8 +186,9 @@ namespace Stud
             if (FacultySelect.SelectedIndex < 0) FacultyList?.UnsetCurrent();
             else FacultyList?.SetCurrentByReference(Item);
 
-            Refresher.RefreshSelector(GroupSelect, SelectedFaculty);
-            Refresher.RefreshSelector(StudentsListBox, SelectedGroup);
+            RefreshGroupsSelect();
+            RefreshStudentsList();
+            RefreshSelectedStudentInfo();
 
             NotifyIsFacultySelectedChanged();
             NotifyIsGroupSelectedChanged();

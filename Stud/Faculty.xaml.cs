@@ -36,6 +36,9 @@ namespace Stud
             InitializeComponent();
 
             Closing += Parant.OnFacultyManagerClosing;
+
+            RefreshGroupsList();
+            RefreshFaculty();
         }
 
         private void AddFaculty(object sender, RoutedEventArgs e)
@@ -117,7 +120,7 @@ namespace Stud
 
         public void RefreshGroupsList()
         {
-            Refresher.RefreshSelector(GroupListBox, Parant.SelectedFaculty);
+            Refresher.RefreshSelector(GroupListBox, Parant.SelectedFaculty, Parant.SelectedStudent);
         }
 
         private void GroupNameChanged(object sender, RoutedEventArgs e)
@@ -162,7 +165,7 @@ namespace Stud
         }
         public void RefreshFaculty()
         {
-            Refresher.RefreshSelector(FacultyListBox, Parant.FacultyList);
+            Refresher.RefreshSelector(FacultyListBox, Parant.FacultyList, Parant.SelectedGroup);
         }
 
         public void DeleteSelectedGroup(object sender, RoutedEventArgs e)
