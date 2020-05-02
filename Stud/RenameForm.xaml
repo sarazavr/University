@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Stud"
         mc:Ignorable="d"
-        Title="RenameForm" Height="140" Width="400">
+        Title="Renaming" Height="160" MinHeight="160" Width="400" ResizeMode="NoResize">
     <StackPanel Margin="10,0" x:Name="InputStackPanel" >
         <Label Grid.Row="0" VerticalAlignment="Center" Margin="5,0" >
             <Label.Content>
