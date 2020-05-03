@@ -25,10 +25,7 @@ namespace Stud
     public partial class Statistics : Window
     {
         private AverageGradeStatistics statisticsCalculator = new AverageGradeStatistics();
-        public Range PossibleCourses { get;  } = new Range(1, 6);
-        public int[] Arr { get => new int[] { 1, 2, 3, 4, 5, 6 }; }
 
-        private Range possibleCourses = new Range(1, 6);
         public MainWindow Parant { get; set; }
         public Statistics(object owner)
         {
@@ -47,7 +44,6 @@ namespace Stud
             GroupNameText.Text = "";
             AverageText.Text = "";
         }
-
 
 
         private void CloseClick(object sender, RoutedEventArgs e)
@@ -108,10 +104,10 @@ namespace Stud
      
         private void CheckAll(object sender, RoutedEventArgs e)
         {
-            ToggleCheckboxes(true, c1, c2, c3, c4, c5, c6);
+            ToggleCheckboxesTo(true, c1, c2, c3, c4, c5, c6);
         }
 
-        private void ToggleCheckboxes(bool check, params CheckBox[] checkboxes) 
+        private void ToggleCheckboxesTo(bool check, params CheckBox[] checkboxes) 
         {
             foreach(var checkbox in checkboxes)
             {
@@ -132,5 +128,33 @@ namespace Stud
 
             return courses;
         }
+
+        #region FOR_HOTKEYS
+        private void Toggle1Checkbox(object sender, RoutedEventArgs e)
+        {
+            c1.IsChecked = !c1.IsChecked;
+        }
+        private void Toggle2Checkbox(object sender, RoutedEventArgs e)
+        {
+            c2.IsChecked = !c2.IsChecked;
+        }
+        private void Toggle3Checkbox(object sender, RoutedEventArgs e)
+        {
+            c3.IsChecked = !c3.IsChecked;
+        }
+        private void Toggle4Checkbox(object sender, RoutedEventArgs e)
+        {
+            c4.IsChecked = !c4.IsChecked;
+        }
+        private void Toggle5Checkbox(object sender, RoutedEventArgs e)
+        {
+            c5.IsChecked = !c5.IsChecked;
+        }
+        private void Toggle6Checkbox(object sender, RoutedEventArgs e)
+        {
+            c6.IsChecked = !c6.IsChecked;
+        }
+
+        #endregion FOR_HOTKEYS
     }
 }

@@ -8,6 +8,12 @@
         xmlns:local="clr-namespace:Stud"
         mc:Ignorable="d"
         Title="Faculties and groups manager"  Height="700" Width="1240" Background="#FFEDEDED">
+
+    <Window.CommandBindings>
+        <CommandBinding Command="local:CustomCommands.ToggleGroupsSearchMode" Executed="ToggleGroupsSearchMode"/>
+        <CommandBinding Command="local:CustomCommands.ToggleFacultiesSearchMode" Executed="ToggleFacultiesSearchMode"/>
+    </Window.CommandBindings>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="21.053"/>

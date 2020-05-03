@@ -1,23 +1,9 @@
 ﻿using Stud.Utils;
-using System;
-using System.CodeDom;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using UnivirsityModels;
 
 namespace Stud
@@ -236,6 +222,22 @@ namespace Stud
         private void GroupsSearchModeOn(object sender, RoutedEventArgs e)
         {
             PerformGroupsSerach(GroupNameInput.Text.Trim());
+        }
+
+        private void ToggleGroupsSearchMode(object sender, RoutedEventArgs e)
+        {
+            GroupsSearchModeSwitch.IsChecked = !GroupsSearchModeSwitch.IsChecked;
+
+            if (GroupsSearchModeSwitch.IsChecked) GroupsSearchModeOn(null, null);
+            else GroupsSearchModeOff(null, null);
+        }
+
+        private void ToggleFacultiesSearchMode(object sender, RoutedEventArgs e)
+        {
+            FacultiesSearchModeSwitch.IsChecked = !FacultiesSearchModeSwitch.IsChecked;
+
+            if (FacultiesSearchModeSwitch.IsChecked) FacultiessSearchModeOn(null, null);
+            else FacultiessSearchModeOff(null, null);
         }
 
         private void FacultiessSearchModeOn(object sender, RoutedEventArgs e)

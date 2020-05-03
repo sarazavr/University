@@ -7,7 +7,7 @@
         Title="Students explorer" Height="700" Width="1240
 "       Icon="/colegio.ico">
     <Window.CommandBindings>
-        <CommandBinding Command="local:CustomCommands.OpenUniversityEditor" Executed="OpenUniversityEditor" />
+        
     </Window.CommandBindings>
 
     <Grid Background="#FFEDEDED">
