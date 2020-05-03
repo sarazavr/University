@@ -10,14 +10,15 @@ namespace Stud.Utils
         public static string YEAR_REGEX_PART_KEY = "YEAR";
         public static string MAGISTER_REGEX_PART_KEY = "MAGISTER";
 
-        public static string PATTERN = $"^[A-Za-z][A-Za-z]-(?<{YEAR_REGEX_PART_KEY}>\\d\\d)(?<{MAGISTER_REGEX_PART_KEY }>[m,M])?-\\d$";
+        public static string PATTERN = 
+            $"^[A-Za-z][A-Za-z]-(?<{YEAR_REGEX_PART_KEY}>\\d\\d)(?<{MAGISTER_REGEX_PART_KEY }>[m,M])?-\\d$";
+
         public static Regex REGEX = new Regex(PATTERN);
 
         public static bool IsValid(string name)
         {
             return name != null && REGEX.IsMatch(name);
         }
-
 
         // Returns number of course for group considering THE STUDY IS ENDLESS, MEH
         public static int ParseHypotheticalCourseNumber(string groupName, int bacalavrsStudyYears = 4)

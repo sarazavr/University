@@ -134,7 +134,7 @@
                 <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
             <Grid.Children>
-                <StackPanel Margin="10">
+                <StackPanel Margin="10, 20, 10, 0">
                     <StackPanel.Resources>
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="Margin" Value="0,25,0,0"/>
@@ -156,54 +156,66 @@
                 <Button Grid.Row="1" Margin="10" Height="40" Click="Close" Content="Close" FontFamily="Arial" FontSize="18"/>
             </Grid.Children>
         </Grid>
+        <Grid Grid.Row="1" Grid.Column="2" Margin="20" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock  Margin="0" Grid.Row="0" Grid.Column="4" VerticalAlignment="Top" FontSize="15" Text="List of faculties" FontWeight="Bold"/>
+            <ListBox 
+                Grid.Row="1" 
+                x:Name="FacultyListBox"
+                ScrollViewer.VerticalScrollBarVisibility="Visible" 
+                SelectedValue="{Binding SelectedFaculty, Mode=OneWay}"
+                SelectionChanged="FacultySelectionChanged" 
+                FontSize="16"
+            >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Path=Name, Mode=OneWay}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
 
-        <ListBox 
-            Grid.Row="1" 
-            Grid.Column="2"
-            Margin="20,20,20,20" 
-            x:Name="FacultyListBox"
-            ScrollViewer.VerticalScrollBarVisibility="Visible" 
-            SelectedValue="{Binding SelectedFaculty, Mode=OneWay}"
-            SelectionChanged="FacultySelectionChanged" 
-            FontSize="16"
-        >
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding Path=Name, Mode=OneWay}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        
 
         <!--________________________________GROUPS___________________________________-->
 
-        <ListBox
-            Grid.Row="1" 
-            Grid.Column="3"
-            x:Name="GroupListBox"
-            Margin="20,20,20,20" 
-            ScrollViewer.VerticalScrollBarVisibility="Visible" 
-            SelectedValue="{Binding SelectedGroup, Mode=OneWay}"
-            SelectionChanged="GroupSelectionChanged"
-            FontSize="16"
-        >
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding Path=Name, Mode=OneWay}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-
+        <Grid Grid.Row="1" Grid.Column="3" Margin="20" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock  Margin="0" Grid.Row="0" Grid.Column="4" VerticalAlignment="Top" FontSize="15" Text="List of groups" FontWeight="Bold"/>
+            <ListBox
+                Grid.Row="1" 
+                Grid.Column="3"
+                x:Name="GroupListBox"
+                ScrollViewer.VerticalScrollBarVisibility="Visible" 
+                SelectedValue="{Binding SelectedGroup, Mode=OneWay}"
+                SelectionChanged="GroupSelectionChanged"
+                FontSize="16"
+            >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Path=Name, Mode=OneWay}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        
         <Grid Grid.Row="1" Grid.Column="4">
             <Grid.RowDefinitions>
                 <RowDefinition Height="95*"/>
                 <RowDefinition Height="489*"/>
             </Grid.RowDefinitions>
             <Grid.Children>
-                <StackPanel Margin="10,10,10,10" Grid.RowSpan="2">
+                <StackPanel Margin="10, 20, 10, 0" Grid.RowSpan="2">
                     <StackPanel.Resources>
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="Margin" Value="0,25,0,0"/>

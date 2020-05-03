@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnivirsityModels;
 
@@ -10,17 +11,20 @@ namespace Stud.Utils
 
     public class AverageGradeStatistics
     {
-        public float MaxAverageOfGrades { get; private set; }
-        public NamedDoubleLinkedList<Student> GroupWithMaxAverageOfGrades { get; private set; }
+        public float? MaxAverageOfGrades { get; private set; }
+        public List<KeyValuePair<NamedDoubleLinkedList<Student>, float>> GroupAndAverageGradePairs { get; private set; }
 
         public AverageGradeStatistics() { }
-      
+
+        public bool HasResults() => MaxAverageOfGrades.HasValue;
 
         public AverageGradeStatistics Calculate(FacultiesList facultyList, 
             Func<NamedDoubleLinkedList<Student>, int, bool> shouldIncludeGroupToStatistics)
         {
-            GroupWithMaxAverageOfGrades = null;
+            GroupAndAverageGradePairs = null;
             float? maxAverage = null;
+
+            var pairsList = new List<KeyValuePair<NamedDoubleLinkedList<Student>, float>>();
 
             foreach (var f in facultyList)
             {
@@ -32,11 +36,9 @@ namespace Stud.Utils
 
                     float average = gr.Average(s => s.AverageGrade);
 
-                    if (!maxAverage.HasValue || maxAverage < average)
-                    {
-                        maxAverage = average;
-                        GroupWithMaxAverageOfGrades = gr;
-                    }
+                    pairsList.Add(new KeyValuePair<NamedDoubleLinkedList<Student>, float>(gr, average));
+
+                    if (!maxAverage.HasValue || maxAverage < average) maxAverage = average;
                 }
             }
 
@@ -47,8 +49,26 @@ namespace Stud.Utils
             }
 
             MaxAverageOfGrades = maxAverage.Value;
+            GroupAndAverageGradePairs = pairsList;
 
             return this;
+        }
+
+        public List<NamedDoubleLinkedList<Student>> GetGroupsWithMaxAverageGrades()
+        {
+            if(!HasResults())
+            {
+                throw new InvalidOperationException("You should calculate statistics firs");
+            }
+
+            var list = new List<NamedDoubleLinkedList<Student>>();
+
+            foreach(var pair in GroupAndAverageGradePairs)
+            {
+                if (pair.Value == MaxAverageOfGrades.Value) list.Add(pair.Key);
+            }
+
+            return list;
         }
     }
 

@@ -163,32 +163,44 @@
             </xctk:WatermarkComboBox>
         </Grid>
 
-        <TextBlock   Margin="15,20,15,0" Grid.Row="1" Grid.Column="4" VerticalAlignment="Top" FontSize="15" Text="Filter students" FontWeight="Bold"/>
+        <TextBlock   Margin="15,20,15,0" Grid.Row="1" Grid.Column="4" VerticalAlignment="Top" FontSize="15" Text="Search students" FontWeight="Bold"/>
         <xctk:WatermarkTextBox
+                IsEnabled="{Binding IsGroupSelected}"
                 Margin="15,0,15,0"
                 x:Name="FilterStudentsInput" Grid.Row="3" Grid.Column="4" TextChanged="FilterStudentsChanged"
                 Height="40" Watermark="Student's full name" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18" Grid.RowSpan="2"/>
 
-        <ListBox 
-            Grid.Row="4" Grid.Column="3"
-            Margin="20,20,0,20" 
-            x:Name="StudentsListBox"
-            ScrollViewer.VerticalScrollBarVisibility="Visible" 
-            ItemsSource="{Binding SelectedGroup}"
-            SelectionChanged="StudentSelectionChanged"
-            SelectedValue="{Binding SelectedStudent, Mode=OneWay}"
-            FontSize="18"
-        >
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding Path=FullName}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <Grid Grid.Row="4" Grid.Column="3" Margin="20,10,0,20" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock  Margin="0" Grid.Row="0" Grid.Column="4" VerticalAlignment="Top" FontSize="15" Text="List of students" FontWeight="Bold"/>
+            <ListBox 
+                 Grid.Row="1"
+                 x:Name="StudentsListBox"
+                 ScrollViewer.VerticalScrollBarVisibility="Visible" 
+                 ItemsSource="{Binding SelectedGroup}"
+                 SelectionChanged="StudentSelectionChanged"
+                 SelectedValue="{Binding SelectedStudent, Mode=OneWay}"
+                 FontSize="18"
+            >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Path=FullName}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
 
-        <GroupBox Background="White" Grid.Column="4" Grid.Row="4" Height="300" VerticalAlignment="Top" Margin="15,20,15,0"  Padding="15">
+        </Grid>
+        
+
+        <GroupBox Background="White" Grid.Column="4" Grid.Row="4" Height="300" VerticalAlignment="Top" Margin="15,35,15,0"  Padding="15">
+            <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Auto">
+               
+            
             <Grid >
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -212,7 +224,7 @@
                 <Grid.Children>
                     <TextBlock Text="Selected student info:" FontSize="22"  FontWeight="Bold" Grid.Row="0"  Margin="0,5,0,0" />
                     <TextBlock Text="Full Name:" FontWeight="Bold" Grid.Row="1"  Margin="0, 10, 0, 0" />
-                    <TextBlock x:Name="StudentNameText" Text=""  Grid.Row="2"/>
+                    <TextBlock x:Name="StudentNameText" Grid.Row="2"/>
 
                     <TextBlock Text="Born:"  FontWeight="Bold"   Grid.Row="3"  Margin="0, 10, 0, 0"/>
                     <TextBlock x:Name="StudentYearText" Text="" Grid.Row="4"   />
@@ -221,6 +233,7 @@
                     <TextBlock x:Name="StudentMarkText" Text=""  Grid.Row="6" />
                 </Grid.Children>
             </Grid>
+            </ScrollViewer>
         </GroupBox>
 
 

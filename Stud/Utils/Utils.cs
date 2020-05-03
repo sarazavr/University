@@ -77,11 +77,11 @@ namespace Stud.Utils
 
             var g3 = new NamedDoubleLinkedList<Student>("mc-18-1");
 
-            g3.Push(new Student("a", "a", "a", 1994, 24));
-            g3.Push(new Student("b", "b", "b", 1994, 27));
+            g3.Push(new Student("a", "a", "a", 1994, 20));
+            g3.Push(new Student("b", "b", "b", 1994, 35.3f));
 
-            g2.Push(new Student("S", "N", "P", 1996, 100));
-            g2.Push(new Student("M", "N", "P", 1996, 45));
+            g2.Push(new Student("S", "N", "P", 1996, 20));
+            g2.Push(new Student("M", "N", "P", 1996, 35.3f));
 
 
             defaultGroup.Push(new Student("Surname", "Name", "Patronimic", 1996, 20));
@@ -90,6 +90,7 @@ namespace Stud.Utils
             defaultFaculty.Push(defaultGroup);
 
             f2.Push(g3);
+            f2.Push(g2);
             facultyList.Push(defaultFaculty);
             facultyList.Push(f2);
 

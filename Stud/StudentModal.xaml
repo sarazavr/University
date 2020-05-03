@@ -6,7 +6,8 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:Stud"
         mc:Ignorable="d"
-        Title="Add student" Height="430" MinHeight="430" Width="500">
+        ResizeMode="NoResize"
+        Title="Add student" Height="430" MinHeight="430" Width="500">  
     <Grid>
         <Grid Margin="3">
             <Grid.ColumnDefinitions>
@@ -103,7 +104,7 @@
                 Width="155"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Center"
-                Background="#FFABD4B1"
+                Background="#236D5F"
                 
                 BorderBrush="{x:Null}"
                 Grid.Row="5"
