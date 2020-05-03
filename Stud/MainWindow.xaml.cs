@@ -26,48 +26,7 @@ namespace Stud
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        public MainWindow()
-        {
-            facultyList = new DoubleLinkedList<NamedDoubleLinkedList<NamedDoubleLinkedList<Student>>>();
-
-            var defaultFaculty = new NamedDoubleLinkedList<NamedDoubleLinkedList<Student>>("FFEKS");
-            var f2 = new NamedDoubleLinkedList<NamedDoubleLinkedList<Student>>("FACULTY");
-
-            var defaultGroup = new NamedDoubleLinkedList<Student>("ks-16-1");
-            var g2 = new NamedDoubleLinkedList<Student>("ks-18-1");
-
-            var g3 = new NamedDoubleLinkedList<Student>("mc-18-1");
-
-            g3.Push(new Student("a", "a", "a", 1994, 24));
-            g3.Push(new Student("b", "b", "b", 1994, 27));
-
-            g2.Push(new Student("S", "N", "P", 1996, 100));
-            g2.Push(new Student("M", "N", "P", 1996, 45));
-
-
-            defaultGroup.Push(new Student("Surname", "Name", "Patronimic", 1996, 20));
-            defaultGroup.Push(new Student("Surname1", "Name1", "Patronimic1", 1997, 35.3f));
-
-            defaultFaculty.Push(defaultGroup);
-
-            f2.Push(g3);
-            facultyList.Push(defaultFaculty);
-            facultyList.Push(f2);
-
-            facultyList.MoveCurrentToHead();
-            SelectedFaculty.MoveCurrentToHead();
-            SelectedGroup.MoveCurrentToHead();
-
-            facultyList.Sort();
-
-            InitializeComponent();
-
-            DataContext = this;
-            FacultyList = facultyList;
-
-            RefreshAll();
-        }
-
+        
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
@@ -96,22 +55,33 @@ namespace Stud
 
         public Student SelectedStudent => SelectedGroup?.Current();
 
+        public bool IsFacultySelected => !ReferenceEquals(SelectedFaculty, null);
+        public bool IsGroupSelected => !ReferenceEquals(SelectedGroup, null);
+        public bool IsStudentSelected => !ReferenceEquals(SelectedStudent, null);
 
-        public void OnFacultyRemoved()
+
+        public MainWindow()
         {
+            facultyList = StubData.CreateFacultyList();
 
-        }
+            InitializeComponent();
 
-        public void OnGroupRemoved()
-        {
+            DataContext = this;
+            FacultyList = facultyList;
 
+            RefreshAll();
         }
 
         public void FilterStudentsChanged(object sender, RoutedEventArgs e)
         {
+            PerfomFilterStudents(FilterStudentsInput.Text);
+        }
+
+        private void PerfomFilterStudents(string filter)
+        {
             var filtered = FilterUtils.GetFiltered(
                 SelectedGroup,
-                FilterStudentsInput.Text,
+                filter,
                 (student, search) => FilterUtils.ContainsIgnoreCase(student.FullName, search)
             );
 
@@ -123,6 +93,7 @@ namespace Stud
             Refresher.RefreshSelector(StudentsListBox, filtered, first);
         }
 
+        
         public void DeleteSelectedStudent(object sender, RoutedEventArgs e)
         {
             foreach (var groups in FacultyList)
@@ -136,70 +107,6 @@ namespace Stud
             RefreshStudentsList();
         }
 
-        public bool IsFacultySelected => !ReferenceEquals(SelectedFaculty, null);
-        public bool IsGroupSelected => !ReferenceEquals(SelectedGroup, null);
-        public bool IsStudentSelected => !ReferenceEquals(SelectedStudent, null);
-
-
-
-        #region UI_REFRESHERS
-
-        public void NotifyIsGroupSelectedChanged()
-        {
-            OnPropertyChanged("IsGroupSelected");
-        }
-
-        public void NotifyIsFacultySelectedChanged()
-        {
-            OnPropertyChanged("IsFacultySelected");
-        }
-        public void NotifyIsStudentSelectedChanged()
-        {
-            OnPropertyChanged("IsStudentSelected");
-        }
-
-        public void NotifyFacultyListChanged()
-        {
-            OnPropertyChanged("FacultyList");
-        }
-
-        public void RefreshAll()
-        {
-            RefreshFacultySelect();
-            RefreshGroupsSelect();
-            RefreshStudentsList();
-            RefreshSelectedStudentInfo();
-            NotifyIsGroupSelectedChanged();
-            NotifyIsFacultySelectedChanged();
-            NotifyIsStudentSelectedChanged();
-            NotifyIsStudentSelectedChanged();
-        }
-
-        public void RefreshFacultySelect()
-        {
-            //FacultyList?.Sort((l1,l2) => string.CompareOrdinal(l1?.Name, l2?.Name) <= 0);
-            FacultyList?.Sort();
-            Refresher.RefreshSelector(FacultySelect, FacultyList, SelectedFaculty);
-        }
-        public void RefreshGroupsSelect()
-        {
-            //SelectedFaculty?.Sort((l1, l2) => string.CompareOrdinal(l1?.Name, l2?.Name) <= 0);
-            SelectedFaculty?.Sort();
-            Refresher.RefreshSelector(GroupSelect, SelectedFaculty, SelectedGroup);
-        }
-        public void RefreshStudentsList()
-        {
-            SelectedGroup?.Sort((l1, l2) => l1.CompareTo(l2) <= 0);
-            Refresher.RefreshSelector(StudentsListBox, SelectedGroup, SelectedStudent);
-        }
-        public void RefreshSelectedStudentInfo()
-        {
-            StudentNameText.Text = SelectedStudent?.FullName ?? "";
-            StudentYearText.Text = SelectedStudent?.BirthYear.ToString() ?? "";
-            StudentMarkText.Text = SelectedStudent?.AverageGrade.ToString() ?? "";
-        }
-
-        #endregion UI_REFRESHERS
 
         #region SELECTION_CHANHES
 
@@ -243,9 +150,6 @@ namespace Stud
 
             RefreshSelectedStudentInfo();
             NotifyIsStudentSelectedChanged();
-            // Refresher.RefreshSelector(StudentsListBox, SelectedGroup);
-
-            // todo: show student info
         }
 
         #endregion SELECTION_CHANHES
@@ -257,23 +161,81 @@ namespace Stud
             var win = new Statistics(this);
 
             win.ShowDialog();
-
         }
         public void OnCloseClick(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        // _________________________ OPEN WINDOWS _________________________________
+
+        #region UI_REFRESHERS
+
+        public void NotifyIsGroupSelectedChanged()
+        {
+            OnPropertyChanged("IsGroupSelected");
+        }
+
+        public void NotifyIsFacultySelectedChanged()
+        {
+            OnPropertyChanged("IsFacultySelected");
+        }
+        public void NotifyIsStudentSelectedChanged()
+        {
+            OnPropertyChanged("IsStudentSelected");
+        }
+
+        public void NotifyFacultyListChanged()
+        {
+            OnPropertyChanged("FacultyList");
+        }
+
+        public void RefreshAll()
+        {
+            RefreshFacultySelect();
+            RefreshGroupsSelect();
+            RefreshStudentsList();
+
+            NotifyIsGroupSelectedChanged();
+            NotifyIsFacultySelectedChanged();
+            NotifyIsStudentSelectedChanged();
+
+            RefreshSelectedStudentInfo();
+        }
+
+        public void RefreshFacultySelect()
+        {
+            //FacultyList?.Sort((l1,l2) => string.CompareOrdinal(l1?.Name, l2?.Name) <= 0);
+            FacultyList?.Sort();
+            Refresher.RefreshSelector(FacultySelect, FacultyList, SelectedFaculty);
+        }
+        public void RefreshGroupsSelect()
+        {
+            //SelectedFaculty?.Sort((l1, l2) => string.CompareOrdinal(l1?.Name, l2?.Name) <= 0);
+            SelectedFaculty?.Sort();
+            Refresher.RefreshSelector(GroupSelect, SelectedFaculty, SelectedGroup);
+        }
+        public void RefreshStudentsList()
+        {
+            SelectedGroup?.Sort();
+            Refresher.RefreshSelector(StudentsListBox, SelectedGroup, SelectedStudent);
+        }
+        public void RefreshSelectedStudentInfo()
+        {
+            StudentNameText.Text = SelectedStudent?.FullName ?? "";
+            StudentYearText.Text = SelectedStudent?.BirthYear.ToString() ?? "";
+            StudentMarkText.Text = SelectedStudent?.AverageGrade.ToString() ?? "";
+        }
+
+        #endregion UI_REFRESHERS
+
         public void OnFacultyManagerClosing(object sender, CancelEventArgs e)
         {
             //Debugger.Break();
             RefreshAll();
         }
 
+        #region OPEN_CHILD_WINDOWS
 
-
-        #region OPEN_WINDOWS
         private void OpenUniversityEditor(object sender, RoutedEventArgs e)
         {
             var gs = new University(this) { Owner = this, DataContext = DataContext };
@@ -295,8 +257,7 @@ namespace Stud
             gs.ShowDialog();
         }
 
-        #endregion OPEN_WINDOWS
-
+        #endregion OPEN_CHILD_WINDOWS
     }
 
     public static class CustomCommands

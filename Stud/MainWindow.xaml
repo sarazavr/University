@@ -68,7 +68,7 @@
                         </Style>
                     </StackPanel.Resources>
 
-                    <Button Content="Add student..." Click="OpenAddStudentModal" IsEnabled="{Binding IsGroupFromGoinedListSelected}"  BorderBrush="{x:Null}" >
+                    <Button Content="Add student..." Click="OpenAddStudentModal" IsEnabled="{Binding IsGroupSelected}"  BorderBrush="{x:Null}" >
                         <Button.ToolTip>
                             <ToolTip>
                                 Add data about new student
@@ -163,7 +163,7 @@
             </xctk:WatermarkComboBox>
         </Grid>
 
-        <TextBlock   Margin="15,20,15,0" Grid.Row="1" Grid.Column="4" VerticalAlignment="Top" FontSize="15" Text="Search student" FontWeight="Bold"/>
+        <TextBlock   Margin="15,20,15,0" Grid.Row="1" Grid.Column="4" VerticalAlignment="Top" FontSize="15" Text="Filter students" FontWeight="Bold"/>
         <xctk:WatermarkTextBox
                 Margin="15,0,15,0"
                 x:Name="FilterStudentsInput" Grid.Row="3" Grid.Column="4" TextChanged="FilterStudentsChanged"

@@ -457,7 +457,6 @@ namespace UnivirsityModels
 
         #endregion
 
-
         private static void Swap(Node A, Node B)
         {
             var p = A;

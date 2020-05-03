@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Text.RegularExpressions;
 using System.Globalization;
+using UnivirsityModels;
 
 namespace Stud.Utils
 {
@@ -14,7 +15,7 @@ namespace Stud.Utils
         public static IEnumerable<T> GetFiltered<T>(IEnumerable<T> source, string filter, Func<T, string, bool> isMatchesSearch)
             where T : IComparable<T>
         {
-            var search = filter?.Trim() ?? "" ;
+            var search = filter?.Trim() ?? "";
 
             if (search.Length == 0)
             {
@@ -66,5 +67,45 @@ namespace Stud.Utils
             // el.find
         }
 
+    }
+
+    public static class StubData
+    {
+        public static DoubleLinkedList<NamedDoubleLinkedList<NamedDoubleLinkedList<Student>>> CreateFacultyList()
+        {
+            var facultyList = new DoubleLinkedList<NamedDoubleLinkedList<NamedDoubleLinkedList<Student>>>();
+
+            var defaultFaculty = new NamedDoubleLinkedList<NamedDoubleLinkedList<Student>>("FFEKS");
+            var f2 = new NamedDoubleLinkedList<NamedDoubleLinkedList<Student>>("FACULTY");
+
+            var defaultGroup = new NamedDoubleLinkedList<Student>("ks-16-1");
+            var g2 = new NamedDoubleLinkedList<Student>("ks-18-1");
+
+            var g3 = new NamedDoubleLinkedList<Student>("mc-18-1");
+
+            g3.Push(new Student("a", "a", "a", 1994, 24));
+            g3.Push(new Student("b", "b", "b", 1994, 27));
+
+            g2.Push(new Student("S", "N", "P", 1996, 100));
+            g2.Push(new Student("M", "N", "P", 1996, 45));
+
+
+            defaultGroup.Push(new Student("Surname", "Name", "Patronimic", 1996, 20));
+            defaultGroup.Push(new Student("Surname1", "Name1", "Patronimic1", 1997, 35.3f));
+
+            defaultFaculty.Push(defaultGroup);
+
+            f2.Push(g3);
+            facultyList.Push(defaultFaculty);
+            facultyList.Push(f2);
+
+            facultyList.MoveCurrentToHead();
+            facultyList.Current().MoveCurrentToHead();
+            facultyList.Current().Current().MoveCurrentToHead();
+
+            facultyList.Sort();
+
+            return facultyList;
+        }
     }
 }

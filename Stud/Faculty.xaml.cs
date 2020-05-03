@@ -89,7 +89,6 @@ namespace Stud
             if (!Constants.GROUPF_REGEX.IsMatch(GroupNameInput.Text))
             {
                 MessageBox.Show("You entered an invalig group name, use format 'ks-16-1' or 'ks-16m-1'");
-
                 return;
             }
 
@@ -142,8 +141,7 @@ namespace Stud
         }
 
 
-        // TODO: clear temp pointer to selected item after deleting selected item !!
-
+        // TODO: clear temp pointer to selected item after deleting selected item ? ..
 
         public void FacultySelectionChanged(object sender, RoutedEventArgs e)
         {
@@ -158,20 +156,6 @@ namespace Stud
             {
                 Parant.FacultyList.UnsetCurrent();
             }
-
-            //if(Item is null)
-            //{
-            //    if (SelectedFacultyBeforeNewCreation is object)
-            //    {
-            //        FacultyListBox.SelectedItem = SelectedFacultyBeforeNewCreation;
-            //    } else
-            //    {
-            //        Parant.FacultyList.UnsetCurrent();
-            //    }
-            //} else
-            //{
-            //    Parant.FacultyList.SetCurrentByReference(item);
-            //}
 
             DisplayFacultySelectionChanged();
         }
@@ -194,29 +178,12 @@ namespace Stud
                 Parant.SelectedFaculty?.UnsetCurrent();
             }
 
-            //if (item is null)
-            //{
-            //    if (SelectedGroupBeforeLastCreation is object)
-            //    {
-            //        GroupsListBox.SelectedItem = SelectedGroupBeforeLastCreation;
-            //    }
-            //    else
-            //    {
-            //        Parant.SelectedFaculty.UnsetCurrent();
-            //    }
-            //}
-            //else
-            //{
-            //    Parant.SelectedFaculty.SetCurrentByReference(item);
-            //}
-
             DisplayGroupSelectionChanged();
         }
 
         public void DisplayGroupSelectionChanged()
         {
             Parant.NotifyIsGroupSelectedChanged();
-            // OnPropertyChanged("IsGroupSelected");
         }
 
 
@@ -331,6 +298,7 @@ namespace Stud
             Parant.FacultyList.Clear();
             RefreshFaculty();
             DisplayFacultySelectionChanged();
+            Parant.RefreshAll();
         }
 
         public void DeleteAllGroups(object sender, RoutedEventArgs e)
@@ -338,6 +306,7 @@ namespace Stud
             Parant.SelectedFaculty.Clear();
             RefreshGroupsList();
             DisplayGroupSelectionChanged();
+            Parant.RefreshAll();
         }
         public void RefreshFaculty()
         {
