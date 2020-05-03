@@ -22,6 +22,8 @@ namespace Stud
     {
 
         private AverageGradeStatistics statisticsCalculator = new AverageGradeStatistics();
+
+        public Range PossibleCourses { get;  } = new Range(1, 6);
         public int[] Arr { get => new int[] { 1, 2, 3, 4, 5, 6 }; }
 
         public MainWindow Parant { get; set; }
@@ -32,6 +34,12 @@ namespace Stud
             InitializeComponent();
         }
 
+        private void FromValueChanged(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        
 
         private void CloseClick(object sender, RoutedEventArgs e)
         {

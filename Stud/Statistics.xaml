@@ -6,7 +6,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:Stud"
         mc:Ignorable="d"
-        Title="Statistics" Height="300" Width="700">
+        Title="Statistics" Height="250" Width="500">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -14,15 +14,77 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="50" />
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*" />
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Margin="20, 0, 20, 0" VerticalAlignment="Bottom" FontSize="15" Text="Select courses range:" FontWeight="Bold" />
+        <TextBlock Grid.Row="0" Margin="20, 0, 20, 0" Grid.ColumnSpan="3" VerticalAlignment="Bottom" FontSize="14"  FontWeight="Bold">
+            <Run>
+                Enter courses range to find group with 
+            </Run> 
+            <LineBreak/>
+            <Run>
+                max average of student's grades:
+            </Run>
+        </TextBlock>
 
-        <xctk:WatermarkComboBox Grid.Column="1" x:Name="From" Watermark="From" ItemsSource="{Binding Arr, Mode=OneWay}" Height="40" Width="200"/>
-        <xctk:WatermarkComboBox Grid.Row="1" x:Name="To" Watermark="To"   ItemsSource="{Binding Arr, Mode=OneWay}" Height="40" Width="200"/>
-        <Button x:Name="Ok" Content="Calculate" Click="CalculateStatistics"  Grid.Column="0" VerticalContentAlignment="Center"  Height="40"/>
+        <TextBlock Text="Statistics:"  Grid.Column="2" Margin="10, 0, 20, 0"  VerticalAlignment="Center" FontSize="14"  FontWeight="Bold"/>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2">
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+            <StackPanel Margin="10">
+                <TextBlock Text="Group name:" />
+                <TextBlock Text="ks-16-1" FontWeight="Bold" />
+                <TextBlock Text="Average of grades:" Margin="0, 10, 0, 0" />
+                <TextBlock Text="Group name" FontWeight="Bold"/>
+            </StackPanel>
+        </StackPanel>
+
+        <xctk:CheckListBox Grid.Row="1" ItemsSource="{Binding PossibleCourses, Mode=OneWay}">
+            
+        </xctk:CheckListBox>
+        <xctk:IntegerUpDown
+                x:Name="From"
+                ValueChanged="FromValueChanged"
+                Grid.Row="1"
+                Watermark="1..6"
+                Margin="0,0,0, 5"
+                Grid.Column="1" 
+                HorizontalAlignment="Left"
+                Width="80"
+                Height="30"
+                VerticalAlignment="Bottom" 
+                TextAlignment="Left" 
+                VerticalContentAlignment="Bottom" 
+                Increment="1"
+                Minimum="1"
+                Maximum="6"
+            />
+
+        <xctk:IntegerUpDown
+                x:Name="To"
+                ValueChanged="FromValueChanged"
+                Grid.Row="2"
+                Watermark="1..6"
+                Grid.Column="1"
+                Margin="0,5,0, 5"
+                Width="80"
+                HorizontalAlignment="Left"
+                Height="30"
+                VerticalAlignment="Top" 
+                TextAlignment="Left" 
+                VerticalContentAlignment="Bottom" 
+                Increment="1"
+                Minimum="1"
+                Maximum="6"
+            />
+
+        <Button x:Name="Ok" Content="Calculate" Click="CalculateStatistics" Foreground="White"
+                FontSize="15" Background="#FFE8BF56" BorderBrush="#FFE8BF56" Margin="20, 0"
+                Grid.Column="0" Grid.Row="3" VerticalContentAlignment="Center" Height="40"/>
+        <Button x:Name="Cancel" Content="Close" Click="CalculateStatistics" Margin="20, 0"
+                Grid.Column="3" Grid.Row="3" VerticalContentAlignment="Center" Height="40"/>
 
     </Grid>
 </Window>
