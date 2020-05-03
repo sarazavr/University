@@ -73,9 +73,7 @@ namespace Stud
 
         private void AddFaculty(object sender, RoutedEventArgs e)
         {
-
             RememberLastSelectedItems();
-            //Debugger.Break();
 
             var newFaculty = new NamedDoubleLinkedList<NamedDoubleLinkedList<Student>>(FacultyNameInput.Text);
             Parant.FacultyList.Push(newFaculty);
@@ -86,7 +84,7 @@ namespace Stud
 
         private void AddGroup(object sender, RoutedEventArgs e)
         {
-            if (!Constants.GROUPF_REGEX.IsMatch(GroupNameInput.Text))
+            if (!GroupNameParser.REGEX.IsMatch(GroupNameInput.Text))
             {
                 MessageBox.Show("You entered an invalig group name, use format 'ks-16-1' or 'ks-16m-1'");
                 return;
@@ -121,7 +119,7 @@ namespace Stud
         {
             var form = new RenameForm("Rename Group", Parant.SelectedGroup.Name, (newName, closeForm) =>
             {
-                if (!Constants.GROUPF_REGEX.IsMatch(GroupNameInput.Text))
+                if (!GroupNameParser.REGEX.IsMatch(GroupNameInput.Text))
                 {
                     MessageBox.Show("You entered an invalig group name, use format 'ks-16-1' or 'ks-16m-1'");
 

@@ -39,10 +39,7 @@ namespace Stud.Utils
             return source?.IndexOf(toCheck, StringComparison.OrdinalIgnoreCase) >= 0;
         }
     }
-    public static class Constants
-    {
-        public static Regex GROUPF_REGEX = new Regex(@"[A-Za-z][A-Za-z]-(\d\d|\d\d[m,M])-\d");
-    }
+
     public class Refresher
     {
         public static void RefreshSelector(Selector el, IEnumerable<object> newItems, object selected)
@@ -60,15 +57,12 @@ namespace Stud.Utils
 
             el.SelectedItem = selected;
         }
-
-        public static void HighlightSearch(ListBox el, String search)
-        {
-            //el.Items.Filter()
-            // el.find
-        }
-
     }
 
+    public static class Constants
+    {
+        public static int MAX_COURCE_NUMBER = 6;
+    }
     public static class StubData
     {
         public static DoubleLinkedList<NamedDoubleLinkedList<NamedDoubleLinkedList<Student>>> CreateFacultyList()

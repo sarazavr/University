@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stud.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,10 +21,8 @@ namespace Stud
     public partial class Statistics : Window
     {
 
+        private AverageGradeStatistics statisticsCalculator = new AverageGradeStatistics();
         public int[] Arr { get => new int[] { 1, 2, 3, 4, 5, 6 }; }
-
-        
-        
 
         public MainWindow Parant { get; set; }
         public Statistics(object owner)
@@ -40,27 +39,20 @@ namespace Stud
         }
         public void CalculateStatistics(object sender, RoutedEventArgs e)
         {
-            float? maxVal = null;
-
-            NamedDoubleLinkedList<Student> group = null;
-
-            foreach (var f in Parant.FacultyList )
+            try
             {
-                foreach(var gr in f) {
-                    float average = gr.Average(s => s.AverageGrade);
+                statisticsCalculator.Calculate(Parant.FacultyList, (group, course) => course < 3);
 
-                    if(!maxVal.HasValue || maxVal < average)
-                    {
-                        maxVal = average;
-                        group = gr;
-                    }
-                }
+                MessageBox.Show($"Group with max average value of average students mark:" +
+                    $" ${statisticsCalculator.GroupWithMaxAverageOfGrades.Name}, " +
+                    $"avg: ${statisticsCalculator.MaxAverageOfGrades}");
+            }
+            catch (AverageGradeStatisticsHasNoResultsException ex)
+            {
+                MessageBox.Show($"An error accures while calculating statistics: \"${ex.Message}\"" +
+                    "Make shure you have created faculties, groups and students.");
             }
 
-            MessageBox.Show($"Group with max average value of average students mark: ${group.Name}, avg: ${maxVal}");
         }
-
-
-
     }
 }
