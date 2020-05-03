@@ -108,7 +108,8 @@ namespace Stud
             {
                 if (!GroupNameParser.REGEX.IsMatch(GroupNameInput.Text))
                 {
-                    MessageBox.Show ("You entered an invalig group name, use format 'ks-16-1' or 'ks-16m-1'");
+                    MessageBox.Show ("You entered an invalig group name, use format like 'ks-16-1' or 'ks-16m-1'",
+                        "Invalid name", MessageBoxButton.OK, MessageBoxImage.Error);
 
                     return;
                 }

@@ -34,18 +34,6 @@ namespace Stud
             InitializeComponent();
         }
 
-        private void FromValueChanged(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void CheckBoxChanged(object sender, RoutedEventArgs e)
-        {
-            GroupNameText.Text = "";
-            AverageText.Text = "";
-        }
-
-
         private void CloseClick(object sender, RoutedEventArgs e)
         {
             Close();

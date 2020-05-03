@@ -105,7 +105,7 @@
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Center"
                 Background="#236D5F"
-                
+                Foreground="White"
                 BorderBrush="{x:Null}"
                 Grid.Row="5"
                 Grid.Column="0"

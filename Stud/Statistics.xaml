@@ -3,8 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:sdl="http://schemas.sdl.com/xaml"
         xmlns:local="clr-namespace:Stud"
         mc:Ignorable="d"
         ResizeMode="NoResize"
@@ -21,9 +19,9 @@
     
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
@@ -65,15 +63,15 @@
                 </StackPanel.Resources>
                 
                 <StackPanel Grid.Row="1">
-                    <CheckBox  Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="c1" Content="1"/>
-                    <CheckBox  Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="c2" Content="2"/>
-                    <CheckBox  Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="c3" Content="3"/>
+                    <CheckBox   x:Name="c1" Content="1"/>
+                    <CheckBox   x:Name="c2" Content="2"/>
+                    <CheckBox   x:Name="c3" Content="3"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="1">
-                    <CheckBox  Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="c4" Content="4"/>
-                    <CheckBox  Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="c5" Content="5"/>
-                    <CheckBox  Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="c6" Content="6"/>
+                    <CheckBox   x:Name="c4" Content="4"/>
+                    <CheckBox   x:Name="c5" Content="5"/>
+                    <CheckBox   x:Name="c6" Content="6"/>
                 </StackPanel>
                 <Button  Content="All" Click="CheckAll" Height="30" Width="40" Background="#FFE8BF56" Foreground="WHite" Margin="5"/>
             </StackPanel>
