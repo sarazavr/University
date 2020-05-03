@@ -45,6 +45,26 @@ namespace Stud
             RefreshFaculty();
         }
 
+        private bool isGroupsSearchModeOn = false;
+        public bool IsGroupsSearchModeOn
+        {
+            get => isGroupsSearchModeOn; set
+            {
+                isGroupsSearchModeOn = value;
+                OnPropertyChanged("IsGroupsSearchModeOn");
+            }
+        }
+
+        private bool isFacultiesSearchModeOn = false;
+        public bool SsFacultiesSearchModeOn
+        {
+            get => isFacultiesSearchModeOn; set
+            {
+                isFacultiesSearchModeOn = value;
+                OnPropertyChanged("IsGroupsSearchModeOn");
+            }
+        }
+
         private void RememberLastSelectedItems()
         {
             SelectedFacultyBeforeNewCreation = FacultyListBox.SelectedItem;
@@ -91,7 +111,8 @@ namespace Stud
                 Parant.SelectedFaculty.Name = newName;
                 closeForm();
 
-                RefreshFaculty();
+                if (FacultiesSearchModeSwitch.IsChecked) PerformFacultiesSerach(FacultyNameInput.Text);
+                else RefreshFaculty();
             });
 
             form.ShowDialog();
@@ -110,6 +131,10 @@ namespace Stud
                 RememberLastSelectedItems();
                 Parant.SelectedGroup.Name = newName;
                 closeForm();
+
+                if (GroupsSearchModeSwitch.IsChecked) PerformGroupsSerach(GroupNameInput.Text);
+                else RefreshFaculty();
+
                 RefreshGroupsList();
             });
 
@@ -160,6 +185,7 @@ namespace Stud
             if (item is object || item is null && SelectedFacultyBeforeNewCreation is object)
             {
                 GroupListBox.SelectedItem = item ?? SelectedGroupBeforeLastCreation;
+                // TODO: move SetCurrentByReference to setter of property SelectedFaculty/
                 Parant.SelectedFaculty?.SetCurrentByReference(item);
             }
             else
@@ -172,7 +198,7 @@ namespace Stud
             //{
             //    if (SelectedGroupBeforeLastCreation is object)
             //    {
-            //        GroupListBox.SelectedItem = SelectedGroupBeforeLastCreation;
+            //        GroupsListBox.SelectedItem = SelectedGroupBeforeLastCreation;
             //    }
             //    else
             //    {
@@ -211,20 +237,83 @@ namespace Stud
 
         private void GroupNameChanged(object sender, RoutedEventArgs e)
         {
-            if (((TextBox)sender).Text.Trim() != string.Empty
-                && Parant.SelectedFaculty is object
-                && AddGroupBtn is object)
-            {
-                EnableOkBtn(AddGroupBtn);
-            }
-            else DisableOkBtn(AddGroupBtn);
+            string text = GroupNameInput.Text.Trim();
+
+            bool isEnabled = text != string.Empty && Parant.SelectedFaculty is object;
+
+            ToggleBtnsEnabledTo(isEnabled, AddGroupBtn);
+
+            if (GroupsSearchModeSwitch.IsChecked) PerformGroupsSerach(text);
         }
+
 
         private void FacultyNameChanged(object sender, RoutedEventArgs e)
         {
-            if (((TextBox)sender).Text.Trim() != string.Empty) EnableOkBtn(AddFacultyBtn);
-            else DisableOkBtn(AddFacultyBtn);
+            string text = FacultyNameInput.Text.Trim();
+            bool isEnabled = text != string.Empty;
+
+            ToggleBtnsEnabledTo(isEnabled, AddFacultyBtn);
+
+            if (FacultiesSearchModeSwitch.IsChecked) PerformFacultiesSerach(text);
         }
+
+        private void GroupsSearchModeOff(object sender, RoutedEventArgs e)
+        {
+            PerformGroupsSerach(FilterUtils.RESET_FILTER_VALUE);
+        }
+
+        private void FacultiessSearchModeOff(object sender, RoutedEventArgs e)
+        {
+            PerformFacultiesSerach(FilterUtils.RESET_FILTER_VALUE);
+        }
+
+        private void GroupsSearchModeOn(object sender, RoutedEventArgs e)
+        {
+            PerformGroupsSerach(GroupNameInput.Text.Trim());
+        }
+
+        private void FacultiessSearchModeOn(object sender, RoutedEventArgs e)
+        {
+            PerformFacultiesSerach(FacultyNameInput.Text.Trim());
+        }
+        private void PerformFacultiesSerach(string search)
+        {
+            var filtered = FilterUtils.GetFiltered(
+                Parant.FacultyList,
+                search,
+                (item, search) => FilterUtils.ContainsIgnoreCase(item.Name, search)
+            );
+
+            var first = filtered.FirstOrDefault();
+
+            if (search != FilterUtils.RESET_FILTER_VALUE)
+            {
+                Parant.FacultyList.SetCurrentByReference(first);
+            }
+
+            Refresher.RefreshSelector(FacultyListBox, filtered, Parant.SelectedFaculty);
+            Parant.RefreshGroupsSelect();
+            DisplayFacultySelectionChanged();
+        }
+
+        private void PerformGroupsSerach(string search)
+        {
+            var filtered = FilterUtils.GetFiltered(
+                Parant.SelectedFaculty,
+                search,
+                (item, search) => FilterUtils.ContainsIgnoreCase(item.Name, search)
+            );
+
+            var first = filtered.FirstOrDefault();
+
+            if (search != FilterUtils.RESET_FILTER_VALUE)
+            {
+                Parant.SelectedFaculty.SetCurrentByReference(first);
+            }
+
+            Refresher.RefreshSelector(GroupListBox, filtered, Parant.SelectedGroup);
+        }
+
 
 
         public void DeleteSelectedFaculty(object sender, RoutedEventArgs e)
@@ -270,6 +359,13 @@ namespace Stud
             RefreshGroupsList();
             DisplayGroupSelectionChanged();
         }
+
+        private void ToggleBtnsEnabledTo(bool isEnabled, params Button[] btns)
+        {
+            if (isEnabled) EnableOkBtn(btns);
+            else DisableOkBtn(btns);
+        }
+
         private void DisableOkBtn(params Button[] btns)
         {
             foreach (var btn in btns)
@@ -292,7 +388,7 @@ namespace Stud
             }
         }
 
-        
+
 
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {

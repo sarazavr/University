@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:ToggleSwitch="clr-namespace:ToggleSwitch;assembly=ToggleSwitch"
         xmlns:local="clr-namespace:Stud"
         mc:Ignorable="d"
         Title="Faculties and groups manager"  Height="700" Width="1240" Background="#FFEDEDED">
@@ -28,31 +29,47 @@
             <TextBlock Text="Faculties" VerticalAlignment="Bottom" FontSize="18"  FontWeight="Bold" Grid.Row="0"  Margin="20, 0, 0, 0" />
             <Grid Grid.Row="1" Grid.Column="2" Margin="20,0,20,0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="33*"/>
+                    <ColumnDefinition Width="13*"/>
                     <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="41"/>
+                    <ColumnDefinition Width="14"/>
+                    <ColumnDefinition Width="43"/>
+                    <ColumnDefinition Width="2"/>
                 </Grid.ColumnDefinitions>
 
-                <xctk:WatermarkTextBox x:Name="FacultyNameInput" TextChanged="FacultyNameChanged" Watermark="Faculty name" Grid.Column="0" Margin="0, 0, 10, 0"
-                                   HorizontalAlignment="Stretch" Height="40" MinWidth="100" TextWrapping="Wrap" VerticalAlignment="Bottom" FontSize="18" />
+                <xctk:WatermarkTextBox x:Name="FacultyNameInput" TextChanged="FacultyNameChanged" Watermark="Faculty name" Grid.Column="0" Margin="0, 0, 10, 0" Height="40" MinWidth="100" TextWrapping="Wrap" VerticalAlignment="Bottom" FontSize="18" Grid.ColumnSpan="2" />
 
-               
 
-                <Button Content="Create" Click="AddFaculty" x:Name="AddFacultyBtn" IsEnabled="False" HorizontalAlignment="Stretch" Margin="0, 0, 5, 0" Height="40"
-                    VerticalAlignment="Bottom" MinWidth="80"  BorderBrush="{x:Null}" Grid.Column="1" FontSize="18">
+
+                <Button Content="Create" Click="AddFaculty" x:Name="AddFacultyBtn" IsEnabled="False" Margin="0, 0, 5, 0" Height="40"
+                    VerticalAlignment="Bottom" MinWidth="80"  BorderBrush="{x:Null}" Grid.Column="2" FontSize="18">
                     <Button.ToolTip>
                         <ToolTip>Create new faculty</ToolTip>
                     </Button.ToolTip>
                 </Button>
 
-                <Button Content="Search" x:Name="SearchFacultyBtn" IsEnabled="False" Height="40" Margin="5, 0, 0, 0"
-                    VerticalAlignment="Bottom" MinWidth="80" HorizontalAlignment="Stretch"  BorderBrush="{x:Null}" Grid.Column="2" FontSize="18">
-                    <Button.ToolTip>
-                        <ToolTip>Apply search by faculty name</ToolTip>
-                    </Button.ToolTip>
-                </Button>
+                <ToggleSwitch:HorizontalToggleSwitch
+                    x:Name="FacultiesSearchModeSwitch"
+                    Unchecked="FacultiessSearchModeOff"
+                    Checked="FacultiessSearchModeOn"
+                    IsChecked="{Binding IsFacultiesSearchModeOn, Mode=TwoWay}"
+                    Grid.Column="3"
+                    UncheckedBackground="#bbb"
+                    VerticalAlignment="Bottom"
+                    Height="40"
+                    HorizontalAlignment="Right" Grid.ColumnSpan="4"
+                 />
             </Grid>
+            <TextBlock
+                HorizontalAlignment="Right"
+                Text="Search mode"
+                VerticalAlignment="Bottom"
+                FontSize="15" 
+                Grid.Row="0" Grid.Column="4"  Margin="0, 0, 20, 0"
+             />
         </Grid>
+
 
         <Grid Grid.Row="0" Grid.Column="3">
             <Grid.RowDefinitions>
@@ -87,17 +104,29 @@
                     </Button.ToolTip>
                 </Button>
 
-                <Button Content="Search" x:Name="SearchGroupBtn" IsEnabled="False" HorizontalAlignment="Stretch" Margin="5, 0, 0, 0"  Height="40"
-                    VerticalAlignment="Bottom" MinWidth="80"  BorderBrush="{x:Null}" Grid.Column="2" FontSize="18">
-                    <Button.ToolTip>
-                        <ToolTip>Apply search by group name</ToolTip>
-                    </Button.ToolTip>
-                </Button>
+                <ToggleSwitch:HorizontalToggleSwitch
+                    x:Name="GroupsSearchModeSwitch"
+                    IsChecked="{Binding IsGroupsSearchModeOn, Mode=TwoWay}"
+                    Unchecked="GroupsSearchModeOff"
+                    Checked="GroupsSearchModeOn"
+                    Grid.Column="3"
+                    UncheckedBackground="#bbb"
+                    VerticalAlignment="Bottom"
+                    Height="40"
+                    HorizontalAlignment="Right" Grid.ColumnSpan="4"
+                 />
             </Grid>
+            <TextBlock
+                HorizontalAlignment="Right"
+                Text="Search mode"
+                VerticalAlignment="Bottom"
+                FontSize="15" 
+                Grid.Row="0" Grid.Column="4"  Margin="0, 0, 20, 0"
+             />
         </Grid>
-       
 
-       
+
+
 
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>

@@ -10,6 +10,7 @@ namespace Stud.Utils
 {
     public static class FilterUtils
     {
+        public static string RESET_FILTER_VALUE = String.Empty;
         public static IEnumerable<T> GetFiltered<T>(IEnumerable<T> source, string filter, Func<T, string, bool> isMatchesSearch)
             where T : IComparable<T>
         {
