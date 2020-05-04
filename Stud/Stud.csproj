@@ -4,12 +4,22 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
+     <UseNETCoreGenerator>true</UseNETCoreGenerator>
+
   </PropertyGroup>
 
+ 
   <ItemGroup>
     <None Remove="755382.png" />
     <None Remove="colegio.ico" />
     <None Remove="colegio.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="3.8.1" />
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.10" />
+    <PackageReference Include="Sdl.MultiSelectComboBox" Version="1.0.16" />
+    <PackageReference Include="ToggleSwitch" Version="1.1.2" />
   </ItemGroup>
 
   <ItemGroup>

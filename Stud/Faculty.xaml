@@ -3,107 +3,244 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:ToggleSwitch="clr-namespace:ToggleSwitch;assembly=ToggleSwitch"
         xmlns:local="clr-namespace:Stud"
         mc:Ignorable="d"
-        Title="Faculty" Height="450" Width="922" Background="#FFEDEDED">
+        Title="Faculties and groups manager"  Height="700" Width="1240" Background="#FFEDEDED">
+
+    <Window.CommandBindings>
+        <CommandBinding Command="local:CustomCommands.ToggleGroupsSearchMode" Executed="ToggleGroupsSearchMode"/>
+        <CommandBinding Command="local:CustomCommands.ToggleFacultiesSearchMode" Executed="ToggleFacultiesSearchMode"/>
+    </Window.CommandBindings>
+    
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="21.053"/>
+            <ColumnDefinition Width="128.947"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="150"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="67*"/>
-            <RowDefinition Height="367*"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.RowSpan="2" Margin="0,0,10,0">
 
+        <Grid Grid.Column="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
-
-            <Grid Grid.Row="1" Margin="112,13,-10,14" Grid.RowSpan="3">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+            <TextBlock Text="Faculties" VerticalAlignment="Bottom" FontSize="18"  FontWeight="Bold" Grid.Row="0"  Margin="20, 0, 0, 0" />
+            <Grid Grid.Row="1" Grid.Column="2" Margin="20,0,20,0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-
-                    <ColumnDefinition Width="Auto" MinWidth="223"/>
-
-
-
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="33*"/>
+                    <ColumnDefinition Width="13*"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="41"/>
+                    <ColumnDefinition Width="14"/>
+                    <ColumnDefinition Width="43"/>
+                    <ColumnDefinition Width="2"/>
                 </Grid.ColumnDefinitions>
 
+                <xctk:WatermarkTextBox x:Name="FacultyNameInput" TextChanged="FacultyNameChanged" Watermark="Faculty name" Grid.Column="0" Margin="0, 0, 10, 0" Height="40" MinWidth="100" TextWrapping="Wrap" VerticalAlignment="Bottom" FontSize="18" Grid.ColumnSpan="2" />
 
-                <Grid Grid.Column="1" Grid.ColumnSpan="2" Margin="0,0,214,0" Grid.RowSpan="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="26*"/>
-                        <ColumnDefinition Width="199*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <TextBlock Text="Faculty" FontWeight="Bold" HorizontalAlignment="Center" Grid.Row="0" RenderTransformOrigin="9.207,1.118" Margin="0,0,0,328" Grid.RowSpan="2" />
-                    <ListBox Grid.Row="1" 
-                     Margin="0,57,0,24" 
-                     ScrollViewer.VerticalScrollBarVisibility="Visible" 
-                     ItemsSource="{Binding ObservableFacultyList}"
-                     SelectedItem="{Binding SelectedFaculty}" Height="300" Grid.ColumnSpan="2">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <TextBlock Text="{Binding Path=Name, Mode=OneWay}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                    <TextBlock HorizontalAlignment="Left" Height="22" Margin="-1,21,0,0" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Foreground="{x:Null}" Background="#FFD9DCF6" Grid.ColumnSpan="2"/>
-                    <Button Content="Add" HorizontalAlignment="Left" Height="22" Margin="151,21,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42" Click="AddNext" BorderBrush="{x:Null}" Grid.Column="1" RenderTransformOrigin="-0.093,0.902">
-                        <Button.ToolTip>
-                            <ToolTip>
-                                Add new faculty
-                            </ToolTip>
-                        </Button.ToolTip>
-                    </Button>
-                    <ListBox Grid.Row="1" 
-                        Margin="424,54,-445,22" 
-                        ScrollViewer.VerticalScrollBarVisibility="Visible" 
-                        ItemsSource="{Binding ObservableFacultyList}"
-                        SelectedItem="{Binding SelectedFaculty}" Grid.Column="1">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <TextBlock Text="{Binding Name, Mode=OneWay}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </Grid>
-                <TextBlock HorizontalAlignment="Left" Height="22" Margin="14,19,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="171" Foreground="#FFE71C1C" Background="#FFD9DCF6" Grid.Column="3" Grid.ColumnSpan="2"/>
-                <TextBlock Text="Group" FontWeight="Bold" HorizontalAlignment="Left" RenderTransformOrigin="9.207,1.118" Grid.Column="4" Margin="10,0,0,364" Height="16" VerticalAlignment="Bottom" Width="35" />
-                <Button Content="Add" HorizontalAlignment="Left" Height="22" Margin="189,18,0,0" VerticalAlignment="Top" Width="42" Grid.Column="4" BorderBrush="{x:Null}" RenderTransformOrigin="0.681,0.075">
+
+
+                <Button Content="Create" Click="AddFaculty" x:Name="AddFacultyBtn" IsEnabled="False" Margin="0, 0, 5, 0" Height="40"
+                    VerticalAlignment="Bottom" MinWidth="80"  BorderBrush="{x:Null}" Grid.Column="2" FontSize="18">
                     <Button.ToolTip>
-                        <ToolTip>
-                            Add new group
-                        </ToolTip>
+                        <ToolTip>Create new faculty</ToolTip>
                     </Button.ToolTip>
                 </Button>
-                <Button Content="Delete all group" HorizontalAlignment="Left" Height="35" Margin="234,201,0,0" VerticalAlignment="Top" Width="111"  Background="#FFD47878" BorderBrush="{x:Null}" Grid.Column="4"/>
+
+                <ToggleSwitch:HorizontalToggleSwitch
+                    x:Name="FacultiesSearchModeSwitch"
+                    Unchecked="FacultiessSearchModeOff"
+                    Checked="FacultiessSearchModeOn"
+                    IsChecked="{Binding IsFacultiesSearchModeOn, Mode=TwoWay}"
+                    Grid.Column="3"
+                    UncheckedBackground="#bbb"
+                    VerticalAlignment="Bottom"
+                    Height="40"
+                    HorizontalAlignment="Right" Grid.ColumnSpan="4"
+                 />
             </Grid>
-            <Button Content="Delete group" HorizontalAlignment="Left" Height="34" Margin="573,11,0,0" Grid.Row="3" VerticalAlignment="Top" Width="110" BorderBrush="{x:Null}" Background="#FFE2B1B1" Grid.RowSpan="2"/>
-            <Button Content="Edit faculty" HorizontalAlignment="Left" Height="35" Margin="252,10,0,0" Grid.Row="3" VerticalAlignment="Top" Width="111" Grid.RowSpan="2" Background="#FFA2C9CB" BorderBrush="{x:Null}"/>
-            <Button Content="Edit group" HorizontalAlignment="Left" Height="35" Margin="698,10,0,0" Grid.Row="3" VerticalAlignment="Top" Width="111" Grid.RowSpan="2" BorderBrush="{x:Null}" Background="#FFA2C9CB"/>
-            <Button Content="Delete all faculty" HorizontalAlignment="Left" Height="35" Margin="1,208,0,0" Grid.Row="1" VerticalAlignment="Top" Width="111"  Background="#FFD47878" BorderBrush="{x:Null}"/>
-            <Button Content="Delete faculty" HorizontalAlignment="Left" Height="35" Margin="111,10,0,0" Grid.Row="3" VerticalAlignment="Top" Width="108"  Background="#FFE2B1B1" BorderBrush="{x:Null}" Grid.RowSpan="2"/>
-
+            <TextBlock
+                HorizontalAlignment="Right"
+                Text="Search mode"
+                VerticalAlignment="Bottom"
+                FontSize="15" 
+                Grid.Row="0" Grid.Column="4"  Margin="0, 0, 20, 0"
+             />
         </Grid>
+
+
+        <Grid Grid.Row="0" Grid.Column="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <TextBlock VerticalAlignment="Bottom" Text="Groups" FontSize="18"  FontWeight="Bold" Grid.Row="0"  Margin="20, 0, 0, 0" />
+            <Grid Grid.Row="1" Grid.Column="3" Margin="20,0,20,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+
+                <xctk:WatermarkTextBox
+                x:Name="GroupNameInput"
+                TextChanged="GroupNameChanged"
+                Grid.Column="0"
+                Margin="0, 0, 10, 0"
+                HorizontalAlignment="Stretch"
+                Height="40" 
+                MinWidth="100"
+                TextWrapping="Wrap"
+                VerticalAlignment="Bottom"
+                FontSize="18"
+                Watermark="Group name"
+            />
+                <Button Content="Create" Click="AddGroup" x:Name="AddGroupBtn" IsEnabled="False" Margin="0, 0, 5, 0"  HorizontalAlignment="Stretch" Height="40"
+                    VerticalAlignment="Bottom" MinWidth="80"  BorderBrush="{x:Null}" Grid.Column="1" FontSize="18">
+                    <Button.ToolTip>
+                        <ToolTip>Create new group</ToolTip>
+                    </Button.ToolTip>
+                </Button>
+
+                <ToggleSwitch:HorizontalToggleSwitch
+                    x:Name="GroupsSearchModeSwitch"
+                    IsChecked="{Binding IsGroupsSearchModeOn, Mode=TwoWay}"
+                    Unchecked="GroupsSearchModeOff"
+                    Checked="GroupsSearchModeOn"
+                    Grid.Column="3"
+                    UncheckedBackground="#bbb"
+                    VerticalAlignment="Bottom"
+                    Height="40"
+                    HorizontalAlignment="Right" Grid.ColumnSpan="4"
+                 />
+            </Grid>
+            <TextBlock
+                HorizontalAlignment="Right"
+                Text="Search mode"
+                VerticalAlignment="Bottom"
+                FontSize="15" 
+                Grid.Row="0" Grid.Column="4"  Margin="0, 0, 20, 0"
+             />
+        </Grid>
+
+
+
+
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
+            <Grid.Children>
+                <StackPanel Margin="10, 20, 10, 0">
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Margin" Value="0,25,0,0"/>
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="FontSize" Value="16" />
+                            <Setter Property="Background" Value="#FFE8BF56" />
+                            <Setter Property="FontFamily" Value="Arial Black" />
+                            <Setter Property="BorderBrush"  Value="#FFE8BF56" />
+                            <Setter Property="Height"  Value="40" />
+                            <Setter Property="BorderBrush" Value="#FFE8BF56" />
+                        </Style>
+                    </StackPanel.Resources>
+
+                    <Button Content="Rename..." IsEnabled="{Binding IsFacultySelected}" Click="RenameFaculty" />
+                    <Button  Content="Delete" Click="DeleteSelectedFaculty" IsEnabled="{Binding IsFacultySelected}" />
+                    <Button Content="Clear" Click="DeleteAllFaculty"/>
+                </StackPanel>
+
+                <Button Grid.Row="1" Margin="10" Height="40" Click="Close" Content="Close" FontFamily="Arial" FontSize="18"/>
+            </Grid.Children>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="2" Margin="20" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock  Margin="0" Grid.Row="0" Grid.Column="4" VerticalAlignment="Top" FontSize="15" Text="List of faculties" FontWeight="Bold"/>
+            <ListBox 
+                Grid.Row="1" 
+                x:Name="FacultyListBox"
+                ScrollViewer.VerticalScrollBarVisibility="Visible" 
+                SelectedValue="{Binding SelectedFaculty, Mode=OneWay}"
+                SelectionChanged="FacultySelectionChanged" 
+                FontSize="16"
+            >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Path=Name, Mode=OneWay}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+
+        
+
+        <!--________________________________GROUPS___________________________________-->
+
+        <Grid Grid.Row="1" Grid.Column="3" Margin="20" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock  Margin="0" Grid.Row="0" Grid.Column="4" VerticalAlignment="Top" FontSize="15" Text="List of groups" FontWeight="Bold"/>
+            <ListBox
+                Grid.Row="1" 
+                Grid.Column="3"
+                x:Name="GroupListBox"
+                ScrollViewer.VerticalScrollBarVisibility="Visible" 
+                SelectedValue="{Binding SelectedGroup, Mode=OneWay}"
+                SelectionChanged="GroupSelectionChanged"
+                FontSize="16"
+            >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Path=Name, Mode=OneWay}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        
+        <Grid Grid.Row="1" Grid.Column="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="95*"/>
+                <RowDefinition Height="489*"/>
+            </Grid.RowDefinitions>
+            <Grid.Children>
+                <StackPanel Margin="10, 20, 10, 0" Grid.RowSpan="2">
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Margin" Value="0,25,0,0"/>
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="FontSize" Value="16" />
+                            <Setter Property="Background" Value="#FFE8BF56" />
+                            <Setter Property="FontFamily" Value="Arial Black" />
+                            <Setter Property="BorderBrush"  Value="#FFE8BF56" />
+                            <Setter Property="Height"  Value="40" />
+                            <Setter Property="BorderBrush" Value="#FFE8BF56" />
+                        </Style>
+                    </StackPanel.Resources>
+
+                    <Button Content="Rename..."  Click="RenameGroup" IsEnabled="{Binding IsGroupSelected}" />
+                    <Button Content="Delete" Click="DeleteSelectedGroup" IsEnabled="{Binding IsGroupSelected}" />
+                    <Button  Content="Clear" Click="DeleteAllGroups" IsEnabled="{Binding IsFacultySelected}" />
+                </StackPanel>
+            </Grid.Children>
+        </Grid>
+
     </Grid>
-
-
 </Window>

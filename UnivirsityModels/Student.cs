@@ -2,15 +2,16 @@
 
 namespace UnivirsityModels
 {
-    [Serializable]
     public class Student : ICloneable, IComparable<Student>
     {
-        public string Surname { get; }
-        public string Patronimic { get; }
-        public string Name { get; }
-        public ushort BirthYear { get; }
+        public string Surname { get; set; }
+        public string Patronimic { get; set; }
+        public string Name { get; set; }
+        public ushort BirthYear { get; set; }
         public float AverageGrade { get; set; }
+        public string FullName { get => $"{Surname} {Name} {Patronimic}"; }
 
+        public Student() { }
         public Student(string surname, string name, string patronimic, ushort birthYear, float averageGrade = 0)
         {
             Surname = surname;
@@ -33,15 +34,12 @@ namespace UnivirsityModels
         {
             if (student is null) return false;
 
-            return Surname == student.Surname
-                   && Name == student.Name
-                   && Patronimic == student.Patronimic
-                   && BirthYear == student.BirthYear;
+            return FullName == student.FullName && BirthYear == student.BirthYear;
         }
 
         public override string ToString()
         {
-            return $"Student {Surname} {Name} {Patronimic}: " +
+            return $"Student {FullName}: " +
                    $"birth year: {BirthYear}, " +
                    $"average grade: {AverageGrade}";
         }
@@ -50,14 +48,6 @@ namespace UnivirsityModels
         public object Clone()
         {
             return new Student(Surname, Name, Patronimic, BirthYear, AverageGrade);
-        }
-
-        public override int GetHashCode()
-        {
-            return Surname.GetHashCode()
-               ^ Patronimic.GetHashCode() * 17
-               ^ Name.GetHashCode() * 19
-               * BirthYear.GetHashCode();
         }
 
         public static int CompareTo(Student student1, Student student2)
@@ -72,27 +62,20 @@ namespace UnivirsityModels
                 return 1;
             }
 
-            int result = string.CompareOrdinal(Surname, student2.Surname);
-            if (result != 0)
-            {
-                return result;
-            }
+            int nameComparing = string.Compare(FullName, student2.FullName);
 
-            result = string.CompareOrdinal(Name, student2.Name);
-            if (result != 0)
+            if (nameComparing != 0)
             {
-                return result;
-            }
-
-            result = string.CompareOrdinal(Patronimic, student2.Patronimic);
-            if (result != 0)
-            {
-                return result;
+                return nameComparing;
             }
 
             return BirthYear.CompareTo(student2.BirthYear);
         }
 
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Surname, Patronimic, Name, BirthYear);
+        }
 
         public static bool operator ==(Student student1, Student student2)
         {
